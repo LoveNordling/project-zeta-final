@@ -1,6 +1,6 @@
 # Namn på projektet
 
-OSPP (1DT096) 2018 - Projekt alpha
+OSPP (1DT096) 2018 - Projekt zeta
 
 **INFO:** Detta dokument är skrivet i
 formatet [Markdown](https://help.github.com/articles/getting-started-with-writing-and-formatting-on-github/).
