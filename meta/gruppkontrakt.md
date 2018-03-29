@@ -2,12 +2,6 @@
 
 OSPP (1DT096) 2018 - Projekt zeta
 
-**INFO:** Detta dokument är skrivet i
-formatet [Markdown](https://help.github.com/articles/getting-started-with-writing-and-formatting-on-github/).
-
-**INFO:** Det går att redigera, förhandsvisa och spara (commit)
-[sidan](./gruppkontrakt.md) på GitHub direkt i din webbläsare.
-
 ## Syfte
 
 Det huvudsakliga syftet med att upprätta ett gruppkontrakt är att alla
@@ -28,87 +22,44 @@ projektmedlemmar. Följande områden kan vara del av vad man kommer
 - Brott mot reglerna i gruppkontraktet.
 - Allmänna förutsättningar.
 
-**TODO:** Gruppen skall tillsammans utgå från denna mall (ändra, ta bort eller
- lägga till text och rubriker) för att komma fram till ett gruppkontrakt som
- alla i gruppen är nöjda med.
-
 ## Rutiner
 
-Exempel på innehåll:
-
-- Skall gruppen i huvudsak sitta och arbeta tillsammans eller endast
-  träffas för kortare möten?
-- Hur ofta ska gruppen träffas?
-- Hur långa ska mötena vara?
-- När på dagen ska mötena läggas?
-- Vilka godtagbara skäl finns för frånvaro på möten?
-
+I anslutning till början på varje vecka så lägger vi upp ett schema som folk får tycka till om, men sålänge vi har tider att följa innan veckan börjar så är allt cool. Vid frånvaro gäller rimlig anledning och framförhållning. Upp till gruppen att bedöma om något går överstyr.
 
 ## Kommunikationen i gruppen
 
-Exempel på innehåll:
-
-- Hur ska gruppen kommunicera mellan möten?
-- Hur ska gruppen agera om någon inte kommer på ett möte?
-- Hur ska samordning och rapportering ske inom projektgruppen?
+Huvudsaklig kommunikation sker via discord. Protokoll från möten läggs upp i en egen channel i discord. Om någon är frånvarande ska ett privat meddelande skickas till vederbörande. 
 
 ## Frånvaro
 
-Exempel på innehåll:
-
-- Hur och när skall frånvaro meddelas?
-- Hur skall man göra om någon varit frånvarande?
-- Skall frånvaro kompenseras genom annan arbetsinsats eller gäller det
-  bara viss typ av frånvaro?
+Beroende på anledning så får gruppen ta rimliga åtgärder. Frånvaro/närvaro ska finnas med på protokollen.
 
 ## Roller
 
-Exempel på innehåll:
-
-- Ska varje person i gruppen ha en formell roll?
-- Ska ni växla formella roller vid varje möte?
-- Vilka roller behövs:
-  - Projektledare?
-  - Sekreterare?
-  - Dokumentansvarig?
+Skiftande sekreterare som för protokoll varje möte.
+Projektledare ansvarar för schemaläggning och kallelse till dagliga möten som läggs upp veckan innan.
+Johannes är projektledare tillsvidare.
+Tillfällig projektledare får utses vid Johannes frånvaro.
 
 ## Beslutsformer
 
-Exempel på innehåll:
-- Hur ska gruppen komma överens om vad som ska göras?
-- Ska majoritetsbeslut gälla eller ska gruppen genom diskussion
-  försöka få alla att vara överens om beslutet?
-- Hur ska ni gör ifall ni är oeniga?
+Beslutsansvaret ligger på den som har fått arbetsuppgiften tilldelad till sig, och vid större frågor som berör hela gruppens framtida arbetsupplägg så måste det diskuteras i helgrupp och majoritet gäller alltid. Vid oenigheter gäller diskussion.
 
 ## Arbetsinsats
 
-För att undvika en del missförstånd och irritation kan det vara bra
-att redan från början göra klart för varandra vilka olika typer av
-arbetsinsatser som kan förekomma.  Exempel på innehåll:
-
-- Exempel på olika former av arbetsinsatser.
-- Vilka krav kan man ställa på varandra?
+Man förväntas att göra sitt bästa och att ta ansvar om man kör fast och inte ger upp. Man ser till att följa de givna konventioner som man kommit överrens om i det gällande arbetet man sysslar med.
 
 ## Ansvar
 
-Exempel på innehåll:
-
-- Hur ska arbetet fördelas i gruppen?
-- Hur ska gruppen hantera om någon inte gör sin del av arbetet?
-- Hur mycket arbete ska göras mellan möten?
+Ansvar delas ut från de uppgifter man känner är rimliga att ta sig an. 
 
 ## Konflikter
 
-Hur skall man gå tillväga om det uppstår konflikter?
+Övergripande konflikter ska löses i grupp. Enskilda konflikter mellan personer löses genom att deltagarna beteer sig som vuxna.
 
 ## Brott mot bestämmelserna i gruppkontraktet
 
-Var och en berättar om hur man vill bli påmind om de överenskomna
-bestämmelserna. Ett sätt är att var och en inför de andra i
-projektgruppen beskriver hur man vill bli påmind om att man har brutit
-mot någon punk i gruppkontraktet. Viktigt för att underlätta för
-projektgruppen att under det kommande arbetet såväl ge som att ta
-kritik.
+I första hand så bör man skicka via privat meddelande där man schysst påmminner om misstaget. Vid upprepade överträdelser tar man upp det i grupp. Nästa steg är att ta upp det med kursansvarig.
 
 ## Utskrift och underskrifter
 
@@ -120,18 +71,13 @@ uppdaterat som en del av gruppens repository på GitHub.
 Detta kontrakt har den  __________________________  upprättats av:
 
 
-**TODO:** I tabellen nedan skall gruppen medlemmar listas sorterade på förnamn.
 
 Förnamn | Efternamn | . . . . . . . . . . . Underskrift . . . . . . . . . . .
 --------|-----------|------------
-Anders  | Andersson |
-Britta  | Björk     |
-Cecila  | Carlsson  |
-Daniel  | Dahlqvist |
-Erik    | Eklund    |
-Fanny   | Forsberg  |
+Axel    | Hultin    |
+David   | Håkansson |
+Fredrik | Andersson |
+Johannes| Almroth   |
+Love    | Nordling  |
+Viktor  | Enzell    |
 
-## Färdigställ
-
-- Tag bort alla stycken markerade med **TODO** och **INFO**.
-- Tag bort hela detta avsnitt, dvs tag bort avsnittet **Färdigställ**.
