@@ -31,6 +31,7 @@ ankaret `#en-rubrik-med-åäö`.
 Bild                                     | Förnamn                     | Efternamn | Personnummer | Användarnamn (GitHub)
 -----------------------------------------|-----------------------------|-----------|--------------|----------------------
 <img src="images/user.png" width="180"/> | [Anders](#anders-andersson) | Andersson | YYMMDD-XXXX  | `anders877`
+<img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
 
 **TODO:** Utgå från mallen nedan och skapa ett avsnitt för varje medlem
 i gruppen sorterade i bokstavsordning.
@@ -80,6 +81,34 @@ till exempel:
 - rapportskrivande
 - muntlig presentation
 - lägg gärna till flera punkter ...
+
+
+
+## Viktor Enzell
+
+### Okänd talang
+
+Jag är en duktig offpistskidåkare.
+
+### Starka sidor
+
+Under projektet tror jag att jag kommer ha lättast att bidra med:
+
+- kreativt tänkande
+- välstrukturerad kod
+- grafisk design
+- planering
+
+### Personlig utveckling
+
+Under projektet hoppas jag förutom att bli ännu bättre på mina redan
+starka sidor även ges möjlighet att utveckla följande färdigheter:
+
+- objektorienterad programmering
+- problemlösning och algoritmer
+- muntlig presentation
+
+
 
 ## Färdigställ
 
