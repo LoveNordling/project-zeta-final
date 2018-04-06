@@ -31,30 +31,6 @@ Under projektet hoppas jag bli bättre på:
 - Optimering av kod/program
 - Muntliga presentationer
 
-## Viktor Enzell
-
-### Okänd talang
-
-Jag är en duktig offpistskidåkare.
-
-### Starka sidor
-
-Under projektet tror jag att jag kommer ha lättast att bidra med:
-
-- kreativt tänkande
-- välstrukturerad kod
-- grafisk design
-- planering
-
-### Personlig utveckling
-
-Under projektet hoppas jag förutom att bli ännu bättre på mina redan
-starka sidor även ges möjlighet att utveckla följande färdigheter:
-
-- objektorienterad programmering
-- problemlösning och algoritmer
-- muntlig presentation
-
 ## Fredrik Andersson
 
 ### Okänd talang
@@ -79,4 +55,29 @@ starka sidor även ges möjlighet att utveckla följande färdigheter:
 - git i grupp
 - mer kunskap om grafikmotorer
 - optimera kod för prestanda
+
+## Viktor Enzell
+
+### Okänd talang
+
+Jag är en duktig offpistskidåkare.
+
+### Starka sidor
+
+Under projektet tror jag att jag kommer ha lättast att bidra med:
+
+- kreativt tänkande
+- välstrukturerad kod
+- grafisk design
+- planering
+
+### Personlig utveckling
+
+Under projektet hoppas jag förutom att bli ännu bättre på mina redan
+starka sidor även ges möjlighet att utveckla följande färdigheter:
+
+- objektorienterad programmering
+- problemlösning och algoritmer
+- muntlig presentation
+
 
