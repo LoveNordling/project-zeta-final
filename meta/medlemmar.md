@@ -1,5 +1,7 @@
 # Medlemmar
 
+**TODO:** Tabellen skall vara sorterad på förnamn.
+
 OSPP (1DT096) 2018 - Projekt zeta
 
 Bild                                     | Förnamn                     | Efternamn | Personnummer | Användarnamn (GitHub)
