@@ -7,8 +7,8 @@ OSPP (1DT096) 2018 - Projekt zeta
 Bild                                     | Förnamn                     | Efternamn | Personnummer | Användarnamn (GitHub)
 -----------------------------------------|-----------------------------|-----------|--------------|----------------------
 <img src="images/Axel.jpg" width="180"/> | [Axel](#Axel-Hultin) | Hultin | 940913  | `huntexD`
-<img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
 <img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | 930804  | `freddedotme`
+<img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
 
 
 ## Axel Hultin
