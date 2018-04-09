@@ -1,12 +1,6 @@
-# Namn på projektet
+# Primal
 
 OSPP (1DT096) 2018 - Projekt zeta
-
-**INFO:** Detta dokument är skrivet i
-formatet [Markdown](https://help.github.com/articles/getting-started-with-writing-and-formatting-on-github/).
-
-**INFO:** Det går att redigera, förhandsvisa och spara (commit)
-[sidan](./README.md) på GitHub direkt i din webbläsare.
 
 Projektarbete på kursen Operativsystem och processorienterad
 programmering (1DT096) våren 2018, Uppsala universitet.
