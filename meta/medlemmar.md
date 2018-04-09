@@ -9,6 +9,7 @@ Bild                                     | Förnamn                     | Eftern
 <img src="images/Axel.jpg" width="180"/> | [Axel](#Axel-Hultin) | Hultin | 940913  | `huntexD`
 <img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | 930804  | `freddedotme`
 <img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
+<img src="images/johannes.jpg" width="180"/> | [Johannes](#JohannesAlmroth) | Almroth | 951129-2931  | `JohannesAlmroth
 
 
 ## Axel Hultin
@@ -80,4 +81,27 @@ starka sidor även ges möjlighet att utveckla följande färdigheter:
 - problemlösning och algoritmer
 - muntlig presentation
 
+
+## Johannes Almroth
+
+### Okänd talang
+
+Jag är bäst på Super Smash Bros. Melee
+
+### Starka sidor
+
+Under projektet tror jag att jag kommer ha lättast att bidra med:
+
+- Ledarskap
+- Struktur
+- Problemlösning
+- Planering
+
+### Personlig utveckling
+
+Under projektet hoppas jag förutom att bli ännu bättre på mina redan
+starka sidor även ges möjlighet att utveckla följande färdigheter:
+
+- Objektorienterad Programmering
+- Problemlösning och Algoritmer
 
