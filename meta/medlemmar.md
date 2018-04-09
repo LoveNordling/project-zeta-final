@@ -8,6 +8,7 @@ Bild                                     | Förnamn                     | Eftern
 -----------------------------------------|-----------------------------|-----------|--------------|----------------------
 <img src="images/Axel.jpg" width="180"/> | [Axel](#Axel-Hultin) | Hultin | 940913  | `huntexD`
 <img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | 930804  | `freddedotme`
+<img src="images/david.jpg" width="180"/> | [David](#david-håkansson) | Håkansson | 971113  | `daha2574`
 <img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
 <img src="images/johannes.jpg" width="180"/> | [Johannes](#JohannesAlmroth) | Almroth | 951129-2931  | `JohannesAlmroth
 
@@ -31,6 +32,29 @@ Under projektet hoppas jag bli bättre på:
 - Object-orienterad programmering
 - Optimering av kod/program
 - Muntliga presentationer
+
+## David Håkansson
+
+### Okänd talang 
+
+Kapabel sjusovare
+
+### Starka sidor
+
+Under projektet tror jag att jag kommer ha lättast att bidra med:
+
+- Problem lösning
+- Skriva kod utifrån specifikationer
+
+### Personlig utveckling
+
+Under projektet hoppas jag förutom att bli ännu bättre på mina redan
+starka sidor även ges möjlighet att utveckla följande färdigheter:
+
+- git
+- muntlig presentation
+- rapportskrivande
+
 
 ## Fredrik Andersson
 
