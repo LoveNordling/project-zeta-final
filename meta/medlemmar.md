@@ -7,6 +7,7 @@ OSPP (1DT096) 2018 - Projekt zeta
 Bild                                     | Förnamn                     | Efternamn | Personnummer | Användarnamn (GitHub)
 -----------------------------------------|-----------------------------|-----------|--------------|----------------------
 <img src="images/Axel.jpg" width="180"/> | [Axel](#Axel-Hultin) | Hultin | 940913  | `huntexD`
+<img src="images/Daniel.jpg" widht="180/> | [Daniel](#Daniel-Degirmen) | Degirmen | 920626-2033 | `dannebra`
 <img src="images/david.jpg" width="180"/> | [David](#david-håkansson) | Håkansson | 971113  | `daha2574`
 <img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | 930804  | `freddedotme`
 <img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
@@ -32,6 +33,27 @@ Under projektet hoppas jag bli bättre på:
 - Object-orienterad programmering
 - Optimering av kod/program
 - Muntliga presentationer
+
+## Daniel Degirmen
+
+## Okänd talang
+
+Proffs på Sudoku.
+
+### Starka sidor
+
+- Problemlösning och algorimter
+- Rapportskrivning
+- Sammanställning av information
+- Planering
+- Disciplinerad
+
+### Personlig utveckling
+
+Under projektet hoppas jag bli bättre på:
+
+- Concurrency
+- Muntlig presentation
 
 ## David Håkansson
 
