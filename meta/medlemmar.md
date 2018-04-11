@@ -12,7 +12,7 @@ Bild                                     | Förnamn                     | Eftern
 <img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | 930804  | `freddedotme`
 <img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
 <img src="images/johannes.jpg" width="180"/> | [Johannes](#JohannesAlmroth) | Almroth | 951129-2931  | `JohannesAlmroth
-<img src="images/johannes.jpg" width="180"/> | [Love](#LoveNordling) | Nordling | 951106-3258  | `LoveNordling
+<img src="images/profil.jpg" width="180"/> | [Love](#LoveNordling) | Nordling | 951106-3258  | `LoveNordling
 
 ## Axel Hultin
 
