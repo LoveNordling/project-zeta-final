@@ -14,6 +14,7 @@ Bild                                     | Förnamn                     | Eftern
 <img src="images/johannes.jpg" width="180"/> | [Johannes](#JohannesAlmroth) | Almroth | 951129-2931  | `JohannesAlmroth
 <img src="images/profil.jpg" width="180"/> | [Love](#LoveNordling) | Nordling | 951106-3258  | `LoveNordling
 
+
 ## Axel Hultin
 
 ### Okänd talang
