@@ -12,7 +12,7 @@ Bild                                     | Förnamn                     | Eftern
 <img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | 930804  | `freddedotme`
 <img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
 <img src="images/johannes.jpg" width="180"/> | [Johannes](#JohannesAlmroth) | Almroth | 951129-2931  | `JohannesAlmroth
-
+<img src="images/johannes.jpg" width="180"/> | [Love](#LoveNordling) | Nordling | 951106-3258  | `LoveNordling
 
 ## Axel Hultin
 
@@ -150,4 +150,24 @@ starka sidor även ges möjlighet att utveckla följande färdigheter:
 
 - Objektorienterad Programmering
 - Problemlösning och Algoritmer
+
+## Love Nordling
+
+### Okänd talang
+Äter mycket
+
+### Starka sidor
+Mattematisk Problemlösning 
+Algoritmer och datastrukturer
+Förklara koncept
+
+### Personlig utveckling
+Jag hoppas kunna förbättra färdigheter inom:
+
+Concurrency
+OOP
+Systemdesign
+Sammarbete
+
+
 
