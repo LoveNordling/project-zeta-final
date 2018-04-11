@@ -1,19 +1,16 @@
 # Medlemmar
 
-**TODO:** Tabellen skall vara sorterad på förnamn.
-
 OSPP (1DT096) 2018 - Projekt zeta
 
 Bild                                     | Förnamn                     | Efternamn | Personnummer | Användarnamn (GitHub)
 -----------------------------------------|-----------------------------|-----------|--------------|----------------------
-<img src="images/Axel.jpg" width="180"/> | [Axel](#Axel-Hultin) | Hultin | 940913  | `huntexD`
-<img src="images/Daniel.jpg" width="180"/> | [Daniel](#Daniel-Degirmen) | Degirmen | 920626-2033 | `dannebra`
+<img src="images/Axel.jpg" width="180"/> | [Axel](#axel-hultin) | Hultin | 940913  | `huntexD`
+<img src="images/Daniel.jpg" width="180"/> | [Daniel](#daniel-degirmen) | Degirmen | 920626-2033 | `dannebra`
 <img src="images/david.jpg" width="180"/> | [David](#david-håkansson) | Håkansson | 971113  | `daha2574`
 <img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | 930804  | `freddedotme`
+<img src="images/johannes.jpg" width="180"/> | [Johannes](#johannes-almroth) | Almroth | 951129-2931  | `JohannesAlmroth`
+<img src="images/profil.jpg" width="180"/> | [Love](#love-nordling) | Nordling | 951106-3258  | `LoveNordling`
 <img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
-<img src="images/johannes.jpg" width="180"/> | [Johannes](#JohannesAlmroth) | Almroth | 951129-2931  | `JohannesAlmroth
-<img src="images/profil.jpg" width="180"/> | [Love](#LoveNordling) | Nordling | 951106-3258  | `LoveNordling
-
 
 ## Axel Hultin
 
@@ -104,31 +101,6 @@ starka sidor även ges möjlighet att utveckla följande färdigheter:
 - mer kunskap om grafikmotorer
 - optimera kod för prestanda
 
-## Viktor Enzell
-
-### Okänd talang
-
-Jag är en duktig offpistskidåkare.
-
-### Starka sidor
-
-Under projektet tror jag att jag kommer ha lättast att bidra med:
-
-- kreativt tänkande
-- välstrukturerad kod
-- grafisk design
-- planering
-
-### Personlig utveckling
-
-Under projektet hoppas jag förutom att bli ännu bättre på mina redan
-starka sidor även ges möjlighet att utveckla följande färdigheter:
-
-- objektorienterad programmering
-- problemlösning och algoritmer
-- muntlig presentation
-
-
 ## Johannes Almroth
 
 ### Okänd talang
@@ -170,5 +142,28 @@ Jag hoppas kunna förbättra färdigheter inom:
 - Systemdesign
 - Samarbete
 
+## Viktor Enzell
+
+### Okänd talang
+
+Jag är en duktig offpistskidåkare.
+
+### Starka sidor
+
+Under projektet tror jag att jag kommer ha lättast att bidra med:
+
+- kreativt tänkande
+- välstrukturerad kod
+- grafisk design
+- planering
+
+### Personlig utveckling
+
+Under projektet hoppas jag förutom att bli ännu bättre på mina redan
+starka sidor även ges möjlighet att utveckla följande färdigheter:
+
+- objektorienterad programmering
+- problemlösning och algoritmer
+- muntlig presentation
 
 
