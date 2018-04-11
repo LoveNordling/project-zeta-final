@@ -37,7 +37,7 @@ Under projektet hoppas jag bli bättre på:
 
 ## Daniel Degirmen
 
-## Okänd talang
+### Okänd talang
 
 Proffs på Sudoku.
 
@@ -158,17 +158,17 @@ starka sidor även ges möjlighet att utveckla följande färdigheter:
 Äter mycket
 
 ### Starka sidor
-Mattematisk Problemlösning 
-Algoritmer och datastrukturer
-Förklara koncept
+- Mattematisk Problemlösning 
+- Algoritmer och datastrukturer
+- Förklara koncept
 
 ### Personlig utveckling
 Jag hoppas kunna förbättra färdigheter inom:
 
-Concurrency
-OOP
-Systemdesign
-Sammarbete
+- Concurrency
+- OOP
+- Systemdesign
+- Samarbete
 
 
 
