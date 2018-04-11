@@ -11,7 +11,7 @@ Bild                                     | Förnamn                     | Eftern
 <img src="images/david.jpg" width="180"/> | [David](#david-håkansson) | Håkansson | 971113  | `daha2574`
 <img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | 930804  | `freddedotme`
 <img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
-<img src="images/johannes.jpg" width="180"/> | [Johannes](#JohannesAlmroth) | Almroth | 951129-2931  | `JohannesAlmroth
+<img src="images/johannes.jpg" width="180"/> | [Johannes](#JohannesAlmroth) | Almroth | 951129-2931  | `JohannesAlmrotḧ́`
 
 
 ## Axel Hultin
