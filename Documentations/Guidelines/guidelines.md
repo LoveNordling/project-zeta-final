@@ -55,7 +55,7 @@ för att pusha upp dina förändringar till din branch.
 
 Gå sedan in på github och gör en pull request. Om din pull request stänger ett issue (ex du är helt klar med issue 10) så skriv  ``closes #10`` i beskrivningen (eller ditt commit message).
 
-Lägg till två personer som ska reviewa din pull request. För att en förändring ska pushas till master måste dessa ha accepterat förändringarna. Den som approvat sist är den som också mergar. Ta sedan bort branchen. 
+Lägg till två personer som ska reviewa din pull request. För att en förändring ska pushas till master måste dessa ha accepterat förändringarna.
 
 Saker som gör att pull requests nekas är te.x: bugg som upptäckts, inte följt kodstandarden, dålig beskrivning av vad som gjorts.  
 
