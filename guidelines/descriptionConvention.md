@@ -22,12 +22,12 @@ Skriva dokumentationen för anonyma inre funktioner som ett stycke i den extärn
 
 ### Tag ordning:
 
-@author 
-@version
-@param
-@return 
-@exception/@throws
-@see
-@since
-@serial
+@author <p>
+@version <p> 
+@param <p>
+@return <p> 
+@exception/@throws <p>
+@see <p>
+@since <p>
+@serial <p>
 @deprecated
