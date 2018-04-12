@@ -5,7 +5,7 @@
 
 Dokumentationen ska börja med /** och sluta med */. Först skrivs en kort sammanfattning. Efter det ska den extra information som kodaren tycker borde skrivas ner skrivas ner.
 
-Sedan kommer tags delen, det ska vara en blankrad mellan tags delen och beskrivnings delen. Obligatoriska tags är param ifall det finns några parametrar, return så länge det inte är en void och throws/execption för varje exception som hanteras. Använd också görna see tagen med sunt förnuft.
+Sedan kommer tag:s delen, det ska vara en blankrad mellan tags delen och beskrivnings delen. Obligatoriska tag:s är param ifall det finns några parametrar, return så länge det inte är en void och throws/execption för varje exception som hanteras. Använd också görna see tag:en med sunt förnuft.
 
 ## Hjälpfunktioner
 
@@ -18,7 +18,7 @@ Skriva dokumentationen för anonyma inre funktioner som ett stycke i den externa
 ## Allmänt
 
 - Använd <p"> utan " mellan olika stycken.
-- Ifall @author tagen används skriv namnen i alfabetisk ordning baserat på förnamnen.
+- Ifall @author tag:en används skriv namnen i alfabetisk ordning baserat på förnamnen.
 
 ### Tag ordning:
 
