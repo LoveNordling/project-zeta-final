@@ -17,7 +17,7 @@ Skriva dokumentationen för anonyma inre funktioner som ett stycke i den extärn
 
 ## Allmänt
 
-- Använd "<p>" mellan olika stycken.
+- Använd <p"> utan " mellan olika stycken.
 - Ifall @author tagen används skriv namnen i alfabetisk ordning
 - baserat på förnamnen.
 
