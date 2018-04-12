@@ -9,11 +9,11 @@ Sedan kommer tags delen, det ska vara en blankrad mellan tags delen och beskrivn
 
 ## Hjälpfunktioner
 
-På hjälpfunktioner finns det inga speciella krav för dokumentationen. Ifall hjälpfunktion är komplicerad eller inte särksilt tydlig så borde dock den dokumenteras även om det inte är ett krav. Dokumentationen behöver inte följa någon standard.
+På hjälpfunktioner finns det inga speciella krav för dokumentationen. Ifall hjälpfunktion är komplicerad eller inte särskilt tydlig så borde dock den dokumenteras även om det inte är ett krav. Dokumentationen behöver inte följa någon standard.
 
 ## Anonyma inre funktioner
 
-Skriva dokumentationen för anonyma inre funktioner som ett stycke i den extärna funktionen om det tycks behövas
+Skriva dokumentationen för anonyma inre funktioner som ett stycke i den externa funktionen om det tycks behövas
 
 ## Allmänt
 
