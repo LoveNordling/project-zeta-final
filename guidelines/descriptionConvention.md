@@ -1,27 +1,27 @@
-#Description conventions
+# Description conventions
 
 
-##Exporterade funktioner
+## Exporterade funktioner
 
-Dokumentationen ska börja med /** och sluta med */. Först skrivs en kort sammanfattning. Efter det ska den extra information som kodaren tycker borde skrivas ner skrivas ner.
+Dokumentationen ska bÃ¶rja med /** och sluta med */. FÃ¶rst skrivs en kort sammanfattning. Efter det ska den extra information som kodaren tycker borde skrivas ner skrivas ner.
 
-Sedan kommer tags delen, det ska vara en blankrad mellan tags delen och beskrivnings delen. Obligatoriska tags är param ifall det finns några parametrar, return så länge det inte är en void och throws/execption för varje exception som hanteras. Använd också görna see tagen med sunt förnuft.
+Sedan kommer tags delen, det ska vara en blankrad mellan tags delen och beskrivnings delen. Obligatoriska tags Ã¤r param ifall det finns nÃ¥gra parametrar, return sÃ¥ lÃ¤nge det inte Ã¤r en void och throws/execption fÃ¶r varje exception som hanteras. AnvÃ¤nd ocksÃ¥ gÃ¶rna see tagen med sunt fÃ¶rnuft.
 
-##Hjälpfunktioner
+## HjÃ¤lpfunktioner
 
-På hjälpfunktioner finns det inga speciella krav för dokumentationen. Ifall hjälpfunktion är komplicerad eller inte särksilt tydlig så borde dock den dokumenteras även om det inte är ett krav. Dokumentationen behöver inte följa någon standard.
+PÃ¥ hjÃ¤lpfunktioner finns det inga speciella krav fÃ¶r dokumentationen. Ifall hjÃ¤lpfunktion Ã¤r komplicerad eller inte sÃ¤rksilt tydlig sÃ¥ borde dock den dokumenteras Ã¤ven om det inte Ã¤r ett krav. Dokumentationen behÃ¶ver inte fÃ¶lja nÃ¥gon standard.
 
-##Anonyma inre funktioner
+## Anonyma inre funktioner
 
-Skriva dokumentationen för anonyma inre funktioner som ett stycke i den extärna funktionen om det tycks behövas
+Skriva dokumentationen fÃ¶r anonyma inre funktioner som ett stycke i den extÃ¤rna funktionen om det tycks behÃ¶vas
 
-##Allmänt
+## AllmÃ¤nt
 
--Använd <p> mellan olika stycken.
--Ifall @author tagen används skriv namnen i alfabetisk ordning
--baserat på förnamnen.
+-AnvÃ¤nd <p> mellan olika stycken.
+-Ifall @author tagen anvÃ¤nds skriv namnen i alfabetisk ordning
+-baserat pÃ¥ fÃ¶rnamnen.
 
-###Tag ordning:
+### Tag ordning:
 
 @author 
 @version
