@@ -1,4 +1,4 @@
 package org.primal.java.tile;
 
-public class Tile {
+public abstract class Tile {
 }
