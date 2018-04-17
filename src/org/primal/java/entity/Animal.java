@@ -1,7 +1,9 @@
 package org.primal.java.entity;
+import java.util.LinkedList;
+import org.primal.java.behaviour.Behaviour;
 
 public abstract class Animal extends LivingEntity {
-    protected List<Behaviour> behaviours;
+    protected LinkedList<Behaviour> behaviours;
     protected float stamina;
     protected float fullness; //0-100
 
@@ -16,5 +18,5 @@ public abstract class Animal extends LivingEntity {
         
     }
     
-    public abstract eat(Living);
+    public abstract void eat(LivingEntity food);
 }
