@@ -75,6 +75,7 @@ Detta kontrakt har den  __________________________  upprättats av:
 Förnamn | Efternamn | . . . . . . . . . . . Underskrift . . . . . . . . . . .
 --------|-----------|------------
 Axel    | Hultin    |
+Daniel  | Degirmen  |
 David   | Håkansson |
 Fredrik | Andersson |
 Johannes| Almroth   |
