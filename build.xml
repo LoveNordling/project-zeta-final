@@ -31,9 +31,6 @@
                 <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
 
-            <fileset dir="${src.dir}">
-            	<include name="com/lilithsthrone/res/**" />
-            </fileset>
         </jar>
     </target>
 
@@ -41,7 +38,7 @@
         <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
     </target>
 
-    <target name="clean-build" depends="clean,compile"/>
+    <target name="clean-compile" depends="clean,compile"/>
 
     <target name="main" depends="compile"/>
     
