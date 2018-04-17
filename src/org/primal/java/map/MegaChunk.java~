@@ -1,0 +1,13 @@
+package org.primal.java.map;
+
+public class MegaChunk extends Chunk{
+    protected Chunk[][] subPieces;
+    public int size = 16;
+    public MegaChunk(float x, float y){
+        super(x, y);
+    }
+
+    protected Chunk newSubPiece(float x, float y){
+        return new Chunk(x,y);
+    }
+}
