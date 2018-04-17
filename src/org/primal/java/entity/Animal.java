@@ -1,6 +1,9 @@
 package org.primal.java.entity;
+
 import java.util.LinkedList;
+
 import org.primal.java.behaviour.Behaviour;
+import org.primal.java.responses.BehaviourResponse;
 
 public abstract class Animal extends LivingEntity {
     protected LinkedList<Behaviour> behaviours;
