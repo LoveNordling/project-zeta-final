@@ -1,6 +1,6 @@
-#Ant Tutorial
+# Ant Tutorial
 
-##Quick-start(TLDR):
+## Quick-start(TLDR):
 
 1. [Go here](http://ant.apache.org/manual/install.html) and follow the instructions.
 2. [Go here](https://github.com/JetBrains/kotlin/releases/tag/v1.2.31) and install the kotlin compiler to c:\kotlin (so the complete path should be c:\kotlin\kotlinc\).
@@ -11,19 +11,19 @@ NOTE: You can put the compiler somewhere else, but this is the default path in t
 To do this, open the build.xml file and find the line <property name="kotlin.lib"  value="C:\Kotlin\kotlinc\lib"/>, then change the value to reflect your path.
 
 
-##Installing Ant
+## Installing Ant
 To be added later.
 
-##Installing the kotlin standalone compiler
+## Installing the kotlin standalone compiler
 To be added later.
 
-##How to use Ant
+## How to use Ant
 
 To use Ant, simply type "ant" in the commandline while in the same directory as the build.xml file and the default command(compile) will be ran.
 
-To run another command than the default, type "ant <command>" 
+To run another command than the default, type "ant command" 
 
-##Commands
+## Commands
 
 The default command is "compile", which compiles all the java and kotlin source files in the src dir.
 
