@@ -5,4 +5,9 @@ public class Hyena extends Animal{
         super(x, y, stamina, fullness);
         starvationRate = 1;
     }
+
+    @Override
+    public void eat(LivingEntity food) {
+
+    }
 }
