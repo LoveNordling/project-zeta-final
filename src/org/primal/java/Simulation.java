@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Simulation {
     private HashMap<Integer, Animal> animals = new HashMap<>();
     private static int mapSize = 16;
-    private int map[][] = new int[mapSize][mapSize];
+    private Map map;
     private GRAPHICS graphics;
 
     public Simulation(GRAPHICS graphics) {
@@ -23,19 +23,12 @@ public class Simulation {
     }
 
     private void initMap() {
-        for (int i = 0; i < mapSize; i++) {
-            for (int j = 0; j < mapSize; j++) {
-                map[i][j] = generateTile();
-            }
-        }
+      map = new Map();
     }
 
     private void initAnimals() {
         Cow cow = new Cow();
         animals.add(cow.getId(), cow);
-    }
-
-    private Tile generateTile() {
     }
 
     private void loop() {
