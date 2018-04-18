@@ -10,7 +10,7 @@ public class Tile extends SimObject {
     private List<LivingEntity> livingEntities;
 
     public Tile(float x, float y, List<LivingEntity> livingEntities) {
-        super((float) x, (float) y);
+        super(x, y);
         this.livingEntities = livingEntities;
     }
 
