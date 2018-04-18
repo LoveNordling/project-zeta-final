@@ -1,5 +1,6 @@
 package org.primal.java;
 
+import org.primal.java.entity.Animal;
 import org.primal.java.entity.LivingEntity;
 import org.primal.java.graphics.UI;
 import org.primal.java.map.Chunk;
@@ -31,8 +32,8 @@ public class Simulation {
             for (int x = 0; x < chunk.getSize(); x++) {
                 for (int y = 0; y < chunk.getSize(); y++) {
                     for (LivingEntity entity : chunk.getTile(x, y).getLivingEntities()) {
-                        if(entity instanceof Animal) {
-                            (Animal) entity.move();
+                        if (entity instanceof Animal) {
+                            ((Animal) entity).move();
                         }
                     }
                 }
