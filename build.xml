@@ -1,0 +1,45 @@
+<project name="Primal" basedir="." default="main">
+
+    
+    <property name="kotlin.lib"  value="C:\Kotlin\kotlinc\lib"/>
+
+    <property name="src.dir"     value="src/"/>
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+
+    <property name="verbose"     value="no"/>
+
+    <property name="main-class"  value="TBD"/>
+
+    <typedef resource="org/jetbrains/kotlin/ant/antlib.xml" classpath="${kotlin.lib}/kotlin-ant.jar"/>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac verbose="${verbose}" includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}">
+            <withKotlin/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}" update="true">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+    </target>
+
+    <target name="clean-compile" depends="clean,compile"/>
+
+    <target name="main" depends="compile"/>
+    
+</project>
