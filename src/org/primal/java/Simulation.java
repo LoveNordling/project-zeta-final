@@ -2,12 +2,11 @@ import org.primal.java.entity.Animal;
 import org.primal.java.tile.Tile;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class Simulation {
     private HashMap<Integer, Animal> animals = new HashMap<Integer, Animal>();
     private static int mapSize = 16;
-    private int map[][] = new int [mapSize][mapSize];
+    private int map[][] = new int[mapSize][mapSize];
     private GRAPHICS graphics;
 
     public Simulation(GRAPHICS graphics) {
