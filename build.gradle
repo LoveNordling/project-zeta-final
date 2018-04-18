@@ -37,7 +37,6 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib"
 	compile 'org.jetbrains.dokka:dokka-gradle-plugin:0.9.16'
 	compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
-	compile "org.jetbrains.kotlinx:kotlinx-coroutines-common:0.22.5"
 
 }
 
@@ -51,6 +50,12 @@ dokka {
 kotlin {
     experimental {
         coroutines 'enable'
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.primal.java.main.Main'
     }
 }
 
