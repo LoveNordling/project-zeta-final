@@ -4,12 +4,12 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import org.primal.java.behaviour.Behaviour;
-import org.primal.java.responses.BehaviourResponse;
 
 public abstract class Animal extends LivingEntity {
     protected LinkedList<Behaviour> behaviours;
     protected float stamina;
     protected float fullness; //0-100
+    protected int starvationRate = 1;
 
     public Animal(float x, float y, float stamina, float fullness) {
         super(x, y);
