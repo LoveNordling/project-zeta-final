@@ -9,11 +9,12 @@ public abstract class Animal extends LivingEntity {
     protected LinkedList<Behaviour> behaviours;
     protected float stamina;
     protected float fullness; //0-100
+    protected int starvationRate = 1;
 
-    public Animal(float x, float y, float stam, float fullns){
+    public Animal(float x, float y, float stamina, float fullness){
         super(x,y);
-        this.stamina = stam;
-        this.fullness = fullns;
+        this.stamina = stamina;
+        this.fullness = fullness;
     }
     
     public Animal(float x, float y){
