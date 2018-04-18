@@ -1,4 +1,4 @@
-package org.primal.java.main;
+package org.primal.java;
 
 public class Main {
 

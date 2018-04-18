@@ -1,10 +1,12 @@
+package org.primal.java;
+
 import org.primal.java.entity.Animal;
 import org.primal.java.tile.Tile;
 
 import java.util.HashMap;
 
 public class Simulation {
-    private HashMap<Integer, Animal> animals = new HashMap<Integer, Animal>();
+    private HashMap<Integer, Animal> animals = new HashMap<>();
     private static int mapSize = 16;
     private int map[][] = new int[mapSize][mapSize];
     private GRAPHICS graphics;
@@ -21,10 +23,8 @@ public class Simulation {
     }
 
     private void initMap() {
-        for (i:
-             mapSize) {
-            for (j:
-                 mapSize) {
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
                 map[i][j] = generateTile();
             }
         }
