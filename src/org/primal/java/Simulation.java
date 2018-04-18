@@ -1,34 +1,18 @@
 package org.primal.java;
 
-import org.primal.java.entity.Animal;
-import org.primal.java.tile.Tile;
-
-import java.util.HashMap;
+import org.primal.java.entity.LivingEntity;
+import org.primal.java.graphics.UI;
+import org.primal.java.map.Chunk;
+import org.primal.java.map.Map;
 
 public class Simulation {
-    private HashMap<Integer, Animal> animals = new HashMap<>();
-    private static int mapSize = 16;
+    private UI ui;
     private Map map;
-    private GRAPHICS graphics;
 
-    public Simulation(GRAPHICS graphics) {
-        this.graphics = graphics;
-        init();
-        start();
-    }
-
-    private void init() {
-        initMap();
-        initAnimals();
-    }
-
-    private void initMap() {
-      map = new Map();
-    }
-
-    private void initAnimals() {
-        Cow cow = new Cow();
-        animals.add(cow.getId(), cow);
+    public Simulation(UI ui, Map map) {
+        this.ui = ui;
+        this.map = map;
+        loop();
     }
 
     private void loop() {
@@ -39,16 +23,18 @@ public class Simulation {
     }
 
     private void updateGraphics() {
-        this.graphics.sendInfo(map, animals);
+        ui.setMap(map);
     }
 
     private void animalLoop() {
-        for (Animal a : animals.values()) {
-            a.performAction();
+        for (Chunk chunk : map.getChunks()) {
+            for (int x = 0; x < chunk.getSize(); x++) {
+                for (int y = 0; y < chunk.getSize(); y++) {
+                    for (LivingEntity entity : chunk.getTile(x, y).getLivingEntities()) {
+                        // TODO: perform action.
+                    }
+                }
+            }
         }
-    }
-
-    public void start() {
-        loop();
     }
 }

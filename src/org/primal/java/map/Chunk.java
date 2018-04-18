@@ -4,7 +4,7 @@ import org.primal.java.SimObject;
 import org.primal.java.tile.LandTile;
 import org.primal.java.tile.Tile;
 
-class Chunk<T extends SimObject> extends SimObject {
+public class Chunk extends SimObject {
     private Tile[][] tiles;
 
     private int size = 16;
@@ -19,7 +19,11 @@ class Chunk<T extends SimObject> extends SimObject {
         }
     }
 
-    Tile getTile(int x, int y) {
+    public int getSize() {
+        return size;
+    }
+
+    public Tile getTile(int x, int y) {
         return tiles[x][y];
     }
 }

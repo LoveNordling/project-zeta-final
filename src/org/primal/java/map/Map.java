@@ -1,18 +1,18 @@
 package org.primal.java.map;
 
-import org.primal.java.tile.Tile;
-
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
-public abstract class Map {
-    protected LinkedList<Chunk<Chunk<Tile>>> megaChunks;
-    private LinkedList chunks = new LinkedList();
+public class Map {
+    protected LinkedList<Chunk> megaChunks;
+    private List<Chunk> chunks = new ArrayList<>();
 
     public Map() {
-        chunks.add(new Chunk<>(0, 0));
+        chunks.add(new Chunk(0, 0));
     }
 
-    public LinkedList getChunks() {
+    public List<Chunk> getChunks() {
         return chunks;
     }
 }

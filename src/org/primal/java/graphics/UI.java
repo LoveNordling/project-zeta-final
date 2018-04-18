@@ -1,12 +1,30 @@
 package org.primal.java.graphics;
 
-import org.primal.java.entity.LivingEntity;
+import org.primal.java.Simulation;
+import org.primal.java.map.Chunk;
 import org.primal.java.map.Map;
 
-import java.util.List;
-
 public class UI {
-    private List<LivingEntity> entities;
     private Map map;
 
+    public UI() {
+        map = new Map();
+        new Simulation(this, map);
+    }
+
+    public void setMap(Map map) {
+        // TODO: only update map parts that are changed.
+        this.map = map;
+        render();
+    }
+
+    private void render() {
+        for (Chunk chunk : map.getChunks()) {
+            for (int x = 0; x < chunk.getSize(); x++) {
+                for (int y = 0; y < chunk.getSize(); y++) {
+                    chunk.getTile(x, y); // TODO: render tile.
+                }
+            }
+        }
+    }
 }
