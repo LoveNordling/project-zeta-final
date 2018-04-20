@@ -1,28 +1,52 @@
 # Primal
 
-OSPP (1DT096) 2018 - Projekt zeta
+OSPP (1DT096) 2018 - Project zeta
 
-Projektarbete på kursen Operativsystem och processorienterad
-programmering (1DT096) våren 2018, Uppsala universitet.
+Project in the course Operating systems and process oriented programming (1DT096) spring 2018, Uppsala university.
 
-**TODO:** Lägg till en kort beskrivning av projektet.
+Primal is a simulation of an ecosystem. More specifically it is a simulation of a savana showing the most basic interaction between animals and their surroundings. The simulation is implemented in Java, running on concurrent threads for time optimization.
 
-**TODO:** Länk(ar) till mer utförlig dokumentation. 
+For a more detailed description of the project here is our [project proposal](./docs/project-proposal.pdf).
 
-## Kom igång
+## Getting started
 
-**TODO:** Kortfattade instruktioner som beskriver hur projektet byggs
-(kompileras eller liknande), testas (automatiska tester) och startas. Lägg gärna
-till lämpliga underrubriker.
+#### Dependencies
+To run this project you will need:  
+A Java distribution.  
+The build tool [Gradle](https://gradle.org/install/).  
 
-## Struktur
+#### Running
+Compile the project by navigating to the root folder in a terminal and type **gradle build**.  
+If the compilation worked as planned, navigate to */build/libs* where the file *Primal.jar* should have appeared. Now to run the program type **java -jar Primal.jar**.
 
-**TODO:** Lägg till en kortfattad beskrivning över katalogstrukturen. 
+#### Testing
 
-**meta**
 
-- gruppkontrakt
-- presentation av gruppens medlemmar
+## Structure
+
+**src**  
+This folder contains all vital code and all tests.
+
+**src/org/primal/java**  
+Root folder for the java code.
+- /behaviour
+- /entity
+- /graphics
+- /map
+- /responses
+- /tile
+
+**src/test**  
+This folder conatains all tests.
+
+**guidelines**  
+Guidelines for working on the project.
+
+**docs**  
+
+
+**meta**  
+Contains group contract and a presentation of the members of the project.
 
 ## Färdigställ 
 
