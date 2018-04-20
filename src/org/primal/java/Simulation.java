@@ -32,9 +32,7 @@ public class Simulation {
             for (int x = 0; x < chunk.getSize(); x++) {
                 for (int y = 0; y < chunk.getSize(); y++) {
                     for (LivingEntity entity : chunk.getTile(x, y).getLivingEntities()) {
-                        if (entity instanceof Animal) {
-                            ((Animal) entity).move();
-                        }
+                        entity.preformAction();
                     }
                 }
             }

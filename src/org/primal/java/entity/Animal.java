@@ -20,7 +20,9 @@ public abstract class Animal extends LivingEntity {
     public Animal(float x, float y) {
         this(x, y, 100, 100);
     }
-
+    public void preformAction(){
+        move();
+    }
     // Temporary function for random movement
     public void move() {
         Random rand = new Random();
