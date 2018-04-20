@@ -1,4 +1,4 @@
-package graphics;
+package org.primal.java.graphics;
 
 import javafx.animation.PathTransition;
 import javafx.animation.TranslateTransition;
