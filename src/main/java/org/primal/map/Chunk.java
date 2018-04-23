@@ -1,6 +1,7 @@
 package org.primal.map;
 
 import org.primal.SimObject;
+import org.primal.entity.Animal;
 import org.primal.entity.Lion;
 import org.primal.entity.LivingEntity;
 import org.primal.tile.LandTile;
@@ -36,13 +37,15 @@ public class Chunk extends SimObject implements Runnable {
                 for (int i = 0; i < size; i++) {
                     for (int j = 0; j < size; j++) {
                         for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
-                            entity.getShape().setLayoutX(10 + entity.getShape().getLayoutX());
+                            if (entity instanceof Animal) {
+                                ((Animal) entity).move();
+                            }
                         }
                     }
                 }
             }
 
-        }, 0, 1000);
+        }, 0, 100);
     }
 
     public int getId() {

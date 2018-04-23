@@ -30,7 +30,6 @@ public class Main extends Application {
         stage.setScene(scene);
         ObservableList list = root.getChildren();
 
-
         for (Chunk chunk : map.getChunks()) {
             for (int x = 0; x < chunk.getSize(); x++) {
                 for (int y = 0; y < chunk.getSize(); y++) {
