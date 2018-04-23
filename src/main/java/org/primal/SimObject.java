@@ -8,4 +8,8 @@ public abstract class SimObject {
         position[0] = x;
         position[1] = y;
     }
+
+    public float[] getPosition() {
+        return position;
+    }
 }
