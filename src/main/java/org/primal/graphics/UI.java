@@ -8,7 +8,7 @@ public class UI {
     private Map map;
 
     public UI() {
-        map = new Map();
+        map = new Map(4);
         new Simulation(this, map);
     }
 

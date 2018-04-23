@@ -8,8 +8,13 @@ public class Map {
     private LinkedList<Chunk> megaChunks;
     private List<Chunk> chunks = new ArrayList<>();
 
-    public void setChunks(List<Chunk> chunks) {
-        this.chunks = chunks;
+    public Map(int width) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < width; y++) {
+                chunks.add(new Chunk(x, y, chunks.size()));
+            }
+        }
+
     }
 
     public LinkedList<Chunk> getMegaChunks() {
@@ -17,16 +22,11 @@ public class Map {
         return megaChunks;
     }
 
-    public Map(int width) {
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < width; y++) {
-                chunks.add(new Chunk(x, y, 0));
-            }
-        }
-
-    }
-
     public List<Chunk> getChunks() {
         return chunks;
+    }
+
+    public void setChunks(List<Chunk> chunks) {
+        this.chunks = chunks;
     }
 }
