@@ -1,5 +1,7 @@
 package org.primal.entity;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import org.primal.behaviour.Behaviour;
 
 import java.util.LinkedList;
@@ -10,15 +12,21 @@ public abstract class Animal extends LivingEntity {
     protected float stamina;
     protected float fullness; //0-100
     protected int starvationRate = 1;
+    private Circle shape;
 
     public Animal(float x, float y, float stamina, float fullness) {
         super(x, y);
         this.stamina = stamina;
         this.fullness = fullness;
+        this.shape = new Circle(x, y, 5, Color.GREEN);
     }
 
     public Animal(float x, float y) {
         this(x, y, 100, 100);
+    }
+
+    public Circle getShape() {
+        return shape;
     }
 
     public void preformAction() {

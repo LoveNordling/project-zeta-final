@@ -7,8 +7,8 @@ import org.primal.map.Map;
 public class Main {
 
     public static void main(String[] args) {
-        Map map = new Map(4);
-        UI ui = new UI(map);
+        Map map = new Map(1);
+        UI ui = new UI(map, args);
 
         for (Chunk c : map.getChunks()) {
             Thread t = new Thread(c, "thread " + c.getId());
