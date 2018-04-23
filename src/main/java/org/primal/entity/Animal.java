@@ -18,7 +18,7 @@ public abstract class Animal extends LivingEntity {
         super(x, y);
         this.stamina = stamina;
         this.fullness = fullness;
-        this.shape = new Circle(x, y, 5, Color.GREEN);
+        this.shape = new Circle(x * 20, y * 20, 2, Color.GREEN);
     }
 
     public Animal(float x, float y) {

@@ -2,8 +2,12 @@ package org.primal.map;
 
 import org.primal.SimObject;
 import org.primal.entity.Lion;
+import org.primal.entity.LivingEntity;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Chunk extends SimObject implements Runnable {
     private Tile[][] tiles;
@@ -25,16 +29,20 @@ public class Chunk extends SimObject implements Runnable {
     }
 
     public void run() {
-        System.out.println("Running thread: " + id);
-        try {
-            for (int i = 4; i > 0; i--) {
-                System.out.println("Thread: " + id + ", " + i);
-                Thread.sleep(50);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < size; j++) {
+                        for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
+                            entity.getShape().setLayoutX(10 + entity.getShape().getLayoutX());
+                        }
+                    }
+                }
             }
-        } catch (InterruptedException e) {
-            System.out.println("Thread " + id + " interrupted.");
-        }
-        System.out.println("Thread " + id + " exiting.");
+
+        }, 0, 1000);
     }
 
     public int getId() {
