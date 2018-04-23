@@ -1,15 +1,13 @@
 package org.primal.graphics;
 
-import org.primal.Simulation;
 import org.primal.map.Chunk;
 import org.primal.map.Map;
 
 public class UI {
     private Map map;
 
-    public UI() {
-        map = new Map(4);
-        new Simulation(this, map);
+    public UI(Map map) {
+        this.map = map;
     }
 
     public void setMap(Map map) {
