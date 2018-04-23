@@ -9,7 +9,7 @@ public class Map {
     private List<Chunk> chunks = new ArrayList<>();
 
     public Map() {
-        chunks.add(new Chunk(0, 0));
+        chunks.add(new Chunk(0, 0, 1));
     }
 
     public List<Chunk> getChunks() {

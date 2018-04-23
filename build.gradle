@@ -55,7 +55,7 @@ kotlin {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'org.primal.graphics.GUI'
+        attributes 'Main-Class': 'org.primal.Main'
     }
 }
 
