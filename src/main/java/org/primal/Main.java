@@ -1,13 +1,15 @@
 package org.primal;
 
 import org.primal.map.Chunk;
+import org.primal.map.Map;
 
 public class Main {
 
     public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
-            Chunk c = new Chunk(0, 0, i);
-            Thread t = new Thread(c, "thread " + i);
+        Map map = new Map(4);
+
+        for (Chunk c : map.getChunks()) {
+            Thread t = new Thread(c, "thread " + c.getId());
             t.start();
         }
     }
