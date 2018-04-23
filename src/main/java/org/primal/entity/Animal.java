@@ -1,9 +1,11 @@
 package org.primal.entity;
 
-import org.primal.behaviour.Behaviour;
+
+import org.primal.behaviour.*;
 
 import java.util.LinkedList;
 import java.util.Random;
+import org.primal.map.Map;
 
 public abstract class Animal extends LivingEntity {
     protected LinkedList<Behaviour> behaviours;
@@ -13,6 +15,7 @@ public abstract class Animal extends LivingEntity {
 
     public Animal(float x, float y, float stamina, float fullness) {
         super(x, y);
+        this.behaviours = behaviours;
         this.stamina = stamina;
         this.fullness = fullness;
     }
@@ -21,8 +24,13 @@ public abstract class Animal extends LivingEntity {
         this(x, y, 100, 100);
     }
 
-    public void preformAction() {
-        move();
+    public void preformAction(Map map) {
+        Behaviour best = behaviours.getFirst();
+        for (Behaviour behaviour: behaviours) {
+            behaviour.decide();
+            best = best.getWeight() < behaviour.getWeight() ? behaviour : best;
+        }
+        best.act();
     }
 
     // Temporary function for random movement
