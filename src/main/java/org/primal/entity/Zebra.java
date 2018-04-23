@@ -1,8 +1,10 @@
 package org.primal.entity;
 
-import java.util.LinkedList;
-import org.primal.behaviour.*;
+import org.primal.behaviour.Behaviour;
+import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
+
+import java.util.LinkedList;
 
 
 public class Zebra extends Animal {

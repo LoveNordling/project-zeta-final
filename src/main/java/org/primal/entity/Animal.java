@@ -10,9 +10,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
     LinkedList<Behaviour> behaviours;
+    int starvationRate = 1;
     private float stamina;
     private float fullness; //0-100
-    int starvationRate = 1;
     private Circle shape;
 
     public Animal(float x, float y, float stamina, float fullness) {
