@@ -11,6 +11,8 @@ import org.primal.map.Chunk;
 import org.primal.map.Map;
 
 public class Main extends Application {
+    public int windowWidth = 600;
+    public int windowHeight = 600;
     private Map map;
 
     public static void main(String[] args) {
@@ -21,13 +23,14 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         this.map = new Map(1);
 
+
         for (Chunk c : map.getChunks()) {
             Thread t = new Thread(c, "thread " + c.getId());
             t.start();
         }
 
         Group root = new Group();
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, windowWidth, windowHeight);
         scene.setFill(Color.rgb(188, 166, 49));
         stage.setScene(scene);
         ObservableList list = root.getChildren();
@@ -38,6 +41,7 @@ public class Main extends Application {
                     for (LivingEntity entity : chunk.getTile(x, y).getLivingEntities()) {
                         list.add(entity.getShape());
                     }
+                    list.add(0, chunk.getTile(x, y).getShape());
                 }
             }
         }

@@ -17,7 +17,7 @@ public abstract class Animal extends LivingEntity {
 
     public Animal(float x, float y, float health, float stamina, float fullness, Shape shape) {
         // TODO: remove static x y below.
-        super(60, 60, shape, health);
+        super(x, y, shape, health);
         this.stamina = stamina;
         this.fullness = fullness;
         this.shape.setOnMousePressed(click -> System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n"));
@@ -27,9 +27,6 @@ public abstract class Animal extends LivingEntity {
         this(x, y, 100, 100, 100, new Circle(x, y, 2, Color.GREEN));
     }
 
-    public Shape getShape() {
-        return shape;
-    }
 
     public void performAction(Map map) {
         Behaviour best = behaviours.getFirst();
@@ -38,23 +35,23 @@ public abstract class Animal extends LivingEntity {
             best = best.getWeight() < behaviour.getWeight() ? behaviour : best;
         }
         best.act();
+        this.updateShape();
     }
 
     // Temporary function for random movement
     public void move() {
+
         int n = ThreadLocalRandom.current().nextInt(0, 4);
         if (n == 0) {
-            position[0] += 1;
+            position[0] += 0.1;
         } else if (n == 1) {
-            position[0] -= 1;
+            position[0] -= 0.1;
         } else if (n == 2) {
-            position[1] += 1;
+            position[1] += 0.1;
         } else {
-            position[1] -= 1;
+            position[1] -= 0.1;
         }
 
-        this.shape.setTranslateX(position[0] * 5);
-        this.shape.setTranslateY(position[1] * 5);
     }
 
     public abstract void eat(LivingEntity food);
