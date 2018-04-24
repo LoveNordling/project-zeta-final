@@ -12,8 +12,8 @@ public abstract class LivingEntity extends Entity {
     }
 
     public void updateShape() {
-        this.shape.setTranslateX(position[0] * Tile.getSize() - position[0]);
-        this.shape.setTranslateY(position[1] * Tile.getSize() - position[1]);
+        this.shape.setTranslateX(position[0] * (Tile.getSize() -1) + Tile.getSize()/2);
+        this.shape.setTranslateY(position[1] * (Tile.getSize() -1) + Tile.getSize()/2);
     }
 
     public Shape getShape() {

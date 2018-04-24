@@ -9,6 +9,7 @@ import org.primal.behaviour.Behaviour;
 import org.primal.map.Map;
 
 import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
     LinkedList<Behaviour> behaviours;
@@ -46,18 +47,17 @@ public abstract class Animal extends LivingEntity {
 
     // Temporary function for random movement
     public void move() {
-        /*
+
         int n = ThreadLocalRandom.current().nextInt(0, 4);
         if (n == 0) {
-            position[0] += 1;
+            position[0] += 0.1;
         } else if (n == 1) {
-            position[0] -= 1;
+            position[0] -= 0.1;
         } else if (n == 2) {
-            position[1] += 1;
+            position[1] += 0.1;
         } else {
-            position[1] -= 1;
+            position[1] -= 0.1;
         }
-    */
 
     }
 
