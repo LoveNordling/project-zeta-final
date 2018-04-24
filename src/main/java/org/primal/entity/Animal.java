@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
-    float x, y;
     int starvationRate = 1;
     float health;
     float stamina;
@@ -20,8 +19,6 @@ public abstract class Animal extends LivingEntity {
 
     public Animal(float x, float y, float health, float stamina, float fullness, Shape shape) {
         super(60, 60);
-        this.x = x;
-        this.y = y;
         this.health = health;
         this.stamina = stamina;
         this.fullness = fullness;
