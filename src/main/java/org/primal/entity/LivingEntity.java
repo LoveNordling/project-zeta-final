@@ -7,8 +7,9 @@ public abstract class LivingEntity extends Entity {
     float energySatisfaction;
     private Shape shape;
 
-    public LivingEntity(float x, float y) {
+    public LivingEntity(float health, float x, float y) {
         super(x, y);
+        this.health = health;
     }
 
     public Shape getShape() {

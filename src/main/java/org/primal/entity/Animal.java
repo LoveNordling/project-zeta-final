@@ -11,15 +11,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
     int starvationRate = 1;
-    float health;
     float stamina;
     float fullness;
     Shape shape;
     LinkedList<Behaviour> behaviours;
 
     public Animal(float x, float y, float health, float stamina, float fullness, Shape shape) {
-        super(60, 60);
-        this.health = health;
+        super(health, 60, 60);
         this.stamina = stamina;
         this.fullness = fullness;
         this.shape = shape;
