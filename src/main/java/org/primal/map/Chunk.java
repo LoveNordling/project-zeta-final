@@ -40,23 +40,17 @@ public class Chunk extends SimObject implements Runnable {
         }
     }
 
+    @Override
     public void run() {
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < size; j++) {
-                        for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
-                            if (entity instanceof Animal) {
-                                ((Animal) entity).performAction(map);
-                            }
-                        }
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
+                    if (entity instanceof Animal) {
+                        ((Animal) entity).performAction(map);
                     }
                 }
             }
-
-        }, 0, 100);
+        }
     }
 
     public int getId() {
