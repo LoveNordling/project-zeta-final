@@ -9,7 +9,6 @@ import org.primal.behaviour.Behaviour;
 import org.primal.map.Map;
 
 import java.util.LinkedList;
-import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
     LinkedList<Behaviour> behaviours;
@@ -33,7 +32,6 @@ public abstract class Animal extends LivingEntity {
     public Animal(float x, float y) {
         this(x, y, 100, 100, new Circle(x, y, 2, Color.GREEN));
     }
-
 
 
     public void performAction(Map map) {

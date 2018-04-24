@@ -7,7 +7,6 @@ import org.primal.behaviour.Behaviour;
 import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
 
-
 import java.util.LinkedList;
 
 public class Lion extends Animal {
@@ -19,7 +18,7 @@ public class Lion extends Animal {
         this.starvationRate = 1;
     }
 
-    public void eat(LivingEntity food){
+    public void eat(LivingEntity food) {
 
     }
 }

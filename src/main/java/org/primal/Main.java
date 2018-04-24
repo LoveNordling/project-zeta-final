@@ -11,9 +11,9 @@ import org.primal.map.Chunk;
 import org.primal.map.Map;
 
 public class Main extends Application {
-    private Map map;
     public int windowWidth = 600;
     public int windowHeight = 600;
+    private Map map;
 
     public static void main(String[] args) {
         launch(args);
@@ -41,7 +41,7 @@ public class Main extends Application {
                     for (LivingEntity entity : chunk.getTile(x, y).getLivingEntities()) {
                         list.add(entity.getShape());
                     }
-                    list.add(0, chunk.getTile(x,y).getShape());
+                    list.add(0, chunk.getTile(x, y).getShape());
                 }
             }
         }

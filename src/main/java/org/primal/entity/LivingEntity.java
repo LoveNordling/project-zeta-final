@@ -11,12 +11,12 @@ public abstract class LivingEntity extends Entity {
         super(x, y);
     }
 
-    public void updateShape(){
-        this.shape.setTranslateX(position[0] * Tile.getSize());
-        this.shape.setTranslateY(position[1] * Tile.getSize());
+    public void updateShape() {
+        this.shape.setTranslateX(position[0] * Tile.getSize() - position[0]);
+        this.shape.setTranslateY(position[1] * Tile.getSize() - position[1]);
     }
 
-    public Shape getShape(){
+    public Shape getShape() {
         updateShape();
         return this.shape;
     }
