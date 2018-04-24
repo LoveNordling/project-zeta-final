@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class Hyena extends Animal {
     public Hyena(float x, float y, float stamina, float fullness, Map map) {
-        super(x, y, stamina, fullness, new Circle(x, y, 2, Color.BROWN));
+        super(x, y, 100, stamina, fullness, new Circle(x, y, 2, Color.BROWN));
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
         this.behaviours = new LinkedList<>();
         this.behaviours.add(foodBehaviour);

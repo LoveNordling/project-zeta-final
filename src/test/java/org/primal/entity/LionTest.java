@@ -10,7 +10,7 @@ class LionTest {
 
     @BeforeEach
     private void spawnLion() {
-        lion = new Lion(0, 0, 100.0f, 100.0f);
+        lion = new Lion(0, 0, 100.0f, 100.0f, null);
     }
 
     @Test

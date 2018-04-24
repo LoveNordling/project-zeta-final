@@ -1,7 +1,5 @@
 package org.primal.entity;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -12,27 +10,21 @@ import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
-    LinkedList<Behaviour> behaviours;
     int starvationRate = 1;
-    private float stamina;
-    private float fullness; //0-100
-    private Shape shape;
+    float stamina;
+    float fullness;
+    LinkedList<Behaviour> behaviours;
 
-    public Animal(float x, float y, float stamina, float fullness, Shape shape) {
-        super(60, 60);
-        this.behaviours = behaviours;
+    public Animal(float x, float y, float health, float stamina, float fullness, Shape shape) {
+        // TODO: remove static x y below.
+        super(60, 60, shape, health);
         this.stamina = stamina;
         this.fullness = fullness;
-        this.shape = shape;
-        this.shape.setOnMousePressed(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent click) {
-                System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n");
-            }
-        });
+        this.shape.setOnMousePressed(click -> System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n"));
     }
 
     public Animal(float x, float y) {
-        this(x, y, 100, 100, new Circle(x, y, 2, Color.GREEN));
+        this(x, y, 100, 100, 100, new Circle(x, y, 2, Color.GREEN));
     }
 
     public Shape getShape() {
