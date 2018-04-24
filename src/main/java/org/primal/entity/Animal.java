@@ -13,14 +13,12 @@ public abstract class Animal extends LivingEntity {
     int starvationRate = 1;
     float stamina;
     float fullness;
-    Shape shape;
     LinkedList<Behaviour> behaviours;
 
     public Animal(float x, float y, float health, float stamina, float fullness, Shape shape) {
-        super(health, 60, 60);
+        super(60, 60, shape, health);
         this.stamina = stamina;
         this.fullness = fullness;
-        this.shape = shape;
         this.shape.setOnMousePressed(click -> System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n"));
     }
 
