@@ -13,9 +13,11 @@ public class Chunk extends SimObject implements Runnable {
     private Tile[][] tiles;
     private int size = 16;
     private int id;
+    private Map map;
 
-    public Chunk(float x, float y, int id) {
+    public Chunk(float x, float y, int id, Map map) {
         super(x, y);
+        this.map = map;
         this.id = id;
         tiles = new Tile[size][size];
         for (int i = 0; i < size; i++) {
@@ -24,11 +26,11 @@ public class Chunk extends SimObject implements Runnable {
 
                 int n = ThreadLocalRandom.current().nextInt(0, 3);
                 if (n == 0) {
-                    entity = new Lion(i, j, 100.0f, 100.0f);
+                    entity = new Lion(i, j, 100.0f, 100.0f, map);
                 } else if (n == 1) {
-                    entity = new Hyena(i, j, 100.0f, 100.0f);
+                    entity = new Hyena(i, j, 100.0f, 100.0f, map);
                 } else if (n == 2) {
-                    entity = new Giraffe(i, j, 100.0f, 100.0f);
+                    entity = new Giraffe(i, j, 100.0f, 100.0f, map);
                 }
 
                 Tile tile = new LandTile((float) i, (float) j);
@@ -47,7 +49,7 @@ public class Chunk extends SimObject implements Runnable {
                     for (int j = 0; j < size; j++) {
                         for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
                             if (entity instanceof Animal) {
-                                ((Animal) entity).move();
+                                ((Animal) entity).performAction(map);
                             }
                         }
                     }

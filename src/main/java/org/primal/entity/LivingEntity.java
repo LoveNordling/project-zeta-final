@@ -15,6 +15,6 @@ public abstract class LivingEntity extends Entity {
         return shape;
     }
 
-    public void preformAction() {
+    public void performAction() {
     }
 }
