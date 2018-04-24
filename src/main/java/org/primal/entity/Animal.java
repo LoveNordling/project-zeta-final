@@ -2,6 +2,7 @@ package org.primal.entity;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import org.primal.behaviour.Behaviour;
 import org.primal.map.Map;
 
@@ -13,21 +14,21 @@ public abstract class Animal extends LivingEntity {
     int starvationRate = 1;
     private float stamina;
     private float fullness; //0-100
-    private Circle shape;
+    private Shape shape;
 
-    public Animal(float x, float y, float stamina, float fullness) {
+    public Animal(float x, float y, float stamina, float fullness, Shape shape) {
         super(60, 60);
         this.behaviours = behaviours;
         this.stamina = stamina;
         this.fullness = fullness;
-        this.shape = new Circle(x * 5, y * 5, 2, Color.GREEN);
+        this.shape = shape;
     }
 
     public Animal(float x, float y) {
-        this(x, y, 100, 100);
+        this(x, y, 100, 100, new Circle(x, y, 2, Color.GREEN));
     }
 
-    public Circle getShape() {
+    public Shape getShape() {
         return shape;
     }
 
@@ -53,8 +54,8 @@ public abstract class Animal extends LivingEntity {
             position[1] -= 1;
         }
 
-        this.shape.setCenterX(position[0] * 5);
-        this.shape.setCenterY(position[1] * 5);
+        this.shape.setTranslateX(position[0] * 5);
+        this.shape.setTranslateY(position[1] * 5);
     }
 
     public abstract void eat(LivingEntity food);

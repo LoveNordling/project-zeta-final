@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.primal.entity.LivingEntity;
 import org.primal.map.Chunk;
@@ -27,6 +28,7 @@ public class Main extends Application {
 
         Group root = new Group();
         Scene scene = new Scene(root, 600, 600);
+        scene.setFill(Color.rgb(188, 166, 49));
         stage.setScene(scene);
         ObservableList list = root.getChildren();
 

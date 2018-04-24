@@ -1,14 +1,13 @@
 package org.primal.map;
 
 import org.primal.SimObject;
-import org.primal.entity.Animal;
-import org.primal.entity.Lion;
-import org.primal.entity.LivingEntity;
+import org.primal.entity.*;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Chunk extends SimObject implements Runnable {
     private Tile[][] tiles;
@@ -23,9 +22,19 @@ public class Chunk extends SimObject implements Runnable {
         tiles = new Tile[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                Lion lion = new Lion(i, j, 100.0f, 100.0f, map);
+                LivingEntity entity = null;
+
+                int n = ThreadLocalRandom.current().nextInt(0, 3);
+                if (n == 0) {
+                    entity = new Lion(i, j, 100.0f, 100.0f, map);
+                } else if (n == 1) {
+                    entity = new Hyena(i, j, 100.0f, 100.0f, map);
+                } else if (n == 2) {
+                    entity = new Giraffe(i, j, 100.0f, 100.0f, map);
+                }
+
                 Tile tile = new LandTile((float) i, (float) j);
-                tile.addLivingEntity(lion);
+                tile.addLivingEntity(entity);
                 tiles[i][j] = tile;
             }
         }
