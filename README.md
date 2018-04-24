@@ -6,7 +6,7 @@ Project in the course Operating systems and process oriented programming (1DT096
 
 Primal is a simulation of an ecosystem. More specifically it is a simulation of a savana showing the most basic interaction between animals and their surroundings. The simulation is implemented in Java, running on concurrent threads for time optimization.
 
-For a more detailed description of the project here is our [project proposal](./docs/project-proposal.pdf).
+For a more detailed description of the project here is our [project proposal](meta/project-proposal.pdf).
 
 ## Getting started
 
