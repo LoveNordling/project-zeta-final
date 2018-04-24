@@ -1,5 +1,7 @@
 package org.primal.entity;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -22,6 +24,11 @@ public abstract class Animal extends LivingEntity {
         this.stamina = stamina;
         this.fullness = fullness;
         this.shape = shape;
+        this.shape.setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent click) {
+                System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n");
+            }
+        });
     }
 
     public Animal(float x, float y) {
@@ -59,4 +66,12 @@ public abstract class Animal extends LivingEntity {
     }
 
     public abstract void eat(LivingEntity food);
+
+    public float getFullness() {
+        return this.fullness;
+    }
+
+    public float getStamina() {
+        return this.stamina;
+    }
 }
