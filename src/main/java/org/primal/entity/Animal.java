@@ -31,7 +31,7 @@ public abstract class Animal extends LivingEntity {
         return shape;
     }
 
-    public void preformAction(Map map) {
+    public void performAction(Map map) {
         Behaviour best = behaviours.getFirst();
         for (Behaviour behaviour : behaviours) {
             behaviour.decide();
