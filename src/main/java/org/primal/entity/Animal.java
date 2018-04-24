@@ -5,7 +5,9 @@ import javafx.scene.shape.Circle;
 import org.primal.behaviour.Behaviour;
 import org.primal.map.Map;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
@@ -20,7 +22,15 @@ public abstract class Animal extends LivingEntity {
         this.behaviours = behaviours;
         this.stamina = stamina;
         this.fullness = fullness;
-        this.shape = new Circle(x * 5, y * 5, 2, Color.GREEN);
+        // REMOVE AFTER DEMO
+        List<Color> colors = new ArrayList<>();
+        colors.add(Color.BLACK);
+        colors.add(Color.rgb(148, 92, 4));
+        colors.add(Color.rgb(98, 98, 100));
+        colors.add(Color.rgb(202, 113, 100));
+        Color color = colors.get(ThreadLocalRandom.current().nextInt(0, colors.size()));
+        // REMOVE AFTER DEMO
+        this.shape = new Circle(x * 5, y * 5, 2, color);
     }
 
     public Animal(float x, float y) {
