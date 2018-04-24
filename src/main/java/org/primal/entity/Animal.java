@@ -16,6 +16,7 @@ public abstract class Animal extends LivingEntity {
     LinkedList<Behaviour> behaviours;
 
     public Animal(float x, float y, float health, float stamina, float fullness, Shape shape) {
+        // TODO: remove static x y below.
         super(60, 60, shape, health);
         this.stamina = stamina;
         this.fullness = fullness;
