@@ -2,12 +2,11 @@ package org.primal.entity;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import org.primal.behaviour.Behaviour;
 import org.primal.map.Map;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
@@ -15,33 +14,25 @@ public abstract class Animal extends LivingEntity {
     int starvationRate = 1;
     private float stamina;
     private float fullness; //0-100
-    private Circle shape;
+    private Shape shape;
 
-    public Animal(float x, float y, float stamina, float fullness) {
+    public Animal(float x, float y, float stamina, float fullness, Shape shape) {
         super(60, 60);
         this.behaviours = behaviours;
         this.stamina = stamina;
         this.fullness = fullness;
-        // REMOVE AFTER DEMO
-        List<Color> colors = new ArrayList<>();
-        colors.add(Color.BLACK);
-        colors.add(Color.rgb(148, 92, 4));
-        colors.add(Color.rgb(98, 98, 100));
-        colors.add(Color.rgb(202, 113, 100));
-        Color color = colors.get(ThreadLocalRandom.current().nextInt(0, colors.size()));
-        // REMOVE AFTER DEMO
-        this.shape = new Circle(x * 5, y * 5, 2, color);
+        this.shape = shape;
     }
 
     public Animal(float x, float y) {
-        this(x, y, 100, 100);
+        this(x, y, 100, 100, new Circle(x, y, 2, Color.GREEN));
     }
 
-    public Circle getShape() {
+    public Shape getShape() {
         return shape;
     }
 
-    public void preformAction(Map map) {
+    public void performAction(Map map) {
         Behaviour best = behaviours.getFirst();
         for (Behaviour behaviour : behaviours) {
             behaviour.decide();
@@ -63,8 +54,8 @@ public abstract class Animal extends LivingEntity {
             position[1] -= 1;
         }
 
-        this.shape.setCenterX(position[0] * 5);
-        this.shape.setCenterY(position[1] * 5);
+        this.shape.setTranslateX(position[0] * 5);
+        this.shape.setTranslateY(position[1] * 5);
     }
 
     public abstract void eat(LivingEntity food);
