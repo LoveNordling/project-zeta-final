@@ -5,7 +5,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import org.primal.behaviour.Behaviour;
 import org.primal.map.Map;
+import org.primal.tile.Tile;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -13,18 +16,20 @@ public abstract class Animal extends LivingEntity {
     int starvationRate = 1;
     float stamina;
     float fullness;
+    private Graphics g;
     LinkedList<Behaviour> behaviours;
 
-    public Animal(float x, float y, float health, float stamina, float fullness, Shape shape) {
+    public Animal(float x, float y, float health, float stamina, float fullness, Graphics g){
         // TODO: remove static x y below.
-        super(x, y, shape, health);
+        super(x, y, health);
+        this.g = g;
         this.stamina = stamina;
         this.fullness = fullness;
-        this.shape.setOnMousePressed(click -> System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n"));
+        //this.shape.setOnMousePressed(click -> System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n"));
     }
 
-    public Animal(float x, float y) {
-        this(x, y, 100, 100, 100, new Circle(x, y, 2, Color.GREEN));
+    public Animal(float x, float y, Graphics g) {
+        this(x, y, 100, 100, 100, g);
     }
 
 
@@ -35,7 +40,16 @@ public abstract class Animal extends LivingEntity {
             best = best.getWeight() < behaviour.getWeight() ? behaviour : best;
         }
         best.act();
-        this.updateShape();
+        draw(g);
+
+        //this.updateShape();
+    }
+
+    public void draw(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(java.awt.Color.BLACK);
+        g2d.setPaint(new java.awt.Color(0, 0, 0));
+        g2d.fill(new Rectangle2D.Double(getPosition()[0] * Tile.getSize(), getPosition()[1] * Tile.getSize(), 10,10));
     }
 
     // Temporary function for random movement
