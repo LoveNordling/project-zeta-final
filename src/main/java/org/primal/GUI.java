@@ -56,16 +56,14 @@ class Surface extends JPanel {
 
 public class GUI extends JFrame {
 
-    public GUI() {
+    public GUI(Map map) {
 
-        initUI();
+        initUI(map);
     }
 
-    private void initUI() {
+    private void initUI(Map map) {
 
-        Map map = new Map(1);
-        Simulation simulation = new Simulation(map);
-        simulation.start();
+
         add(new Surface(map));
 
         setTitle("Simple Java 2D example");
