@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Chunk extends SimObject implements Runnable {
+public class Chunk extends SimObject {
     private Tile[][] tiles;
     private int size = 16;
     private int id;
@@ -43,8 +43,7 @@ public class Chunk extends SimObject implements Runnable {
         }
     }
 
-    @Override
-    public void run(){
+    public void updateChunk(){
 
         try{
             Thread.sleep(100);
