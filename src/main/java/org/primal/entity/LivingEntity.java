@@ -2,7 +2,7 @@ package org.primal.entity;
 
 import javafx.scene.shape.Shape;
 import org.primal.tile.Tile;
-
+import org.primal.map.Map;
 public abstract class LivingEntity extends Entity {
     Shape shape;
     float health;
@@ -24,6 +24,6 @@ public abstract class LivingEntity extends Entity {
         return this.shape;
     }
 
-    public void performAction() {
+    public void performAction(Map map) {
     }
 }

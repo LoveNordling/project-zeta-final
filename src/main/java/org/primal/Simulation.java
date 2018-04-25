@@ -24,7 +24,7 @@ public class Simulation {
     public void start() {
         for (Chunk c : this.map.getChunks()) {
             // 16 Milliseconds is approximatly 1/60 sec
-            simulationThreadPool.scheduleAtFixedRate(c, 0, 16, TimeUnit.MILLISECONDS);
+            simulationThreadPool.scheduleAtFixedRate(c, 0, 100, TimeUnit.MILLISECONDS);
         }
     }
 

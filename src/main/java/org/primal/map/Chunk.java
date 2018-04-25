@@ -37,15 +37,21 @@ public class Chunk extends SimObject implements Runnable {
             }
         }
     }
-
+    /*private boolean withinChunk(float [] pos){
+        if(map.getChunk(pos[0], pos[1]).getId() == id){
+            return false;
+        }
+        return true;
+        }*/
     @Override
     public void run() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
-                    if (entity instanceof Animal) {
-                        ((Animal) entity).performAction(map);
-                    }
+                        entity.performAction(map);
+                        /*if(!withinChunk(entity.getPosition())){
+                            
+                          } */
                 }
             }
         }
