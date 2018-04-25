@@ -18,19 +18,19 @@ public abstract class Animal extends LivingEntity {
 
     LinkedList<Behaviour> behaviours;
 
-    public Animal(float x, float y, float health, float stamina, float fullness, Graphics g){
+    public Animal(float x, float y, float health, float stamina, float fullness){
         // TODO: remove static x y below.
         super(x, y, health);
-        this.shape = new Rectangle.Double(this.getPosition()[0] * Tile.getSize(), this.getPosition()[1] * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
 
-        this.g = g;
+        this.shape = new Rectangle.Float(this.getPosition()[0] * Tile.getSize(), this.getPosition()[1] * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
+
         this.stamina = stamina;
         this.fullness = fullness;
         //this.shape.setOnMousePressed(click -> System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n"));
     }
 
-    public Animal(float x, float y, Graphics g) {
-        this(x, y, 100, 100, 100, g);
+    public Animal(float x, float y) {
+        this(x, y, 100, 100, 100);
     }
 
 
@@ -47,19 +47,21 @@ public abstract class Animal extends LivingEntity {
     // Temporary function for random movement
     public void move() {
 
-        int n = ThreadLocalRandom.current().nextInt(0, 3);
+        int n = ThreadLocalRandom.current().nextInt(0, 4);
         if (n==0) {
             position[0] += 0.1;
         } else if (n == 1) {
             position[0] -= 0.1;
         } else if (n == 2) {
             position[1] += 0.1;
-        } else {
+        } else{
             position[1] -= 0.1;
         }
-        System.out.println("moved to"+ getPosition()[0]);
-        shape.setRect(position[0]*Tile.getSize(), position[1]*Tile.getSize(), Tile.getSize()/8, Tile.getSize()/8);
+        updateShape();
+
     }
+
+
 
     public abstract void eat(LivingEntity food);
 

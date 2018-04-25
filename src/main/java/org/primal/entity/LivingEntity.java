@@ -5,7 +5,7 @@ import org.primal.tile.Tile;
 import java.awt.*;
 
 public abstract class LivingEntity extends Entity {
-    Rectangle.Double shape;
+    protected Rectangle.Float shape;
     float health;
     float energySatisfaction;
     protected Color color;
@@ -18,10 +18,10 @@ public abstract class LivingEntity extends Entity {
     }
 
     public void updateShape() {
-        this.shape.setRect(getPosition()[0]*Tile.getSize(), getPosition()[1]*Tile.getSize(), Tile.getSize()/8, Tile.getSize()/8);
+        this.shape.setRect((getPosition()[0]-0.5)*Tile.getSize(), (getPosition()[1]-0.5)*Tile.getSize(), Tile.getSize()/8, Tile.getSize()/8);
     }
 
-    public Shape getShape() {
+    public Rectangle.Float getShape() {
         updateShape();
         return this.shape;
     }

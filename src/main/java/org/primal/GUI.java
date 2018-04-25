@@ -10,31 +10,24 @@ import org.primal.tile.Tile;
 
 class Surface extends JPanel {
     private Map map;
-    public Surface(){
+    public Surface(Map map){
         super();
+
         this.map = map;
     }
     private void doDrawing(Graphics g) {
-
+        super.paintComponent(g);
+        System.out.println("Doing a doDrawing");
         Graphics2D g2d = (Graphics2D) g;
-        this.map = new Map(1, g2d);
 
-
-        Simulation simulation = new Simulation(this.map);
-        simulation.start();
-
-        g2d.drawString("Java 2D", 50, 50);
-
-
-        for(int i = 0; i < 100; i++) {
-            super.paintComponent(g);
-            repaint();
-
-            for (Chunk chunk : map.getChunks()) {
+        for (Chunk chunk : map.getChunks()) {
                 for (int x = 0; x < chunk.getSize(); x++) {
                     for (int y = 0; y < chunk.getSize(); y++) {
                         Tile tile = chunk.getTile(x, y);
-
+                        g2d.setPaint(new Color(0,100,50));
+                        g2d.fill(tile.getShape());
+                        g2d.setPaint(new Color(0,0,0));
+                        g2d.draw(tile.getShape());
                         for (LivingEntity entity : tile.getLivingEntities()) {
 
                             g2d.setPaint(entity.getColor());
@@ -45,14 +38,17 @@ class Surface extends JPanel {
             }
 
 
-        }
 
+
+        g2d.drawString("Java 2D", 50, 50);
+
+        repaint();
 
     }
 
+
     @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         doDrawing(g);
     }
@@ -67,8 +63,10 @@ public class GUI extends JFrame {
 
     private void initUI() {
 
-
-        add(new Surface());
+        Map map = new Map(1);
+        Simulation simulation = new Simulation(map);
+        simulation.start();
+        add(new Surface(map));
 
         setTitle("Simple Java 2D example");
         setSize(1000, 1000);
