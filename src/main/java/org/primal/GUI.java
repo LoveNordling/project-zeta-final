@@ -24,9 +24,9 @@ class Surface extends JPanel {
                     Tile tile = chunk.getTile(x, y);
 
                     g2d.setPaint(new Color(150, 100, 0));
-                    //g2d.fill(new Rectangle2D.Double(tile.getPosition()[0] * Tile.getSize(), tile.getPosition()[1] * Tile.getSize(), Tile.getSize(), Tile.getSize()));
+                    g2d.fill(new Rectangle2D.Double(tile.getPosition()[0] * Tile.getSize(), tile.getPosition()[1] * Tile.getSize(), Tile.getSize(), Tile.getSize()));
                     g2d.setPaint(new Color(150, 150, 150));
-                    //g2d.draw(new Rectangle2D.Double(tile.getPosition()[0] * Tile.getSize(), tile.getPosition()[1] * Tile.getSize(), Tile.getSize(), Tile.getSize()));
+                    g2d.draw(new Rectangle2D.Double(tile.getPosition()[0] * Tile.getSize(), tile.getPosition()[1] * Tile.getSize(), Tile.getSize(), Tile.getSize()));
                 }
             }
         }
