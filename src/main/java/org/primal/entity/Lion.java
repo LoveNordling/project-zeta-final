@@ -17,6 +17,7 @@ public class Lion extends Animal {
         this.behaviours = new LinkedList<>();
         this.behaviours.add(foodBehaviour);
         this.starvationRate = 1;
+        this.color = new java.awt.Color(0,0,150);
     }
 
     public void eat(LivingEntity food) {

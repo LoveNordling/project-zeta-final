@@ -18,23 +18,36 @@ class Surface extends JPanel {
 
         Graphics2D g2d = (Graphics2D) g;
         this.map = new Map(1, g2d);
-        for (Chunk chunk : map.getChunks()) {
-            for (int x = 0; x < chunk.getSize(); x++) {
-                for (int y = 0; y < chunk.getSize(); y++) {
-                    Tile tile = chunk.getTile(x, y);
 
-                    g2d.setPaint(new Color(150, 100, 0));
-                    g2d.fill(new Rectangle2D.Double(tile.getPosition()[0] * Tile.getSize(), tile.getPosition()[1] * Tile.getSize(), Tile.getSize(), Tile.getSize()));
-                    g2d.setPaint(new Color(150, 150, 150));
-                    g2d.draw(new Rectangle2D.Double(tile.getPosition()[0] * Tile.getSize(), tile.getPosition()[1] * Tile.getSize(), Tile.getSize(), Tile.getSize()));
-                }
-            }
-        }
 
         Simulation simulation = new Simulation(this.map);
         simulation.start();
 
         g2d.drawString("Java 2D", 50, 50);
+
+
+        for(int i = 0; i < 100; i++) {
+            super.paintComponent(g);
+            repaint();
+
+            for (Chunk chunk : map.getChunks()) {
+                for (int x = 0; x < chunk.getSize(); x++) {
+                    for (int y = 0; y < chunk.getSize(); y++) {
+                        Tile tile = chunk.getTile(x, y);
+
+                        for (LivingEntity entity : tile.getLivingEntities()) {
+
+                            g2d.setPaint(entity.getColor());
+                            g2d.fill(entity.getShape());
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+
     }
 
     @Override

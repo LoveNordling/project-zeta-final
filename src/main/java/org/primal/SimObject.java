@@ -1,6 +1,7 @@
 package org.primal;
 
-import javafx.scene.shape.Shape;
+
+import java.awt.*;
 
 public abstract class SimObject {
     protected float[] position;

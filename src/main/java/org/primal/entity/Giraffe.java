@@ -16,6 +16,7 @@ public class Giraffe extends Animal {
         this.behaviours = new LinkedList<>();
         this.behaviours.add(foodBehaviour);
         starvationRate = 1;
+        this.color = new java.awt.Color(0,150,150);
     }
 
     @Override

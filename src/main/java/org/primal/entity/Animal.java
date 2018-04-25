@@ -1,8 +1,5 @@
 package org.primal.entity;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Shape;
 import org.primal.behaviour.Behaviour;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
@@ -11,17 +8,21 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
+import javafx.scene.shape.Shape;
 
 public abstract class Animal extends LivingEntity {
     int starvationRate = 1;
     float stamina;
     float fullness;
     private Graphics g;
+
     LinkedList<Behaviour> behaviours;
 
     public Animal(float x, float y, float health, float stamina, float fullness, Graphics g){
         // TODO: remove static x y below.
         super(x, y, health);
+        this.shape = new Rectangle.Double(this.getPosition()[0] * Tile.getSize(), this.getPosition()[1] * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
+
         this.g = g;
         this.stamina = stamina;
         this.fullness = fullness;
@@ -40,23 +41,14 @@ public abstract class Animal extends LivingEntity {
             best = best.getWeight() < behaviour.getWeight() ? behaviour : best;
         }
         best.act();
-        draw(g);
-
-        //this.updateShape();
     }
 
-    public void draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(java.awt.Color.BLACK);
-        g2d.setPaint(new java.awt.Color(0, 0, 0));
-        g2d.fill(new Rectangle2D.Double(getPosition()[0] * Tile.getSize(), getPosition()[1] * Tile.getSize(), 10,10));
-    }
 
     // Temporary function for random movement
     public void move() {
 
-        int n = ThreadLocalRandom.current().nextInt(0, 4);
-        if (n == 0) {
+        int n = ThreadLocalRandom.current().nextInt(0, 3);
+        if (n==0) {
             position[0] += 0.1;
         } else if (n == 1) {
             position[0] -= 0.1;
@@ -65,7 +57,8 @@ public abstract class Animal extends LivingEntity {
         } else {
             position[1] -= 0.1;
         }
-
+        System.out.println("moved to"+ getPosition()[0]);
+        shape.setRect(position[0]*Tile.getSize(), position[1]*Tile.getSize(), Tile.getSize()/8, Tile.getSize()/8);
     }
 
     public abstract void eat(LivingEntity food);
