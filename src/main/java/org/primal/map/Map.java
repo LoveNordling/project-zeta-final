@@ -48,13 +48,12 @@ public class Map {
     public Tile getTile(float x, float y){
         int xInt = (int) x;
         int yInt = (int) y;
-        System.out.println("" + y + "" + x + "");
         Chunk ch  = this.getChunk(xInt/chunkSize, yInt/chunkSize);
         return ch.getTile(xInt % chunkSize, yInt % chunkSize);
     }
 
     public boolean withinBounds(float x, float y){
-        if(x > 0 && y > 0 && x < mapSize && y < mapSize){
+        if(x >= 0 && y >= 0 && x < mapSize && y < mapSize){
             return true;
         }
         return false;

@@ -89,7 +89,7 @@ public abstract class Animal extends LivingEntity {
         } else if( n == 3 && position[1] > 0){
             position[1] -= 1;
         }
-        System.out.println("set position" + position[0] + "  " + position[1] + iterTest);
+        //System.out.println("set position" + position[0] + "  " + position[1] + iterTest);
         iterTest++;
         
 

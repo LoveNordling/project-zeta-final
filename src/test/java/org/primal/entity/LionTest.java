@@ -32,13 +32,12 @@ class LionTest {
     @Test
     public void move() {
         for(int i = 0; i<1000; i++){
-            System.out.println("test");
             float [] pos = lion.getPosition();
             Tile oldTile = map.getTile(pos[0], pos[1]);
-            //System.out.println("" + pos[0] + "" + pos[1] + "");
             lion.move1Unit();
             Tile newTile = map.getTile(pos[0], pos[1]);
             if(newTile.getLivingEntities().size() != 1){
+                //TODO add assert
                 System.out.println("ERROR");
                 System.out.println("ERROR");
                 System.out.println("ERROR");
