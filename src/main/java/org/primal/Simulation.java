@@ -50,14 +50,16 @@ public class Simulation {
         this.map = map;
 
         // One thread for every chunk for now
-        int chunkNumber = this.map.getChunks().size();
+        int chunkNumber = this.map.width;
 
         //8 is a temporary number
         this.simulationThreadPool = Executors.newScheduledThreadPool(chunkNumber);
 
         Runnable syncronizationAction = () -> {
-        	for (Chunk chunk : this.map.getChunks()) {
-        		System.out.println("Sync worked" + chunk.getId());
+        	for (Chunk[] chunks : this.map.getChunks()) {
+        	    for(Chunk chunk : chunks) {
+                    System.out.println("Sync worked" + chunk.getId());
+                }
         	}
         };
 
@@ -66,9 +68,11 @@ public class Simulation {
     }
 
     public void start() {
-        for (Chunk c : this.map.getChunks()) {
-            // 16 Milliseconds is approximatly 1/60 sec
-            simulationThreadPool.scheduleAtFixedRate(new Worker(c), 0, 16, TimeUnit.MILLISECONDS);
+        for (Chunk[] chunks : this.map.getChunks()) {
+            for(Chunk c : chunks){
+                // 16 Milliseconds is approximatly 1/60 sec
+                simulationThreadPool.scheduleAtFixedRate(new Worker(c), 0, 16, TimeUnit.MILLISECONDS);
+            }
         }
 
         this.started = true;

@@ -20,13 +20,14 @@ class Surface extends JPanel {
         System.out.println("Doing a doDrawing");
         Graphics2D g2d = (Graphics2D) g;
 
-        for (Chunk chunk : map.getChunks()) {
+        for (Chunk[] chunks : map.getChunks()) {
+            for(Chunk chunk : chunks){
                 for (int x = 0; x < chunk.getSize(); x++) {
                     for (int y = 0; y < chunk.getSize(); y++) {
                         Tile tile = chunk.getTile(x, y);
-                        g2d.setPaint(new Color(0,100,50));
+                        g2d.setPaint(new Color(0, 100, 50));
                         g2d.fill(tile.getShape());
-                        g2d.setPaint(new Color(0,0,0));
+                        g2d.setPaint(new Color(0, 0, 0));
                         g2d.draw(tile.getShape());
                         for (LivingEntity entity : tile.getLivingEntities()) {
 
@@ -36,6 +37,7 @@ class Surface extends JPanel {
                     }
                 }
             }
+        }
 
 
 
