@@ -66,37 +66,81 @@ public abstract class Animal extends LivingEntity {
         updateShape();
     }
 
+    // N = North, S = South, W = West, E = East
+    // A = NorthEast, B = SouthEast, C = SouthWest, D = SouthEast
     private void stepInDir(Character c) {
-        if (c == 'E') {
-            position[0] += lengthUnit;
-            updateLastDir('E');
-        } else if (c == 'W') {
-            position[0] -= lengthUnit;
-            updateLastDir('W');
-        } else if (c == 'N') {
-            position[1] += lengthUnit;
-            updateLastDir('N');
-        } else  {
-            position[1] -= lengthUnit;
-            updateLastDir('S');
+        switch (c) {
+            case 'E':
+                position[0] += lengthUnit;
+                updateLastDir('E');
+                break;
+            case 'W':
+                position[0] -= lengthUnit;
+                updateLastDir('W');
+                break;
+            case 'N':
+                position[1] += lengthUnit;
+                updateLastDir('N');
+                break;
+            case 'S':
+                position[1] -= lengthUnit;
+                updateLastDir('S');
+                break;
+            case 'A':
+                position[0] += lengthUnit / 2;
+                position[1] += lengthUnit / 2;
+                updateLastDir('A');
+                break;
+            case 'B':
+                position[0] += lengthUnit / 2;
+                position[1] -= lengthUnit / 2;
+                updateLastDir('B');
+                break;
+            case 'C':
+                position[0] -= lengthUnit / 2;
+                position[1] -= lengthUnit / 2;
+                updateLastDir('C');
+                break;
+            default:
+                position[0] -= lengthUnit / 2;
+                position[1] += lengthUnit / 2;
+                updateLastDir('D');
+                break;
         }
     }
 
     private void randomDir() {
-        int n = ThreadLocalRandom.current().nextInt(0, 4);
-        if (n == 0) {
-            stepInDir('E');
-        } else if (n == 1) {
-            stepInDir('W');
-        } else if (n == 2) {
-            stepInDir('N');
-        } else {
-            stepInDir('S');
+        int n = ThreadLocalRandom.current().nextInt(0, 8);
+        switch (n) {
+            case 0:
+                stepInDir('E');
+                break;
+            case 1:
+                stepInDir('W');
+                break;
+            case 2:
+                stepInDir('N');
+                break;
+            case 3:
+                stepInDir('S');
+                break;
+            case 4:
+                stepInDir('A');
+                break;
+            case 5:
+                stepInDir('B');
+                break;
+            case 6:
+                stepInDir('C');
+                break;
+            default:
+                stepInDir('D');
+                break;
         }
     }
 
     private void updateLastDir(Character c) {
-        for (int i = 0; i < lastDirections.length-1; i++) {
+        for (int i = 0; i < lastDirections.length - 1; i++) {
             lastDirections[i + 1] = lastDirections[i];
         }
         lastDirections[0] = c;
