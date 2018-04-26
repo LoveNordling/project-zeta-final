@@ -1,12 +1,13 @@
 package org.primal.map;
 
 import org.primal.SimObject;
-import org.primal.entity.*;
+import org.primal.entity.Giraffe;
+import org.primal.entity.Hyena;
+import org.primal.entity.Lion;
+import org.primal.entity.LivingEntity;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Chunk extends SimObject {
@@ -15,27 +16,28 @@ public class Chunk extends SimObject {
     private int id;
     private Map map;
 
-    public Chunk(float x, float y, int id, Map map) {
+    public Chunk(float x, float y, Map map) {
         super(x, y);
         this.map = map;
-        this.id = id;
         tiles = new Tile[size][size];
+
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
 
-
+                float xPos = i + getPosition()[0] * this.size;
+                float yPos = j + getPosition()[1] * this.size;
                 LivingEntity entity = null;
 
                 int n = ThreadLocalRandom.current().nextInt(0, 3);
                 if (n == 0) {
-                    entity = new Lion(i, j, 100.0f, 100.0f, map);
+                    entity = new Lion(xPos, yPos, 100.0f, 100.0f, map);
                 } else if (n == 1) {
-                    entity = new Hyena(i, j, 100.0f, 100.0f, map);
+                    entity = new Hyena(xPos, yPos, 100.0f, 100.0f, map);
                 } else if (n == 2) {
-                    entity = new Giraffe(i, j, 100.0f, 100.0f, map);
+                    entity = new Giraffe(xPos, yPos, 100.0f, 100.0f, map);
                 }
 
-                Tile tile = new LandTile((float) i, (float) j);
+                Tile tile = new LandTile(xPos, yPos);
 
                 tile.addLivingEntity(entity);
                 tiles[i][j] = tile;
@@ -43,12 +45,11 @@ public class Chunk extends SimObject {
         }
     }
 
-    public void updateChunk(){
+    public void updateChunk() {
 
-        try{
+        try {
             Thread.sleep(100);
-        }
-        catch(InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println("Sleep failed");
         }
 

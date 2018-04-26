@@ -62,7 +62,6 @@ public abstract class Animal extends LivingEntity {
         } else {
             randomDir();
         }
-        printDirs();
         updateShape();
     }
 
@@ -144,13 +143,6 @@ public abstract class Animal extends LivingEntity {
             lastDirections[i + 1] = lastDirections[i];
         }
         lastDirections[0] = c;
-    }
-
-    private void printDirs() {
-        for (Character c : lastDirections) {
-            System.out.print(c);
-        }
-        System.out.println();
     }
 
     public abstract void eat(LivingEntity food);

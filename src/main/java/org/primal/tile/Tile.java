@@ -40,4 +40,8 @@ public class Tile extends SimObject {
     public List<LivingEntity> getLivingEntities() {
         return livingEntities;
     }
+
+    public String toString() {
+        return "Tile(x: " + this.getX() + ", y: " + this.getY() + ") has " + this.livingEntities.size() + "animals" + "%n" + this.livingEntities.toString();
+    }
 }
