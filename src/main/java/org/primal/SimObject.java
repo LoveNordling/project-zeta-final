@@ -21,4 +21,16 @@ public abstract class SimObject {
     public float[] getPosition() {
         return position;
     }
+
+    public float getX() {
+    	return position[0];
+    }
+
+    public float getY() {
+    	return position[1];
+    }
+
+    public String toString() {
+    	return "SimObject(x: " + this.getX() + ",y: " + this.getY() + ")";
+    }
 }
