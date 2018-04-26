@@ -44,6 +44,7 @@ public class Chunk extends SimObject {
         }
     }
 
+
     public void updateChunk(){
 
         try{
@@ -57,9 +58,10 @@ public class Chunk extends SimObject {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
-                    if (entity instanceof Animal) {
-                        ((Animal) entity).performAction(map);
-                    }
+                        entity.performAction(map);
+                        /*if(!withinChunk(entity.getPosition())){
+                            
+                          } */
                 }
             }
         }

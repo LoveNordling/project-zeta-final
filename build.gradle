@@ -37,9 +37,17 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib"
     compile 'org.jetbrains.dokka:dokka-gradle-plugin:0.9.16'
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
-    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.1")
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    )
+    testRuntimeOnly(
+            'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    )
 }
 
+test {
+    useJUnitPlatform()
+}
 
 dokka {
     outputFormat = 'html'

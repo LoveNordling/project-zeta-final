@@ -68,6 +68,7 @@ public class Simulation {
     }
 
     public void start() {
+
         for (Chunk[] chunks : this.map.getChunks()) {
             for(Chunk c : chunks){
                 // 16 Milliseconds is approximatly 1/60 sec
