@@ -33,8 +33,8 @@ public abstract class Animal extends LivingEntity {
         this(x, y, 100, 100, 100);
     }
 
-
-    public void performAction(Map map) {
+    public void simulate() {
+        super.simulate();
         Behaviour best = behaviours.getFirst();
         for (Behaviour behaviour : behaviours) {
             behaviour.decide();
@@ -42,7 +42,6 @@ public abstract class Animal extends LivingEntity {
         }
         best.act();
     }
-
 
     // Temporary function for random movement
     public void move() {

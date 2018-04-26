@@ -8,5 +8,5 @@ public class Entity extends SimObject {
         super(x, y);
     }
 
-
+    public void simulate() {}
 }
