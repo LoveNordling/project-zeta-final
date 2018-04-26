@@ -1,6 +1,7 @@
 package org.primal;
 
-import javafx.scene.shape.Shape;
+
+import java.awt.*;
 
 public abstract class SimObject {
     protected float[] position;
@@ -19,5 +20,17 @@ public abstract class SimObject {
 
     public float[] getPosition() {
         return position;
+    }
+
+    public float getX() {
+    	return position[0];
+    }
+
+    public float getY() {
+    	return position[1];
+    }
+
+    public String toString() {
+    	return "SimObject(x: " + this.getX() + ",y: " + this.getY() + ")";
     }
 }

@@ -1,29 +1,35 @@
 package org.primal.entity;
 
-import javafx.scene.shape.Shape;
 import org.primal.tile.Tile;
 import org.primal.map.Map;
+
+import java.awt.*;
+
 public abstract class LivingEntity extends Entity {
-    Shape shape;
+    protected Rectangle.Float shape;
     float health;
     float energySatisfaction;
+    protected Color color;
 
-    public LivingEntity(float x, float y, Shape shape, float health) {
+    public LivingEntity(float x, float y, float health) {
         super(x, y);
         this.shape = shape;
+        this.color = new Color(0,0,0);
         this.health = health;
     }
 
     public void updateShape() {
-        this.shape.setTranslateX(position[0] * (Tile.getSize() - 1) + Tile.getSize() / 2);
-        this.shape.setTranslateY(position[1] * (Tile.getSize() - 1) + Tile.getSize() / 2);
+        this.shape.setRect((getPosition()[0]-0.5)*Tile.getSize(), (getPosition()[1]-0.5)*Tile.getSize(), Tile.getSize()/8, Tile.getSize()/8);
     }
 
-    public Shape getShape() {
+    public Rectangle.Float getShape() {
         updateShape();
         return this.shape;
     }
 
     public void performAction(Map map) {
+    }
+    public Color getColor(){
+        return color;
     }
 }

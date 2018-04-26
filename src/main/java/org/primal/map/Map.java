@@ -1,5 +1,6 @@
 package org.primal.map;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,15 +8,16 @@ import org.primal.tile.Tile;
 
 public class Map {
     private LinkedList<Chunk> megaChunks;
-    private List<Chunk> chunks = new ArrayList<>();
     private int mapSize;
     private int chunkSize;
-
+    private Chunk[][] chunks;
+    public int width;
     public Map(int width) {
-        int ChunkSize;
+        this.width = width;
+        chunks = new Chunk[width][width];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < width; y++) {
-                chunks.add(new Chunk(x, y, chunks.size(), this));
+                chunks[x][y] = (new Chunk(x, y, this));
             }
         }
         chunkSize = 16;
@@ -23,16 +25,18 @@ public class Map {
 
     }
 
+
+
     public LinkedList<Chunk> getMegaChunks() {
 
         return megaChunks;
     }
 
-    public List<Chunk> getChunks() {
+    public Chunk[][] getChunks() {
         return chunks;
     }
 
-    public void setChunks(List<Chunk> chunks) {
+    public void setChunks(Chunk[][] chunks) {
         this.chunks = chunks;
     }
     public Chunk getChunk(float x, float y){
