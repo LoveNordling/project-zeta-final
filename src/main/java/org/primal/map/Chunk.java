@@ -5,9 +5,11 @@ import org.primal.entity.*;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Chunk extends SimObject implements Runnable {
+public class Chunk extends SimObject {
     private Tile[][] tiles;
     private int size = 16;
     private int id;
@@ -20,6 +22,8 @@ public class Chunk extends SimObject implements Runnable {
         tiles = new Tile[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
+
+
                 LivingEntity entity = null;
 
                 int n = ThreadLocalRandom.current().nextInt(0, 3);
@@ -32,14 +36,23 @@ public class Chunk extends SimObject implements Runnable {
                 }
 
                 Tile tile = new LandTile((float) i, (float) j);
+
                 tile.addLivingEntity(entity);
                 tiles[i][j] = tile;
             }
         }
     }
 
-    @Override
-    public void run() {
+    public void updateChunk(){
+
+        try{
+            Thread.sleep(100);
+        }
+        catch(InterruptedException e){
+            System.out.println("Sleep failed");
+        }
+
+        //System.out.println("Uh oh");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
@@ -49,6 +62,7 @@ public class Chunk extends SimObject implements Runnable {
                 }
             }
         }
+        //System.out.println("moved to"+ getTile(0,0).getLivingEntities().get(0).getPosition()[0]);
     }
 
     public int getId() {

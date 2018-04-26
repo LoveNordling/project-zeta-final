@@ -10,6 +10,10 @@ import org.primal.entity.LivingEntity;
 import org.primal.map.Chunk;
 import org.primal.map.Map;
 
+import org.primal.GUI;
+
+import java.awt.*;
+
 public class Main extends Application {
     public int windowWidth = 600;
     public int windowHeight = 600;
@@ -20,30 +24,29 @@ public class Main extends Application {
         launch(args);
     }
 
+
+
     @Override
     public void start(Stage stage) throws Exception {
-        this.map = new Map(1);
-        this.simulation = new Simulation(this.map);
 
-        Group root = new Group();
-        Scene scene = new Scene(root, windowWidth, windowHeight);
-        scene.setFill(Color.rgb(188, 166, 49));
-        stage.setScene(scene);
-        ObservableList list = root.getChildren();
+        Map map = new Map(1);
+        Simulation simulation = new Simulation(map);
+        simulation.start();
 
-        for (Chunk chunk : map.getChunks()) {
-            for (int x = 0; x < chunk.getSize(); x++) {
-                for (int y = 0; y < chunk.getSize(); y++) {
-                    for (LivingEntity entity : chunk.getTile(x, y).getLivingEntities()) {
-                        list.add(entity.getShape());
-                    }
-                    list.add(0, chunk.getTile(x, y).getShape());
-                }
+
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                GUI gui = new GUI(map);
+                gui.setVisible(true);
             }
-        }
+        });
 
-        this.simulation.start();
 
-        stage.show();
+
+
+
+
+        //stage.show();
     }
 }

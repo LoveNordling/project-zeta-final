@@ -1,10 +1,9 @@
 package org.primal.tile;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import org.primal.SimObject;
 import org.primal.entity.LivingEntity;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,9 +15,7 @@ public class Tile extends SimObject {
     public Tile(float x, float y) {
         super(x, y);
         this.livingEntities = new LinkedList<LivingEntity>();
-        this.shape = new Rectangle(x * size, y * size, size, size);
-        this.shape.setStroke(Color.BLACK);
-        this.shape.setFill(Color.RED);
+        this.shape = new Rectangle((int) x * size, (int) y * size, size, size);
     }
 
     public Tile(float x, float y, List<LivingEntity> livingEntities) {
