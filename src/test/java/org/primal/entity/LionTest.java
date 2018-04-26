@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.lang.System;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
@@ -30,17 +31,25 @@ class LionTest {
 
     @Test
     public void move() {
-        for(int i = 0; i<10; i++){
+        for(int i = 0; i<1000; i++){
             System.out.println("test");
             float [] pos = lion.getPosition();
             Tile oldTile = map.getTile(pos[0], pos[1]);
             //System.out.println("" + pos[0] + "" + pos[1] + "");
             lion.move1Unit();
             Tile newTile = map.getTile(pos[0], pos[1]);
-            
-            if(newTile != oldTile && lion.atEdge(map) == false){
-                assertNotNull(null);
+            if(newTile.getLivingEntities().size() != 1){
+                System.out.println("ERROR");
+                System.out.println("ERROR");
+                System.out.println("ERROR");
+                System.out.println("ERROR");
+                System.out.println("ERROR");
             }
+            //System.out.println(newTile.getLivingEntities().size());
+            //if(newTile == oldTile && lion.atEdge(map) != false){
+            //  System.out.println("error");
+            //  assertNotNull(null);
+            //}
         }
     }
     
