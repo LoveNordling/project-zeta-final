@@ -36,9 +36,7 @@ public class Chunk extends SimObject {
                 } else if (n == 2) {
                     entity = new Giraffe(xPos, yPos, 100.0f, 100.0f, map);
                 }
-
                 Tile tile = new LandTile(xPos, yPos);
-
                 tile.addLivingEntity(entity);
                 tiles[i][j] = tile;
             }
@@ -46,18 +44,16 @@ public class Chunk extends SimObject {
     }
 
     public void updateChunk() {
-
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
             System.out.println("Sleep failed");
         }
 
-        //System.out.println("Uh oh");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
-                    entity.simulate();
+                    entity.simulate(map);
                 }
             }
         }

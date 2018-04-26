@@ -8,5 +8,5 @@ public abstract class Entity extends SimObject {
         super(x, y);
     }
 
-    public abstract void simulate();
+    public void simulate() {};
 }

@@ -1,6 +1,7 @@
 package org.primal.entity;
 
 import org.primal.tile.Tile;
+import org.primal.map.Map;
 
 import java.awt.*;
 
@@ -26,13 +27,11 @@ public abstract class LivingEntity extends Entity {
         return this.shape;
     }
 
-    public void simulate() {
-    }
+    public void simulate(Map map) {}
 
-    public Color getColor() {
+    public void performAction(Map map) {}
+
+    public Color getColor(){
         return color;
-    }
-
-    public void performAction() {
     }
 }

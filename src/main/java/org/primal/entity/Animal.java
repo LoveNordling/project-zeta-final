@@ -1,14 +1,17 @@
 package org.primal.entity;
 
 import org.primal.behaviour.Behaviour;
+import org.primal.map.Map;
 import org.primal.tile.Tile;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
     float starvationRate = 0.001f;
+    private int mapSize = 4 * 16;
     float stamina;
     float fullness;
     private Graphics g;
@@ -33,6 +36,32 @@ public abstract class Animal extends LivingEntity {
         this(x, y, 100, 100, 100);
     }
 
+    public void simulate(Map map) {
+        super.simulate(map);
+
+        mapSize = map.getSize(); //temp solution
+        float[] currentPos = this.getPosition();
+        Tile currentTile = map.getTile(currentPos[0], currentPos[1]);
+
+        getBestBehaviour().act();
+        updateStats();
+
+        float[] newPos = this.getPosition();
+        Tile newTile = map.getTile(newPos[0], newPos[1]);
+        if (currentTile != newTile) {
+            moveTile(currentTile, newTile);
+        }
+    }
+
+    private Behaviour getBestBehaviour() {
+        Behaviour best = behaviours.getFirst();
+        for (Behaviour behaviour : behaviours) {
+            behaviour.decide();
+            best = best.getWeight() < behaviour.getWeight() ? behaviour : best;
+        }
+        return best;
+    }
+
     private void updateStats() {
         if (stamina > 0 && fullness > 0) {
             stamina -= starvationRate;
@@ -43,17 +72,6 @@ public abstract class Animal extends LivingEntity {
         if (energySatisfaction < 50 && health <= 0) {
             health -= starvationRate * 10;
         }
-    }
-
-    public void simulate() {
-        super.simulate();
-        Behaviour best = behaviours.getFirst();
-        for (Behaviour behaviour : behaviours) {
-            behaviour.decide();
-            best = best.getWeight() < behaviour.getWeight() ? behaviour : best;
-        }
-        best.act();
-        updateStats();
     }
 
     public void move() {
@@ -143,6 +161,35 @@ public abstract class Animal extends LivingEntity {
             lastDirections[i + 1] = lastDirections[i];
         }
         lastDirections[0] = c;
+    }
+
+    private void moveTile(Tile oldTile, Tile newTile) {
+        oldTile.removeLivingEntity(this);
+        newTile.addLivingEntity(this);
+    }
+
+    //temp func for testing if animal is at edge of map
+    public boolean atEdge(Map map) {
+        float[] pos = this.getPosition();
+        ArrayList<Tile> tiles = map.getTiles(pos[0], pos[1], 1);
+        if (tiles.size() != 9) {
+            return true;
+        }
+        return false;
+    }
+
+    //Temp func for testing
+    public void move1Unit() {
+        int n = ThreadLocalRandom.current().nextInt(0, 4);
+        if (n == 0 && position[0] < (mapSize - 1)) {
+            position[0] += 1;
+        } else if (n == 1 && position[0] > 0) {
+            position[0] -= 1;
+        } else if (n == 2 && position[1] < (mapSize - 1)) {
+            position[1] += 1;
+        } else if (n == 3 && position[1] > 0) {
+            position[1] -= 1;
+        }
     }
 
     public abstract void eat(LivingEntity food);

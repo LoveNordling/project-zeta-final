@@ -3,7 +3,11 @@ package org.primal;
 import org.primal.map.Chunk;
 import org.primal.map.Map;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.BrokenBarrierException;
 
 public class Simulation {
 
@@ -60,6 +64,7 @@ public class Simulation {
     }
 
     public void start() {
+
         for (Chunk[] chunks : this.map.getChunks()) {
             for (Chunk c : chunks) {
                 // 16 Milliseconds is approximatly 1/60 sec
