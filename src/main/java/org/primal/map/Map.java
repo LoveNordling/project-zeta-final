@@ -75,4 +75,7 @@ public class Map {
 
         return tiles;
     }
+    public int getSize(){
+        return mapSize;
+    }
 }

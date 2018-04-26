@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class Animal extends LivingEntity {
     int starvationRate = 1;
     private int iterTest = 0;
+    private int mapSize = 4*16;
     float stamina;
     float fullness;
     LinkedList<Behaviour> behaviours;
@@ -34,6 +35,7 @@ public abstract class Animal extends LivingEntity {
         newTile.addLivingEntity(this);
      }
     public void performAction(Map map) {
+        mapSize = map.getSize(); //temp solution
         Behaviour best = behaviours.getFirst();
         for (Behaviour behaviour : behaviours) {
             behaviour.decide();
@@ -55,13 +57,13 @@ public abstract class Animal extends LivingEntity {
     public void move() {
         int n = ThreadLocalRandom.current().nextInt(0, 4);
 
-        if (n == 0 && position[0] < 14) {
+        if (n == 0 && position[0] < (mapSize -1)) {
             position[0] += 0.1;
-        } else if (n == 1 && position[0] > 1) {
+        } else if (n == 1 && position[0] > 0) {
             position[0] -= 0.1;
-        } else if (n == 2 && position[0] < 14) {
+        } else if (n == 2 && position[1] < (mapSize -1)) {
             position[1] += 0.1;
-        } else if( n == 3 && position[0] > 1){
+        } else if( n == 3 && position[1] > 0){
             position[1] -= 0.1;
         }
 
@@ -78,11 +80,11 @@ public abstract class Animal extends LivingEntity {
     //Temp func for testing
     public void move1Unit() {
         int n = ThreadLocalRandom.current().nextInt(0, 4);
-        if (n == 0 && position[0] < 15) {
+        if (n == 0 && position[0] < (mapSize -1)) {
             position[0] += 1;
         } else if (n == 1 && position[0] > 0) {
             position[0] -= 1;
-        } else if (n == 2 && position[1] < 15) {
+        } else if (n == 2 && position[1] < (mapSize -1)) {
             position[1] += 1;
         } else if( n == 3 && position[1] > 0){
             position[1] -= 1;

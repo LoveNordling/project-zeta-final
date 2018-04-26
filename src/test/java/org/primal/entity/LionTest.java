@@ -16,7 +16,7 @@ class LionTest {
     private Map map;
     @BeforeEach
     private void spawnLion() {
-        map = new Map(1); 
+        map = new Map(4); 
         lion = new Lion(0, 0, 100.0f, 100.0f, map);
     }
 
