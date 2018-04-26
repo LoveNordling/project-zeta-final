@@ -33,6 +33,11 @@ public abstract class Animal extends LivingEntity {
         this(x, y, 100, 100, 100);
     }
 
+    private void iterateStats() {
+        stamina -= 0.01;
+        fullness -= 0.01;
+    }
+
     public void simulate() {
         super.simulate();
         Behaviour best = behaviours.getFirst();
@@ -41,11 +46,11 @@ public abstract class Animal extends LivingEntity {
             best = best.getWeight() < behaviour.getWeight() ? behaviour : best;
         }
         best.act();
+        iterateStats();
     }
 
     // Temporary function for random movement
     public void move() {
-
         int n = ThreadLocalRandom.current().nextInt(0, 4);
         if (n==0) {
             position[0] += 0.1;
@@ -57,7 +62,6 @@ public abstract class Animal extends LivingEntity {
             position[1] -= 0.1;
         }
         updateShape();
-
     }
 
 
