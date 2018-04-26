@@ -46,8 +46,8 @@ public class Map {
     }
 
     public Tile getTile(float x, float y){
-        int xInt = Math.round(x);
-        int yInt = Math.round(y);
+        int xInt = (int) x;
+        int yInt = (int) y;
         Chunk ch  = getChunk(xInt/chunkSize, yInt/chunkSize);
         return ch.getTile(xInt % chunkSize, yInt % chunkSize);
     }
