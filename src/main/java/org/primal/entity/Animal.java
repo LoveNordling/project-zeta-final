@@ -12,6 +12,8 @@ public abstract class Animal extends LivingEntity {
     float stamina;
     float fullness;
     private Graphics g;
+    private Character[] lastDirections = new Character[4];
+    private float lengthUnit = 0.1f;
 
     LinkedList<Behaviour> behaviours;
 
@@ -54,21 +56,58 @@ public abstract class Animal extends LivingEntity {
         updateStats();
     }
 
-    // Temporary function for random movement
     public void move() {
-        int n = ThreadLocalRandom.current().nextInt(0, 4);
-        if (n == 0) {
-            position[0] += 0.1;
-        } else if (n == 1) {
-            position[0] -= 0.1;
-        } else if (n == 2) {
-            position[1] += 0.1;
+        if (lastDirections[0] != lastDirections[1]) {
+            stepInDir(lastDirections[0]);
         } else {
-            position[1] -= 0.1;
+            randomDir();
         }
+        printDirs();
         updateShape();
     }
 
+    private void stepInDir(Character c) {
+        if (c == 'E') {
+            position[0] += lengthUnit;
+            updateLastDir('E');
+        } else if (c == 'W') {
+            position[0] -= lengthUnit;
+            updateLastDir('W');
+        } else if (c == 'N') {
+            position[1] += lengthUnit;
+            updateLastDir('N');
+        } else  {
+            position[1] -= lengthUnit;
+            updateLastDir('S');
+        }
+    }
+
+    private void randomDir() {
+        int n = ThreadLocalRandom.current().nextInt(0, 4);
+        if (n == 0) {
+            stepInDir('E');
+        } else if (n == 1) {
+            stepInDir('W');
+        } else if (n == 2) {
+            stepInDir('N');
+        } else {
+            stepInDir('S');
+        }
+    }
+
+    private void updateLastDir(Character c) {
+        for (int i = 0; i < lastDirections.length-1; i++) {
+            lastDirections[i + 1] = lastDirections[i];
+        }
+        lastDirections[0] = c;
+    }
+
+    private void printDirs() {
+        for (Character c : lastDirections) {
+            System.out.print(c);
+        }
+        System.out.println();
+    }
 
     public abstract void eat(LivingEntity food);
 
