@@ -7,10 +7,12 @@ import org.primal.behaviour.Behaviour;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
 import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
     int starvationRate = 1;
+    private int iterTest = 0;
     float stamina;
     float fullness;
     LinkedList<Behaviour> behaviours;
@@ -52,15 +54,42 @@ public abstract class Animal extends LivingEntity {
     // Temporary function for random movement
     public void move() {
         int n = ThreadLocalRandom.current().nextInt(0, 4);
-        if (n == 0) {
+
+        if (n == 0 && position[0] < 14) {
             position[0] += 0.1;
-        } else if (n == 1) {
+        } else if (n == 1 && position[0] > 1) {
             position[0] -= 0.1;
-        } else if (n == 2) {
+        } else if (n == 2 && position[0] < 14) {
             position[1] += 0.1;
-        } else {
+        } else if( n == 3 && position[0] > 1){
             position[1] -= 0.1;
         }
+
+    }
+    //temp func for testing if animal is at edge of map
+    public boolean atEdge(Map map){
+        float [] pos = this.getPosition();
+        ArrayList <Tile> tiles = map.getTiles(pos[0], pos[1], 1);
+        if(tiles.size() != 9){
+            return true;
+        }
+        return false;
+    }
+    //Temp func for testing
+    public void move1Unit() {
+        int n = ThreadLocalRandom.current().nextInt(0, 4);
+        if (n == 0 && position[0] < 15) {
+            position[0] += 1;
+        } else if (n == 1 && position[0] > 0) {
+            position[0] -= 1;
+        } else if (n == 2 && position[1] < 15) {
+            position[1] += 1;
+        } else if( n == 3 && position[1] > 0){
+            position[1] -= 1;
+        }
+        System.out.println("set position" + position[0] + "  " + position[1] + iterTest);
+        iterTest++;
+        
 
     }
 
