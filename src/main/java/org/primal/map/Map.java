@@ -40,13 +40,15 @@ public class Map {
         this.chunks = chunks;
     }
     public Chunk getChunk(float x, float y){
-        for(Chunk ch : chunks){
-            float [] chunkPosition = ch.getPosition();
-            if(chunkPosition[0] == x && chunkPosition[1] == y){
-                return ch;
+       for(int i = 0; i<chunkSize; i++){
+            for(int j = 0; j<chunkSize; j++){
+                float [] chunkPosition = chunks[i][j].getPosition();
+                if(chunkPosition[0] == x && chunkPosition[1] == y){
+                    return chunks[i][j];
             }
         }
         return null;
+   
     }
 
     public Tile getTile(float x, float y){
