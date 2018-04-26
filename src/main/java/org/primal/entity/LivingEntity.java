@@ -26,6 +26,8 @@ public abstract class LivingEntity extends Entity {
         return this.shape;
     }
 
+    public void simulate() {}
+
     public Color getColor(){
         return color;
     }
