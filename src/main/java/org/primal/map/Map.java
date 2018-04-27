@@ -4,6 +4,7 @@ import org.primal.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Map {
     private LinkedList<Chunk> megaChunks;
@@ -11,6 +12,7 @@ public class Map {
     private int chunkSize;
     private Chunk[][] chunks;
     public int width;
+    public AtomicInteger entityId = new AtomicInteger(0);
 
     public Map(int width) {
         this.width = width;
@@ -41,7 +43,7 @@ public class Map {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
                 float[] chunkPosition = chunks[i][j].getPosition();
-                if (i == chunkPosition[0] && j == chunkPosition[1]) {
+                if (x == chunkPosition[0] && y == chunkPosition[1]) {
                     return chunks[i][j];
                 }
             }

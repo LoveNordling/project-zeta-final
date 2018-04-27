@@ -4,21 +4,20 @@ import org.primal.SimObject;
 import org.primal.entity.LivingEntity;
 
 import java.awt.*;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class Tile extends SimObject {
     protected static int size = 30;
-    private List<LivingEntity> livingEntities;
+    private ConcurrentHashMap<Integer,LivingEntity> livingEntities;
 
     public Tile(float x, float y) {
         super(x, y);
-        this.livingEntities = new LinkedList<LivingEntity>();
+        this.livingEntities = new ConcurrentHashMap<Integer,LivingEntity>();
         this.shape = new Rectangle((int) x * size, (int) y * size, size, size);
     }
 
-    public Tile(float x, float y, List<LivingEntity> livingEntities) {
+    public Tile(float x, float y, ConcurrentHashMap<Integer,LivingEntity> livingEntities) {
         super(x, y);
         this.livingEntities = livingEntities;
     }
@@ -27,8 +26,8 @@ public class Tile extends SimObject {
         return size;
     }
 
-    public void addLivingEntity(LivingEntity ent) {
-        this.livingEntities.add(ent);
+    public void addLivingEntity(int K, LivingEntity ent) {
+        this.livingEntities.put(K, ent);
     }
 
     public void removeLivingEntity(LivingEntity ent) {
@@ -37,7 +36,7 @@ public class Tile extends SimObject {
         }
     }
 
-    public List<LivingEntity> getLivingEntities() {
+    public ConcurrentHashMap<Integer,LivingEntity> getLivingEntities() {
         return livingEntities;
     }
 

@@ -25,7 +25,6 @@ public class Simulation {
 
         public void run() {
             myChunk.updateChunk();
-
             try {
                 updateLoopSyncronizationBarrier.await();
 

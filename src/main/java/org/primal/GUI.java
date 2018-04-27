@@ -30,8 +30,7 @@ class Surface extends JPanel {
                         g2d.fill(tile.getShape());
                         g2d.setPaint(new Color(0, 0, 0));
                         g2d.draw(tile.getShape());
-                        for (LivingEntity entity : tile.getLivingEntities()) {
-
+                        for (LivingEntity entity : tile.getLivingEntities().values()) {
                             g2d.setPaint(entity.getColor());
                             g2d.fill(entity.getShape());
                         }
