@@ -5,8 +5,6 @@ import org.primal.entity.*;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Chunk extends SimObject {
@@ -29,39 +27,29 @@ public class Chunk extends SimObject {
 
                 int n = ThreadLocalRandom.current().nextInt(0, 3);
                 if (n == 0) {
-                    entity = new Lion(xPos, yPos, 100.0f, 100.0f, map);
+                    entity = new Lion(xPos, yPos, 100.0f, 100.0f, map, map.entityId.incrementAndGet());
                 } else if (n == 1) {
-                    entity = new Hyena(xPos, yPos, 100.0f, 100.0f, map);
+                    entity = new Hyena(xPos, yPos, 100.0f, 100.0f, map, map.entityId.incrementAndGet());
                 } else if (n == 2) {
-                    entity = new Giraffe(xPos, yPos, 100.0f, 100.0f, map);
+                    entity = new Giraffe(xPos, yPos, 100.0f, 100.0f, map, map.entityId.incrementAndGet());
                 }
-
                 Tile tile = new LandTile(xPos, yPos);
-
-                tile.addLivingEntity(entity);
+                tile.addLivingEntity(((Animal) entity).getId(), entity);
                 tiles[i][j] = tile;
             }
         }
     }
 
-
-    public void updateChunk(){
-
-        try{
+    public void updateChunk() {
+        try {
             Thread.sleep(100);
-        }
-        catch(InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println("Sleep failed");
         }
-
-        //System.out.println("Uh oh");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
-                        entity.performAction(map);
-                        /*if(!withinChunk(entity.getPosition())){
-                            
-                          } */
+                for (LivingEntity entity : getTile(i, j).getLivingEntities().values()) {
+                    entity.simulate(map);
                 }
             }
         }

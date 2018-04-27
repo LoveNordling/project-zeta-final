@@ -3,6 +3,7 @@ package org.primal.tile;
 import org.primal.entity.LivingEntity;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class LandTile extends Tile {
 
@@ -10,7 +11,7 @@ public class LandTile extends Tile {
         super(x, y);
     }
 
-    public LandTile(float x, float y, List<LivingEntity> livingEntities) {
+    public LandTile(float x, float y, ConcurrentHashMap<Integer,LivingEntity> livingEntities) {
         super(x, y, livingEntities);
     }
 }

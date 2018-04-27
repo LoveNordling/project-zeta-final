@@ -14,12 +14,12 @@ public abstract class LivingEntity extends Entity {
     public LivingEntity(float x, float y, float health) {
         super(x, y);
         this.shape = shape;
-        this.color = new Color(0,0,0);
+        this.color = new Color(0, 0, 0);
         this.health = health;
     }
 
     public void updateShape() {
-        this.shape.setRect((getPosition()[0]-0.5)*Tile.getSize(), (getPosition()[1]-0.5)*Tile.getSize(), Tile.getSize()/8, Tile.getSize()/8);
+        this.shape.setRect((getPosition()[0] - 0.5) * Tile.getSize(), (getPosition()[1] - 0.5) * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
     }
 
     public Rectangle.Float getShape() {
@@ -27,8 +27,10 @@ public abstract class LivingEntity extends Entity {
         return this.shape;
     }
 
-    public void performAction(Map map) {
-    }
+    public void simulate(Map map) {}
+
+    public void performAction(Map map) {}
+
     public Color getColor(){
         return color;
     }

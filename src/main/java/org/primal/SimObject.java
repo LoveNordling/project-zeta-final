@@ -23,14 +23,14 @@ public abstract class SimObject {
     }
 
     public float getX() {
-    	return position[0];
+        return position[0];
     }
 
     public float getY() {
-    	return position[1];
+        return position[1];
     }
 
     public String toString() {
-    	return "SimObject(x: " + this.getX() + ",y: " + this.getY() + ")";
+        return "SimObject(x: " + this.getX() + ",y: " + this.getY() + ")";
     }
 }

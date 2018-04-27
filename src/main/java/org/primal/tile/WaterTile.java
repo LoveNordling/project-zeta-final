@@ -3,6 +3,7 @@ package org.primal.tile;
 import org.primal.entity.LivingEntity;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class WaterTile extends Tile {
 
@@ -10,7 +11,7 @@ public class WaterTile extends Tile {
         super(x, y);
     }
 
-    public WaterTile(float x, float y, List<LivingEntity> livingEntities) {
+    public WaterTile(float x, float y, ConcurrentHashMap<Integer,LivingEntity> livingEntities) {
         super(x, y, livingEntities);
     }
 }
