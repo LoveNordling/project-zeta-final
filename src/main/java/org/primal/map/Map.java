@@ -40,10 +40,17 @@ public class Map {
         this.chunks = chunks;
     }
     public Chunk getChunk(float x, float y){
+<<<<<<< HEAD
        for(int i = 0; i<width; i++){
             for(int j = 0; j<width; j++){
                 float [] chunkPosition = chunks[i][j].getPosition();
                 if(x == chunkPosition[0] && y == chunkPosition[1]){
+=======
+        for(int i = 0; i<width; i++){
+            for(int j = 0; j<width; j++){
+                float [] chunkPosition = chunks[i][j].getPosition();
+                if(i == chunkPosition[0] && j == chunkPosition[1]){
+>>>>>>> 63a8577fb5757e39529396d8c1c5b736c23972a4
                     return chunks[i][j];
                 }
             }
