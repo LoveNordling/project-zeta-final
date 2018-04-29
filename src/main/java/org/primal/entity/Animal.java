@@ -5,6 +5,7 @@ import org.primal.map.Map;
 import org.primal.tile.Tile;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,7 +27,7 @@ public abstract class Animal extends LivingEntity {
         // TODO: remove static x y below.
         super(x, y, health);
 
-        this.shape = new Rectangle.Float(this.getPosition()[0] * Tile.getSize(), this.getPosition()[1] * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
+        this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
 
         this.id = id;
         this.stamina = stamina;
@@ -43,14 +44,14 @@ public abstract class Animal extends LivingEntity {
         super.simulate(map);
 
         mapSize = map.getSize(); //temp solution
-        float[] currentPos = this.getPosition();
-        Tile currentTile = map.getTile(currentPos[0], currentPos[1]);
+        //Point2D currentPos = this.getPosition();
+        Tile currentTile = map.getTile(getX(), getY());
 
         getBestBehaviour().act();
         updateStats();
 
-        float[] newPos = this.getPosition();
-        Tile newTile = map.getTile(newPos[0], newPos[1]);
+        //Point2D newPos = this.getPosition();
+        Tile newTile = map.getTile(getX(), getY());
         if (currentTile != newTile) {
             moveTile(currentTile, newTile);
         }
@@ -90,51 +91,50 @@ public abstract class Animal extends LivingEntity {
     // N = North, S = South, W = West, E = East
     // A = NorthEast, B = SouthEast, C = SouthWest, D = NorthWest
     private void stepInDir(Character c) {
-        float[] newPos = new float[2];
-        newPos[0] = position[0];
-        newPos[1] = position[1];
+        //float[] newPos = new float[2];
+        float newPosX = getX();
+        float newPosY = getY();
 
         switch (c) {
             case 'E':
-                newPos[0] += lengthUnit;
+                newPosX += lengthUnit;
                 updateLastDir('E');
                 break;
             case 'W':
-                newPos[0] -= lengthUnit;
+                newPosX -= lengthUnit;
                 updateLastDir('W');
                 break;
             case 'N':
-                newPos[1] += lengthUnit;
+                newPosY += lengthUnit;
                 updateLastDir('N');
                 break;
             case 'S':
-                newPos[1] -= lengthUnit;
+                newPosY -= lengthUnit;
                 updateLastDir('S');
                 break;
             case 'A':
-                newPos[0] += lengthUnit / 2;
-                newPos[1] += lengthUnit / 2;
+                newPosX += lengthUnit / 2;
+                newPosY += lengthUnit / 2;
                 updateLastDir('A');
                 break;
             case 'B':
-                newPos[0] += lengthUnit / 2;
-                newPos[1] -= lengthUnit / 2;
+                newPosX += lengthUnit / 2;
+                newPosY -= lengthUnit / 2;
                 updateLastDir('B');
                 break;
             case 'C':
-                newPos[0] -= lengthUnit / 2;
-                newPos[1] -= lengthUnit / 2;
+                newPosX -= lengthUnit / 2;
+                newPosY -= lengthUnit / 2;
                 updateLastDir('C');
                 break;
             default:
-                newPos[0] -= lengthUnit / 2;
-                newPos[1] += lengthUnit / 2;
+                newPosX -= lengthUnit / 2;
+                newPosY += lengthUnit / 2;
                 updateLastDir('D');
                 break;
         }
-        if (map.withinBounds(newPos[0], newPos[1])) {
-            position[0] = newPos[0];
-            position[1] = newPos[1];
+        if (map.withinBounds(newPosX, newPosY)) {
+            this.position.setLocation(newPosX, newPosY);
         } else {
             randomDir();
         }
@@ -188,8 +188,8 @@ public abstract class Animal extends LivingEntity {
 
     //temp func for testing if animal is at edge of map
     public boolean atEdge(Map map) {
-        float[] pos = this.getPosition();
-        ArrayList<Tile> tiles = map.getTiles(pos[0], pos[1], 1);
+        //float[] pos = this.getPosition();
+        ArrayList<Tile> tiles = map.getTiles(getX(), getY(), 1);
         if (tiles.size() != 9) {
             return true;
         }
@@ -199,14 +199,14 @@ public abstract class Animal extends LivingEntity {
     //Temp func for testing
     public void move1Unit() {
         int n = ThreadLocalRandom.current().nextInt(0, 4);
-        if (n == 0 && position[0] < (mapSize - 2)) {
-            position[0] += 0.1;
-        } else if (n == 1 && position[0] > 1) {
-            position[0] -= 0.1;
-        } else if (n == 2 && position[1] < (mapSize - 2)) {
-            position[1] += 0.1;
-        } else if (n == 3 && position[1] > 1) {
-            position[1] -= 0.1;
+        if (n == 0 && getX() < (mapSize - 2)) {
+            this.position.setLocation(getX() + 0.1, getY());
+        } else if (n == 1 && getX() > 1) {
+            this.position.setLocation(getX() - 0.1, getY());
+        } else if (n == 2 && getY() < (mapSize - 2)) {
+            this.position.setLocation(getX(), getY() + 0.1);
+        } else if (n == 3 && getY() > 1) {
+            this.position.setLocation(getX(), getY() - 0.1);
         }
     }
 

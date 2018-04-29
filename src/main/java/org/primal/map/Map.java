@@ -5,6 +5,7 @@ import org.primal.tile.Tile;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.awt.geom.Point2D;
 
 public class Map {
     private LinkedList<Chunk> megaChunks;
@@ -42,8 +43,8 @@ public class Map {
     public Chunk getChunk(float x, float y) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
-                float[] chunkPosition = chunks[i][j].getPosition();
-                if (x == chunkPosition[0] && y == chunkPosition[1]) {
+                Point2D chunkPosition = chunks[i][j].getPosition();
+                if (x == chunkPosition.getX() && y == chunkPosition.getY()) {
                     return chunks[i][j];
                 }
             }

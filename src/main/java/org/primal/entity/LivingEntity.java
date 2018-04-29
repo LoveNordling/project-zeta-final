@@ -19,7 +19,7 @@ public abstract class LivingEntity extends Entity {
     }
 
     public void updateShape() {
-        this.shape.setRect((getPosition()[0] - 0.5) * Tile.getSize(), (getPosition()[1] - 0.5) * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+        this.shape.setRect((getX() - 0.5) * Tile.getSize(), (getY() - 0.5) * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
     }
 
     public Rectangle.Float getShape() {

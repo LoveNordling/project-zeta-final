@@ -2,32 +2,31 @@ package org.primal;
 
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public abstract class SimObject {
-    protected float[] position;
+    protected Point2D.Float position;
     protected Shape shape;
 
     public SimObject(float x, float y) {
-        this.position = new float[2];
-        position[0] = x;
-        position[1] = y;
-    }
+        this.position = new Point2D.Float(x, y);
+        }
 
     public Shape getShape() {
         return shape;
     }
 
 
-    public float[] getPosition() {
+    public Point2D getPosition() {
         return position;
     }
 
     public float getX() {
-        return position[0];
+        return (float) position.getX();
     }
 
     public float getY() {
-        return position[1];
+        return (float) position.getY();
     }
 
     public String toString() {

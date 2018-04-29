@@ -21,8 +21,8 @@ public class Chunk extends SimObject {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
 
-                float xPos = i + getPosition()[0] * this.size;
-                float yPos = j + getPosition()[1] * this.size;
+                float xPos = i + getX() * this.size;
+                float yPos = j + getY() * this.size;
                 LivingEntity entity = null;
 
                 int n = ThreadLocalRandom.current().nextInt(0, 3);
