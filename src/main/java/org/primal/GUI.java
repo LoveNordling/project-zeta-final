@@ -5,6 +5,8 @@ import org.primal.map.Chunk;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -30,7 +32,7 @@ class Surface extends JPanel {
                         g2d.fill(tile.getShape());
                         g2d.setPaint(new Color(0, 0, 0));
                         g2d.draw(tile.getShape());
-                        for (LivingEntity entity : tile.getLivingEntities().values()) {
+                        for (LivingEntity entity : tile.getLivingEntities()) {
                             g2d.setPaint(entity.getColor());
                             g2d.fill(entity.getShape());
                         }

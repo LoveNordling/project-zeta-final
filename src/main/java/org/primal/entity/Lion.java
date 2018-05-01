@@ -10,8 +10,8 @@ import java.awt.*;
 import java.util.LinkedList;
 
 public class Lion extends Animal {
-    public Lion(float x, float y, float stamina, float fullness, Map map, int id) {
-        super(x, y, 100, stamina, fullness, id);
+    public Lion(float x, float y, float stamina, float fullness, Map map) {
+        super(x, y, 100, stamina, fullness);
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
         this.behaviours = new LinkedList<>();
         this.behaviours.add(foodBehaviour);

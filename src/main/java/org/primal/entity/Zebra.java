@@ -10,8 +10,8 @@ import java.util.LinkedList;
 
 public class Zebra extends Animal {
 
-    public Zebra(float x, float y, float stamina, float fullness, Map map, Graphics g, int id) {
-        super(x, y, 100, stamina, fullness, id);
+    public Zebra(float x, float y, float stamina, float fullness, Map map, Graphics g) {
+        super(x, y, 100, stamina, fullness);
 
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
         this.behaviours = new LinkedList<Behaviour>();
