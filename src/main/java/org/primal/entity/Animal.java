@@ -23,21 +23,20 @@ public abstract class Animal extends LivingEntity {
 
     LinkedList<Behaviour> behaviours;
 
-    public Animal(float x, float y, float health, float stamina, float fullness, int id) {
+    public Animal(float x, float y, float health, float stamina, float fullness) {
         // TODO: remove static x y below.
         super(x, y, health);
 
         this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
 
-        this.id = id;
         this.stamina = stamina;
         this.fullness = fullness;
         energySatisfaction = 100;
         //this.shape.setOnMousePressed(click -> System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n"));
     }
 
-    public Animal(float x, float y, int id) {
-        this(x, y, 100, 100, 100, id);
+    public Animal(float x, float y) {
+        this(x, y, 100, 100, 100);
     }
 
     public void simulate(Map map) {
@@ -179,7 +178,7 @@ public abstract class Animal extends LivingEntity {
 
     private void moveTile(Tile oldTile, Tile newTile) {
         oldTile.removeLivingEntity(this);
-        newTile.addLivingEntity(this.getId(), this);
+        newTile.addLivingEntity(this);
     }
 
     public int getId() {
