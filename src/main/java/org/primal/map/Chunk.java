@@ -34,6 +34,12 @@ public class Chunk extends SimObject {
                 }
                 Tile tile = new LandTile(xPos, yPos, map);
                 tile.addLivingEntity(entity);
+
+                if (i == 8 && j == 8) {
+                    LivingEntity plant = new Tree(xPos, yPos, map);
+                    tile.addLivingEntity(plant);
+                }
+
                 tiles[i][j] = tile;
             }
         }
