@@ -6,7 +6,6 @@ import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Chunk extends SimObject {
     private Tile[][] tiles;
@@ -19,21 +18,25 @@ public class Chunk extends SimObject {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-
                 float xPos = i + getX() * this.size;
                 float yPos = j + getY() * this.size;
-                LivingEntity entity = null;
-
-                int n = ThreadLocalRandom.current().nextInt(0, 3);
-                if (n == 0) {
-                    entity = new Lion(xPos, yPos, map, 100.0f, 100.0f);
-                } else if (n == 1) {
-                    entity = new Hyena(xPos, yPos, map, 100.0f, 100.0f);
-                } else if (n == 2) {
-                    entity = new Giraffe(xPos, yPos, map, 100.0f, 100.0f);
-                }
                 Tile tile = new LandTile(xPos, yPos, map);
-                tile.addLivingEntity(entity);
+                LivingEntity animal = null;
+                LivingEntity plant = null;
+
+                int n = ThreadLocalRandom.current().nextInt(0, 4);
+                if (n == 0) {
+                    animal = new Lion(xPos, yPos, map, 100.0f, 100.0f);
+                } else if (n == 1) {
+                    animal = new Hyena(xPos, yPos, map, 100.0f, 100.0f);
+                } else if (n == 2) {
+                    animal = new Giraffe(xPos, yPos, map, 100.0f, 100.0f);
+                } else if ((i % 2) == 0 && (j % 2) == 0) {
+                    plant = new Tree(xPos, yPos, map);
+                }
+
+                if (animal != null) tile.addLivingEntity(animal);
+                if (plant != null) tile.addLivingEntity(plant);
                 tiles[i][j] = tile;
             }
         }

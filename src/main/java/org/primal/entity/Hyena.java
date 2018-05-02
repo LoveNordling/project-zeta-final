@@ -13,6 +13,7 @@ public class Hyena extends Animal {
         this.behaviours = new LinkedList<>();
         this.behaviours.add(foodBehaviour);
         starvationRate = 1;
+        this.color = new java.awt.Color(223, 2, 0);
     }
 
     @Override
