@@ -28,7 +28,7 @@ class Surface extends JPanel {
                 for (int x = 0; x < chunk.getSize(); x++) {
                     for (int y = 0; y < chunk.getSize(); y++) {
                         Tile tile = chunk.getTile(x, y);
-                        g2d.setPaint(new Color(0, 100, 50));
+                        g2d.setPaint(new Color(181, 202, 51));
                         g2d.fill(tile.getShape());
                         g2d.setPaint(new Color(0, 0, 0));
                         g2d.draw(tile.getShape());
