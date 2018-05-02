@@ -18,7 +18,7 @@ public class Behaviour {
     }
 
     public void act() {
-        host.move(map);
+        host.move();
     }
 
     public int getWeight() {

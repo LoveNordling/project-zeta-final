@@ -11,8 +11,8 @@ public abstract class LivingEntity extends Entity {
     float energySatisfaction;
     protected Color color;
 
-    public LivingEntity(float x, float y, float health) {
-        super(x, y);
+    public LivingEntity(float x, float y, Map map, float health) {
+        super(x, y, map);
         this.shape = shape;
         this.color = new Color(0, 0, 0);
         this.health = health;
@@ -27,9 +27,9 @@ public abstract class LivingEntity extends Entity {
         return this.shape;
     }
 
-    public void simulate(Map map) {}
+    public void simulate() {}
 
-    public void performAction(Map map) {}
+    public void performAction() {}
 
     public Color getColor(){
         return color;

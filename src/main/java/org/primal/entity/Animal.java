@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
-    private Map map;
     private int id;
     float starvationRate = 0.001f;
     private int mapSize = 4 * 16;
@@ -23,9 +22,9 @@ public abstract class Animal extends LivingEntity {
 
     LinkedList<Behaviour> behaviours;
 
-    public Animal(float x, float y, float health, float stamina, float fullness) {
+    public Animal(float x, float y, Map map, float health, float stamina, float fullness) {
         // TODO: remove static x y below.
-        super(x, y, health);
+        super(x, y, map, health);
 
         this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
 
@@ -35,12 +34,12 @@ public abstract class Animal extends LivingEntity {
         //this.shape.setOnMousePressed(click -> System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n"));
     }
 
-    public Animal(float x, float y) {
-        this(x, y, 100, 100, 100);
+    public Animal(float x, float y, Map map) {
+        this(x, y, map, 100, 100, 100);
     }
 
-    public void simulate(Map map) {
-        super.simulate(map);
+    public void simulate() {
+        super.simulate();
 
         mapSize = map.getSize(); //temp solution
         //Point2D currentPos = this.getPosition();
@@ -77,8 +76,7 @@ public abstract class Animal extends LivingEntity {
         }
     }
 
-    public void move(Map map) {
-        this.map = map;
+    public void move() {
         if (lastDirections[0] != lastDirections[1]) {
             stepInDir(lastDirections[0]);
         } else {
@@ -186,7 +184,7 @@ public abstract class Animal extends LivingEntity {
     }
 
     //temp func for testing if animal is at edge of map
-    public boolean atEdge(Map map) {
+    public boolean atEdge() {
         //float[] pos = this.getPosition();
         ArrayList<Tile> tiles = map.getTiles(getX(), getY(), 1);
         if (tiles.size() != 9) {
