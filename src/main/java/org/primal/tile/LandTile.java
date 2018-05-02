@@ -4,6 +4,7 @@ import org.primal.entity.LivingEntity;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class LandTile extends Tile {
 
@@ -11,7 +12,7 @@ public class LandTile extends Tile {
         super(x, y);
     }
 
-    public LandTile(float x, float y, ConcurrentHashMap<Integer,LivingEntity> livingEntities) {
+    public LandTile(float x, float y, ConcurrentLinkedQueue<LivingEntity> livingEntities) {
         super(x, y, livingEntities);
     }
 }

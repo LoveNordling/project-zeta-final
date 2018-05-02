@@ -10,12 +10,18 @@ public abstract class LivingEntity extends Entity {
     float health;
     float energySatisfaction;
     protected Color color;
+    protected int id;
 
-    public LivingEntity(float x, float y, float health) {
+    public LivingEntity(float x, float y, float health, int id) {
         super(x, y);
+        this.id = id;
         this.shape = shape;
         this.color = new Color(0, 0, 0);
         this.health = health;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void updateShape() {

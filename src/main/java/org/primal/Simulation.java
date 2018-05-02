@@ -26,10 +26,12 @@ public class Simulation {
         public void run() {
             myChunk.updateChunk();
             try {
+                myChunk.updateChunk();
                 updateLoopSyncronizationBarrier.await();
 
                 // This error thrown if the thread was interrupted during execution
             } catch (InterruptedException ex) {
+                System.out.println(myChunk.getId());
                 return;
 
                 /**
@@ -38,6 +40,7 @@ public class Simulation {
                  * or the barrier action failed due to an exception
                  */
             } catch (BrokenBarrierException ex) {
+                System.out.println(myChunk.getId());
                 return;
             }
         }
@@ -66,6 +69,7 @@ public class Simulation {
 
         for (Chunk[] chunks : this.map.getChunks()) {
             for (Chunk c : chunks) {
+
                 // 16 Milliseconds is approximatly 1/60 sec
                 simulationThreadPool.scheduleAtFixedRate(new Worker(c), 0, 16, TimeUnit.MILLISECONDS);
             }

@@ -12,9 +12,10 @@ public class Map {
     private int chunkSize;
     private Chunk[][] chunks;
     public int width;
-    public AtomicInteger entityId = new AtomicInteger(0);
+    public AtomicInteger entityId;
 
     public Map(int width) {
+        entityId = new AtomicInteger(0);
         this.width = width;
         chunks = new Chunk[width][width];
         for (int x = 0; x < width; x++) {
@@ -22,7 +23,7 @@ public class Map {
                 chunks[x][y] = (new Chunk(x, y, this));
             }
         }
-        chunkSize = 16;
+        chunkSize = Chunk.getSize();
         mapSize = width * chunkSize;
 
     }
@@ -39,23 +40,25 @@ public class Map {
         this.chunks = chunks;
     }
 
-    public Chunk getChunk(float x, float y) {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < width; j++) {
-                float[] chunkPosition = chunks[i][j].getPosition();
-                if (x == chunkPosition[0] && y == chunkPosition[1]) {
-                    return chunks[i][j];
-                }
-            }
-        }
-        return null;
+    public Chunk getChunk(int x, int y) {
+        return chunks[x][y];
     }
 
     public Tile getTile(float x, float y) {
+
         int xInt = (int) x;
         int yInt = (int) y;
+        System.out.println(xInt + " : " + yInt);
         Chunk ch = this.getChunk(xInt / chunkSize, yInt / chunkSize);
-        return ch.getTile(xInt % chunkSize, yInt % chunkSize);
+        System.out.println(xInt/chunkSize + " : " + yInt/chunkSize);
+        Tile t = ch.getTile(xInt % chunkSize, yInt % chunkSize);
+        System.out.println(xInt%chunkSize + " : " + yInt/chunkSize);
+
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        for(int i = 0; i < stackTraceElements.length; i++) {
+            System.out.println(stackTraceElements[i]);
+        }
+        return t;
     }
 
     public boolean withinBounds(float x, float y) {
