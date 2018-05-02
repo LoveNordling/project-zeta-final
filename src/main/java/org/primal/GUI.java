@@ -9,13 +9,19 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Point2D.Float;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-class Surface extends JPanel {
+class Surface extends JPanel implements MouseListener {
     private Map map;
-
+    private int mapWidth = 960;
+    private float convertionRate;
     public Surface(Map map) {
         super();
 
+        convertionRate = ((float)map.getSize())/((float)mapWidth);
+        this.addMouseListener(this);
         this.map = map;
     }
 
@@ -50,6 +56,33 @@ class Surface extends JPanel {
         super.paintComponent(g);
         doDrawing(g);
     }
+    private Float translate(int x, int y){
+        float fX = x*convertionRate;
+        float fY = y*convertionRate;
+        return new Float(fX, fY);
+    }
+    public void mouseClicked(MouseEvent click) {
+        int x = click.getX();
+        int y = click.getY();
+        Float coords = translate(x, y);
+        
+        Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
+        System.out.println(t);
+    }
+
+    // Useless methods (needed to be implemented)
+    public void mouseExited(MouseEvent e) {
+    }
+
+    public void mousePressed(MouseEvent e) {
+    }
+
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    public void mouseEntered(MouseEvent e) {
+    }
+
 }
 
 public class GUI extends JFrame {
