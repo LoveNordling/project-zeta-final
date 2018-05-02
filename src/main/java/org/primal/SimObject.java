@@ -1,16 +1,20 @@
 package org.primal;
 
 
+import org.primal.map.Map;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 
 public abstract class SimObject {
     protected Point2D.Float position;
     protected Shape shape;
+    protected Map map;
 
-    public SimObject(float x, float y) {
+    public SimObject(float x, float y, Map map) {
         this.position = new Point2D.Float(x, y);
-        }
+        this.map = map;
+    }
 
     public Shape getShape() {
         return shape;

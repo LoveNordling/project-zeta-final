@@ -12,11 +12,9 @@ public class Chunk extends SimObject {
     private Tile[][] tiles;
     private int size = 16;
     private int id;
-    private Map map;
 
     public Chunk(float x, float y, Map map) {
-        super(x, y);
-        this.map = map;
+        super(x, y, map);
         tiles = new Tile[size][size];
 
         for (int i = 0; i < size; i++) {
@@ -28,13 +26,13 @@ public class Chunk extends SimObject {
 
                 int n = ThreadLocalRandom.current().nextInt(0, 3);
                 if (n == 0) {
-                    entity = new Lion(xPos, yPos, 100.0f, 100.0f, map);
+                    entity = new Lion(xPos, yPos, map, 100.0f, 100.0f);
                 } else if (n == 1) {
-                    entity = new Hyena(xPos, yPos, 100.0f, 100.0f, map);
+                    entity = new Hyena(xPos, yPos, map, 100.0f, 100.0f);
                 } else if (n == 2) {
-                    entity = new Giraffe(xPos, yPos, 100.0f, 100.0f, map);
+                    entity = new Giraffe(xPos, yPos, map, 100.0f, 100.0f);
                 }
-                Tile tile = new LandTile(xPos, yPos);
+                Tile tile = new LandTile(xPos, yPos, map);
                 tile.addLivingEntity(entity);
                 tiles[i][j] = tile;
             }
@@ -50,7 +48,7 @@ public class Chunk extends SimObject {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
-                    entity.simulate(this.map);
+                    entity.simulate();
                 }
             }
         }
