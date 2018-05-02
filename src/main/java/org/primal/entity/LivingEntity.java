@@ -4,6 +4,7 @@ import org.primal.tile.Tile;
 import org.primal.map.Map;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 public abstract class LivingEntity extends Entity {
     protected Shape shape;
@@ -18,7 +19,11 @@ public abstract class LivingEntity extends Entity {
     }
 
     public void updateShape() {
-        ((Rectangle.Float)this.shape).setRect((getX() - 0.5) * Tile.getSize(), (getY() - 0.5) * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+        if (this instanceof Animal) {
+            ((Rectangle.Float) this.shape).setRect((getX() - 0.5) * Tile.getSize(), (getY() - 0.5) * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+        } else {
+            ((Ellipse2D.Float) this.shape).setFrame((getX() + 0.2) * Tile.getSize(), (getY() + 0.2) * Tile.getSize(), Tile.getSize()/1.5, Tile.getSize()/1.5);
+        }
     }
 
     public Shape getShape() {
