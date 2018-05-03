@@ -1,7 +1,10 @@
 package org.primal.map;
 
 import org.primal.SimObject;
-import org.primal.entity.*;
+import org.primal.entity.Giraffe;
+import org.primal.entity.Hyena;
+import org.primal.entity.Lion;
+import org.primal.entity.LivingEntity;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 
@@ -22,21 +25,17 @@ public class Chunk extends SimObject {
                 float yPos = j + getY() * this.size;
                 Tile tile = new LandTile(xPos, yPos, map);
                 LivingEntity animal = null;
-                LivingEntity plant = null;
 
-                int n = ThreadLocalRandom.current().nextInt(0, 4);
+                int n = ThreadLocalRandom.current().nextInt(0, 3);
                 if (n == 0) {
                     animal = new Lion(xPos, yPos, map, 100.0f, 100.0f);
                 } else if (n == 1) {
                     animal = new Hyena(xPos, yPos, map, 100.0f, 100.0f);
                 } else if (n == 2) {
                     animal = new Giraffe(xPos, yPos, map, 100.0f, 100.0f);
-                } else if ((i % 2) == 0 && (j % 2) == 0) {
-                    plant = new Tree(xPos, yPos, map);
                 }
 
                 if (animal != null) tile.addLivingEntity(animal);
-                if (plant != null) tile.addLivingEntity(plant);
                 tiles[i][j] = tile;
             }
         }
