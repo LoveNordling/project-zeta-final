@@ -1,7 +1,10 @@
 package org.primal.map;
 
 import org.primal.SimObject;
-import org.primal.entity.*;
+import org.primal.entity.Giraffe;
+import org.primal.entity.Hyena;
+import org.primal.entity.Lion;
+import org.primal.entity.LivingEntity;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 

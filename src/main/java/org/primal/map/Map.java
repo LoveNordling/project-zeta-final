@@ -4,12 +4,11 @@ import org.primal.entity.Plant;
 import org.primal.entity.Tree;
 import org.primal.tile.Tile;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.awt.geom.Point2D;
 
 public class Map {
     private LinkedList<Chunk> megaChunks;
@@ -30,7 +29,7 @@ public class Map {
         chunkSize = 16;
         mapSize = width * chunkSize;
 
-        for (int i = 0; i < mapSize/2; i++) {
+        for (int i = 0; i < mapSize / 2; i++) {
             addPlants();
         }
     }
