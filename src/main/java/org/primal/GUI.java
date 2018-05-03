@@ -10,16 +10,24 @@ import java.awt.*;
 import java.awt.geom.Point2D.Float;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-class Surface extends JPanel implements MouseListener {
+class Surface extends JPanel implements MouseListener, KeyListener {
     private Map map;
-    private int mapWidth = 960;
+    private int mapWidth;
     private float convertionRate;
+    private boolean commandSent = false;
+    public enum Commands{ NOTHING, SPAWNLIONS }
+    private Commands command;
     public Surface(Map map) {
         super();
 
+        mapWidth = map.width*360;
         convertionRate = ((float)map.getSize())/((float)mapWidth);
+        this.addKeyListener(this);
         this.addMouseListener(this);
+        System.out.println(this.isFocusable());
         this.map = map;
     }
 
@@ -59,13 +67,35 @@ class Surface extends JPanel implements MouseListener {
         float fY = y*convertionRate;
         return new Float(fX, fY);
     }
+    private void execCommands(){
+        switch(command){
+            case SPAWNLIONS:
+                System.out.println("lions");
+                break;
+        }
+    }
     public void mouseClicked(MouseEvent click) {
+        this.requestFocusInWindow();
         int x = click.getX();
         int y = click.getY();
         Float coords = translate(x, y);
-        
-        Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
-        System.out.println(t);
+        if(commandSent == true){
+            execCommands();
+            commandSent = false;
+        }
+        else{
+            Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
+            System.out.println(t);
+        }
+    }
+    public void keyPressed(KeyEvent e){
+        int key = e.getKeyCode();
+        System.out.println("hej");
+        if(key == KeyEvent.VK_A){
+            commandSent = true;
+            command = Commands.SPAWNLIONS;
+            System.out.println("aaa");
+        }
     }
 
     // Useless methods (needed to be implemented)
@@ -80,6 +110,11 @@ class Surface extends JPanel implements MouseListener {
 
     public void mouseEntered(MouseEvent e) {
     }
+    public void keyReleased(KeyEvent e){
+    }
+    public void keyTyped(KeyEvent e){
+    }
+    
 
 }
 
