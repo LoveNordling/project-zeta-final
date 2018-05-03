@@ -76,6 +76,11 @@ public abstract class Animal extends LivingEntity {
         }
     }
 
+    @Override
+    public boolean isAnimal() {
+        return true;
+    }
+
     public void move() {
         if (lastDirections[0] != lastDirections[1]) {
             stepInDir(lastDirections[0]);
