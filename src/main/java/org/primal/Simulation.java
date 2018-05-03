@@ -2,6 +2,7 @@ package org.primal;
 
 import org.primal.map.Chunk;
 import org.primal.map.Map;
+import org.primal.util.ThrowingTask;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -23,6 +24,7 @@ public class Simulation {
             myChunk = chunk;
         }
 
+        @Override
         public void run() {
             myChunk.updateChunk();
             try {
@@ -30,6 +32,7 @@ public class Simulation {
 
                 // This error thrown if the thread was interrupted during execution
             } catch (InterruptedException ex) {
+                System.err.println("Thread " + Thread.currentThread() + "was interrupted");
                 return;
 
                 /**
@@ -67,7 +70,7 @@ public class Simulation {
         for (Chunk[] chunks : this.map.getChunks()) {
             for (Chunk c : chunks) {
                 // 16 Milliseconds is approximatly 1/60 sec
-                simulationThreadPool.scheduleAtFixedRate(new Worker(c), 0, 16, TimeUnit.MILLISECONDS);
+                simulationThreadPool.scheduleAtFixedRate(new ThrowingTask(new Worker(c)), 0, 16, TimeUnit.MILLISECONDS);
             }
         }
 

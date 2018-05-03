@@ -55,6 +55,7 @@ public class Chunk extends SimObject {
                 }
             }
         }
+
         //System.out.println("moved to"+ getTile(0,0).getLivingEntities().get(0).getPosition()[0]);
     }
 
