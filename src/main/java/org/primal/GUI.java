@@ -18,7 +18,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private int mapWidth;
     private float convertionRate;
     private boolean commandSent = false;
-    public enum Commands{ NOTHING, SPAWNLIONS }
+    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN }
     private Commands command;
     public Surface(Map map) {
         super();
@@ -67,11 +67,59 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         float fY = y*convertionRate;
         return new Float(fX, fY);
     }
+    private void printAll(){
+        map.printAll();
+    }
+    private void healAnimals(Float pos){
+        System.out.println("Thoughts and prayers sent!");
+        Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
+        t.heal();
+    }
+    private void killSomeAnimals(Float pos){
+        System.out.println("This is a christian minecraft server: No killing allowed");
+    }
+    private void killAnimals(Float pos){
+        Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
+        t.slaughter();
+    }
+    private void NUKEDECIMATESLAUGHTER(){
+        System.out.println("Freedom sent");
+        map.nuke();
+    }
+    private void spawn(){
+        System.out.println("Due to reasons this function is not implemented");
+    }
     private void execCommands(){
+        switch(command){
+            case PRINTALL:
+                printAll();
+                break;
+            case HEJ:
+                System.out.println("Hej på dig");
+                break;
+            case KILLALL:
+                NUKEDECIMATESLAUGHTER();
+                break;
+            case RESPAWN:
+                spawn();
+                break;
+        }
+    }
+    private void execCommands(Float pos){
         switch(command){
             case SPAWNLIONS:
                 System.out.println("lions");
                 break;
+            case KILL:
+                killAnimals(pos);
+                break;
+            case KILLSOME:
+                killSomeAnimals(pos);
+                break;
+            case HEAL:
+                healAnimals(pos);
+                break;
+       
         }
     }
     public void mouseClicked(MouseEvent click) {
@@ -80,7 +128,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         int y = click.getY();
         Float coords = translate(x, y);
         if(commandSent == true){
-            execCommands();
+            execCommands(coords);
             commandSent = false;
         }
         else{
@@ -90,12 +138,39 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     }
     public void keyPressed(KeyEvent e){
         int key = e.getKeyCode();
-        System.out.println("hej");
+        
         if(key == KeyEvent.VK_A){
-            commandSent = true;
             command = Commands.SPAWNLIONS;
-            System.out.println("aaa");
+            commandSent = true;
         }
+        else if(key == KeyEvent.VK_P){
+            command = Commands.PRINTALL;
+        }
+        else if(key == KeyEvent.VK_H){
+            command = Commands.HEJ;
+        }
+        else if(key == KeyEvent.VK_N){
+            command = Commands.KILLALL;
+        }
+        else if(key == KeyEvent.VK_R){
+            command = Commands.RESPAWN;
+        }
+        else if(key == KeyEvent.VK_S){
+            commandSent = true;
+            command = Commands.KILLSOME;
+        }
+        else if(key == KeyEvent.VK_K){
+            commandSent = true;
+            command = Commands.KILL;
+        }
+        else if(key == KeyEvent.VK_D){
+            commandSent = true;
+            command = Commands.HEAL;
+        }
+        else{
+            System.out.println("Invalid command");
+        }
+        execCommands();
     }
 
     // Useless methods (needed to be implemented)

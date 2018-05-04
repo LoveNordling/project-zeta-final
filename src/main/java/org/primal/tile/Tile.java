@@ -34,8 +34,21 @@ public class Tile extends SimObject {
         if (this.livingEntities.contains(ent)) {
             this.livingEntities.remove(ent);
         }
+        else{
+            System.out.println("bla");
+        }
     }
-
+    
+    public void heal(){
+        for (LivingEntity entity : getLivingEntities().values()) {
+            entity.heal();
+        }
+    }
+    
+    public void slaughter(){
+        livingEntities.clear();
+    }
+    
     public ConcurrentHashMap<Integer,LivingEntity> getLivingEntities() {
         return livingEntities;
     }

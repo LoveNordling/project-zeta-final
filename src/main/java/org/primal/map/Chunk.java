@@ -39,7 +39,22 @@ public class Chunk extends SimObject {
             }
         }
     }
-
+    public void decimate(){
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                getTile(i, j).slaughter();
+            }
+        }
+    }
+    public void printChunk(){
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                for (LivingEntity entity : getTile(i, j).getLivingEntities().values()) {
+                    System.out.println(entity);
+                }
+            }
+        }
+    }
     public void updateChunk() {
         try {
             Thread.sleep(100);

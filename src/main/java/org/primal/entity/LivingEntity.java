@@ -8,6 +8,7 @@ import java.awt.*;
 public abstract class LivingEntity extends Entity {
     protected Rectangle.Float shape;
     float health;
+    private float maxHP;
     float energySatisfaction;
     protected Color color;
 
@@ -16,6 +17,7 @@ public abstract class LivingEntity extends Entity {
         this.shape = shape;
         this.color = new Color(0, 0, 0);
         this.health = health;
+        this.maxHP = health;
     }
 
     public void updateShape() {
@@ -31,6 +33,9 @@ public abstract class LivingEntity extends Entity {
 
     public void performAction(Map map) {}
 
+    public void heal(){
+        health = maxHP;
+    }
     public Color getColor(){
         return color;
     }
