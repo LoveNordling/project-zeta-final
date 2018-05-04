@@ -28,11 +28,11 @@ public class Chunk extends SimObject {
 
                 int n = ThreadLocalRandom.current().nextInt(0, 3);
                 if (n == 0) {
-                    animal = new Lion(xPos, yPos, map, 100.0f, 100.0f);
+                    animal = new Lion(xPos * Tile.getSize(), yPos * Tile.getSize(), map, 100.0f, 100.0f);
                 } else if (n == 1) {
-                    animal = new Hyena(xPos, yPos, map, 100.0f, 100.0f);
+                    animal = new Hyena(xPos * Tile.getSize(), yPos * Tile.getSize(), map, 100.0f, 100.0f);
                 } else if (n == 2) {
-                    animal = new Giraffe(xPos, yPos, map, 100.0f, 100.0f);
+                    animal = new Giraffe(xPos * Tile.getSize(), yPos * Tile.getSize(), map, 100.0f, 100.0f);
                 }
 
                 if (animal != null) tile.addLivingEntity(animal);

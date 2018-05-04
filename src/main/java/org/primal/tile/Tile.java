@@ -43,6 +43,6 @@ public class Tile extends SimObject {
     }
 
     public String toString() {
-        return "Tile(x: " + this.getX() + ", y: " + this.getY() + ") has " + this.livingEntities.size() + "animals" + "%n" + this.livingEntities.toString();
+        return "Tile(x: " + this.getX() + ", y: " + this.getY() + ") has " + this.livingEntities.size() + " animals /n"  + this.livingEntities.toString();
     }
 }

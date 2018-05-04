@@ -17,7 +17,7 @@ public class Lion extends Animal {
         this.behaviours.add(foodBehaviour);
         this.starvationRate = 1;
         this.color = new java.awt.Color(0, 0, 150);
-        this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 2, Tile.getSize() / 2);
+        this.shape = new Rectangle.Float(this.getX(), this.getY(), Tile.getSize() / 2, Tile.getSize() / 2);
     }
 
     public void eat(LivingEntity food) {

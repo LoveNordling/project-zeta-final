@@ -26,7 +26,7 @@ public abstract class Animal extends LivingEntity {
         // TODO: remove static x y below.
         super(x, y, map, health);
 
-        this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
+        this.shape = new Rectangle.Float(this.getX(), this.getY(), Tile.getSize() / 4, Tile.getSize() / 4);
 
         this.stamina = stamina;
         this.fullness = fullness;
@@ -39,17 +39,19 @@ public abstract class Animal extends LivingEntity {
     }
 
     public void simulate() {
+
+        System.out.println("Animal simulate");
         super.simulate();
 
         mapSize = map.getSize(); //temp solution
         //Point2D currentPos = this.getPosition();
-        Tile currentTile = map.getTile(getX(), getY());
+        Tile currentTile = map.getTile(getX() / Tile.getSize(), getY() / Tile.getSize());
 
         getBestBehaviour().act();
         updateStats();
 
         //Point2D newPos = this.getPosition();
-        Tile newTile = map.getTile(getX(), getY());
+        Tile newTile = map.getTile(getX() / Tile.getSize(), getY() / Tile.getSize());
         if (currentTile != newTile) {
             moveTile(currentTile, newTile);
         }

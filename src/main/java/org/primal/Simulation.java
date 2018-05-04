@@ -41,6 +41,7 @@ public class Simulation {
                  * or the barrier action failed due to an exception
                  */
             } catch (BrokenBarrierException ex) {
+                System.err.println("Broken Barrier Exception");
                 return;
             }
         }
@@ -52,7 +53,6 @@ public class Simulation {
         // One thread for every chunk for now
         int chunkNumber = this.map.width;
 
-        //8 is a temporary number
         this.simulationThreadPool = Executors.newScheduledThreadPool(chunkNumber);
 
         Runnable synchronizationAction = () -> {
