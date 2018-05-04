@@ -18,7 +18,9 @@ public class Behaviour {
     }
 
     public void act() {
+        // System.out.println("Getting behaviourMove");
         host.move();
+        // System.out.println("Got behaviourMove");
     }
 
     public int getWeight() {

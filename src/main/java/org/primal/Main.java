@@ -37,7 +37,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Map map = new Map(2);
+        Map map = new Map(1);
         Simulation simulation = new Simulation(map);
         simulation.start();
 

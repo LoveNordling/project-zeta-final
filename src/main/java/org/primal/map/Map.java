@@ -27,7 +27,9 @@ public class Map {
             }
         }
         chunkSize = 16;
-        mapSize = width * chunkSize;
+    // System.out.println("before mapsize");
+        mapSize = width * chunkSize * Tile.getSize();
+        // System.out.println("after mapsize");
 
         for (int i = 0; i < mapSize / 2; i++) {
             addPlants();
@@ -69,15 +71,18 @@ public class Map {
         if (x >= 0 && y >= 0 && x < mapSize && y < mapSize) {
             return true;
         }
+        // System.out.println(mapSize);
+        // System.out.println("Failed withinBounds");
         return false;
     }
 
     private void addPlants() {
         Random generator = new Random();
-        int randX = generator.nextInt(mapSize) + 1;
-        int randY = generator.nextInt(mapSize) + 1;
+        int randX = generator.nextInt(mapSize / Tile.getSize()) + 1;
+        int randY = generator.nextInt(mapSize / Tile.getSize()) + 1;
         int forestWidth = generator.nextInt(3);
 
+        // System.out.println(randX + ":" + randY + ":" + forestWidth);
         ArrayList<Tile> tiles = getTiles(randX, randY, forestWidth);
         for (Tile tile : tiles) {
             // TODO: add check if tile already contains plant
@@ -92,8 +97,8 @@ public class Map {
 
         for (int i = -radius; i <= radius; i++) {
             for (int j = -radius; j <= radius; j++) {
-                if (withinBounds(x + i, y + j)) {
-                    currentTile = this.getTile(x + i, y + j);
+                if (withinBounds(x + (i * Tile.getSize()), y + (j * Tile.getSize()))) {
+                    currentTile = this.getTile(x + (i * Tile.getSize()), y + (j * Tile.getSize()));
                     tiles.add(currentTile);
                 }
             }

@@ -26,13 +26,14 @@ public class Simulation {
 
         @Override
         public void run() {
+            // System.out.println("Preparing to updateChunk");
             myChunk.updateChunk();
             try {
                 updateLoopSyncronizationBarrier.await();
 
                 // This error thrown if the thread was interrupted during execution
             } catch (InterruptedException ex) {
-                System.err.println("Thread " + Thread.currentThread() + "was interrupted");
+                System.out.println("Thread " + Thread.currentThread() + "was interrupted");
                 return;
 
                 /**
@@ -41,7 +42,7 @@ public class Simulation {
                  * or the barrier action failed due to an exception
                  */
             } catch (BrokenBarrierException ex) {
-                System.err.println("Broken Barrier Exception");
+                System.out.println("Broken Barrier Exception");
                 return;
             }
         }

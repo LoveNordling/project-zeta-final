@@ -42,14 +42,16 @@ public class Chunk extends SimObject {
     }
 
     public void updateChunk() {
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.out.println("Sleep failed");
-        }
+        // System.out.println("Updating chunk");
+        // try {
+        //     // Thread.sleep(100);
+        // } catch (InterruptedException e) {
+        //     System.out.println("Sleep failed");
+        // }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
+                    // System.out.println("Preparing to simulate entity");
                     entity.simulate();
                 }
             }

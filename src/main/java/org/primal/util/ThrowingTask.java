@@ -13,7 +13,7 @@ public class ThrowingTask implements Runnable {
 		try {
 			run.run();
 		} catch (Exception ex) {
-			System.err.println("Exception occured");
+			System.out.println("Exception occured");
 			ex.printStackTrace();
 		}
 	}

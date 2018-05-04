@@ -20,7 +20,9 @@ class Surface extends JPanel implements MouseListener {
     public Surface(Map map) {
         super();
 
-        convertionRate = ((float)map.getSize())/((float)mapWidth);
+        mapWidth = 480 * map.width;
+
+        convertionRate = ((float)(map.getSize()/Tile.getSize()))/((float)mapWidth);
         this.addMouseListener(this);
         this.map = map;
     }
@@ -64,6 +66,7 @@ class Surface extends JPanel implements MouseListener {
     public void mouseClicked(MouseEvent click) {
         int x = click.getX();
         int y = click.getY();
+        System.out.println(x + ":" + y);
         Float coords = translate(x, y);
         
         Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));

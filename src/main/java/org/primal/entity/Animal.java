@@ -18,7 +18,7 @@ public abstract class Animal extends LivingEntity {
     float fullness;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
-    private float lengthUnit = 0.1f;
+    private float lengthUnit = 1.0f;
 
     LinkedList<Behaviour> behaviours;
 
@@ -40,28 +40,47 @@ public abstract class Animal extends LivingEntity {
 
     public void simulate() {
 
-        System.out.println("Animal simulate");
+        // System.out.println("super simulate");
         super.simulate();
+        // System.out.println("Animal simulate");
 
+        // System.out.println("Getting mapSize");
         mapSize = map.getSize(); //temp solution
+        // System.out.println("Got mapSize");
         //Point2D currentPos = this.getPosition();
+        // System.out.println("Getting oldtile");
         Tile currentTile = map.getTile(getX() / Tile.getSize(), getY() / Tile.getSize());
+        // System.out.println("Got oldTile");
 
+        // System.out.println("Getting behaviour");
         getBestBehaviour().act();
+        // System.out.println("Got behaviour");
+        // System.out.println("Getting stats");
         updateStats();
+        // System.out.println("Got stats");
 
         //Point2D newPos = this.getPosition();
+        // System.out.println("Getting newtile");
         Tile newTile = map.getTile(getX() / Tile.getSize(), getY() / Tile.getSize());
+        // System.out.println("Got newtile");
         if (currentTile != newTile) {
+            // System.out.println("Getting movetile");
             moveTile(currentTile, newTile);
+            // System.out.println("Got movetile");
         }
     }
 
     private Behaviour getBestBehaviour() {
+        // System.out.println("Getting first behaviour");
         Behaviour best = behaviours.getFirst();
+    // System.out.println("Got first behaviour");
         for (Behaviour behaviour : behaviours) {
+            // System.out.println("Getting decide");
             behaviour.decide();
+            // System.out.println("Got decide");
+            // System.out.println("Getting best");
             best = best.getWeight() < behaviour.getWeight() ? behaviour : best;
+            // System.out.println("Got best");
         }
         return best;
     }
@@ -84,20 +103,30 @@ public abstract class Animal extends LivingEntity {
     }
 
     public void move() {
+        // System.out.println("entering move");
         if (lastDirections[0] != lastDirections[1]) {
+            // System.out.println("stepInDir");
             stepInDir(lastDirections[0]);
+            // System.out.println("after stepInDir");
         } else {
+            // System.out.println("randomDir");
             randomDir();
+            // System.out.println("after randomDir");
         }
+        // System.out.println("updateShape");
         updateShape();
+        // System.out.println("after updateShape");
     }
 
     // N = North, S = South, W = West, E = East
     // A = NorthEast, B = SouthEast, C = SouthWest, D = NorthWest
     private void stepInDir(Character c) {
         //float[] newPos = new float[2];
+        // System.out.println("Getting pos");
         float newPosX = getX();
         float newPosY = getY();
+        // System.out.println("Got pos x: " + newPosX + ", y: " + newPosY);
+        // System.out.println(c);
 
         switch (c) {
             case 'E':
@@ -137,7 +166,9 @@ public abstract class Animal extends LivingEntity {
                 updateLastDir('D');
                 break;
         }
+        // System.out.println("did stuff");
         if (map.withinBounds(newPosX, newPosY)) {
+            // System.out.println("(Stepindir) Moving to: " + newPosX + "," + newPosY);
             this.position.setLocation(newPosX, newPosY);
         } else {
             randomDir();
@@ -145,7 +176,9 @@ public abstract class Animal extends LivingEntity {
     }
 
     private void randomDir() {
+        // System.out.println("Getting ThreadLocalRandom");
         int n = ThreadLocalRandom.current().nextInt(0, 8);
+        // System.out.println(n);
         switch (n) {
             case 0:
                 stepInDir('E');
