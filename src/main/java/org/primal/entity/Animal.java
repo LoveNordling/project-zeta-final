@@ -25,6 +25,9 @@ public abstract class Animal extends LivingEntity {
     public Animal(float x, float y, Map map, float health, float stamina, float fullness) {
         // TODO: remove static x y below.
         super(x, y, map, health);
+
+        this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+
         this.stamina = stamina;
         this.fullness = fullness;
         energySatisfaction = 100;
