@@ -1,14 +1,9 @@
 package org.primal.map;
 
 import org.primal.SimObject;
-import org.primal.entity.Giraffe;
-import org.primal.entity.Hyena;
-import org.primal.entity.Lion;
 import org.primal.entity.LivingEntity;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Chunk extends SimObject {
     private Tile[][] tiles;
@@ -24,18 +19,6 @@ public class Chunk extends SimObject {
                 float xPos = i + getX() * this.size;
                 float yPos = j + getY() * this.size;
                 Tile tile = new LandTile(xPos, yPos, map);
-                LivingEntity animal = null;
-
-                int n = ThreadLocalRandom.current().nextInt(0, 3);
-                if (n == 0) {
-                    animal = new Lion(xPos, yPos, map, 100.0f, 100.0f);
-                } else if (n == 1) {
-                    animal = new Hyena(xPos, yPos, map, 100.0f, 100.0f);
-                } else if (n == 2) {
-                    animal = new Giraffe(xPos, yPos, map, 100.0f, 100.0f);
-                }
-
-                if (animal != null) tile.addLivingEntity(animal);
                 tiles[i][j] = tile;
             }
         }
@@ -54,8 +37,10 @@ public class Chunk extends SimObject {
                 }
             }
         }
+    }
 
-        //System.out.println("moved to"+ getTile(0,0).getLivingEntities().get(0).getPosition()[0]);
+    public Tile[][] getTiles() {
+        return tiles;
     }
 
     public int getId() {

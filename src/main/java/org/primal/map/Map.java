@@ -1,5 +1,7 @@
 package org.primal.map;
 
+import org.primal.entity.Animal;
+import org.primal.entity.Lion;
 import org.primal.entity.Plant;
 import org.primal.entity.Tree;
 import org.primal.tile.Tile;
@@ -32,6 +34,7 @@ public class Map {
         for (int i = 0; i < mapSize / 2; i++) {
             addPlants();
         }
+        addAnimals();
     }
 
     public LinkedList<Chunk> getMegaChunks() {
@@ -70,6 +73,31 @@ public class Map {
             return true;
         }
         return false;
+    }
+
+    private void addAnimals() {
+        Chunk[][] chunks = getChunks();
+        Chunk chunk;
+        Tile[][] tiles;
+        Animal animal;
+        int chunkSize = chunks[0][0].getSize();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < width; y++) {
+                chunk = chunks[x][y];
+                tiles = chunk.getTiles();
+                for (int i = 0; i < chunkSize; i++) {
+                    for (int j = 0; j < chunkSize; j++) {
+
+                        float xPos = i + chunk.getX() * chunkSize;
+                        float yPos = j + chunk.getY() * chunkSize;
+
+                        animal = new Lion(xPos, yPos, this, 100.0f, 100.0f);
+                        tiles[i][j].addLivingEntity(animal);
+                    }
+                }
+            }
+        }
     }
 
     private void addPlants() {
