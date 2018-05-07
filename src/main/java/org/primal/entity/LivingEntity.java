@@ -1,16 +1,16 @@
 package org.primal.entity;
 
-import org.primal.tile.Tile;
 import org.primal.map.Map;
+import org.primal.tile.Tile;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 public abstract class LivingEntity extends Entity {
+
     protected Shape shape;
+    protected Color color;
     float health;
     float energySatisfaction;
-    protected Color color;
 
     public LivingEntity(float x, float y, Map map, float health) {
         super(x, y, map);
@@ -37,11 +37,13 @@ public abstract class LivingEntity extends Entity {
         return this.shape;
     }
 
-    public void simulate() {}
+    public void simulate() {
+    }
 
-    public void performAction() {}
+    public void performAction() {
+    }
 
-    public Color getColor(){
+    public Color getColor() {
         return color;
     }
 }

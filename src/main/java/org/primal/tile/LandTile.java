@@ -3,7 +3,6 @@ package org.primal.tile;
 import org.primal.entity.LivingEntity;
 import org.primal.map.Map;
 
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class LandTile extends Tile {

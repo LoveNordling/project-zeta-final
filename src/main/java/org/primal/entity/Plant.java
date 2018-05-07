@@ -10,6 +10,6 @@ public abstract class Plant extends LivingEntity {
 
     @Override
     public boolean isPlant() {
-    	return true;
+        return true;
     }
 }

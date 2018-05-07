@@ -6,6 +6,7 @@ import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 
 public class Chunk extends SimObject {
+
     private Tile[][] tiles;
     private int size = 16;
     private int id;

@@ -13,12 +13,13 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Map {
+
+    public int width;
+    public AtomicInteger entityId = new AtomicInteger(0);
     private LinkedList<Chunk> megaChunks;
     private int mapSize;
     private int chunkSize;
     private Chunk[][] chunks;
-    public int width;
-    public AtomicInteger entityId = new AtomicInteger(0);
 
     public Map(int width) {
         this.width = width;

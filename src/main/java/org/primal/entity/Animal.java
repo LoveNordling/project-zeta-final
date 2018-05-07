@@ -5,22 +5,21 @@ import org.primal.map.Map;
 import org.primal.tile.Tile;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
-    private int id;
+
     float starvationRate = 0.001f;
-    private int mapSize = 4 * 16;
     float stamina;
     float fullness;
+    LinkedList<Behaviour> behaviours;
+    private int id;
+    private int mapSize = 4 * 16;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
     private float lengthUnit = 0.1f;
-
-    LinkedList<Behaviour> behaviours;
 
     public Animal(float x, float y, Map map, float health, float stamina, float fullness) {
         // TODO: remove static x y below.

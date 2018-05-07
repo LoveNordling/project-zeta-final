@@ -1,12 +1,12 @@
 package org.primal;
 
-
 import org.primal.map.Map;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 
 public abstract class SimObject {
+
     protected Point2D.Float position;
     protected Shape shape;
     protected Map map;
@@ -19,7 +19,6 @@ public abstract class SimObject {
     public Shape getShape() {
         return shape;
     }
-
 
     public Point2D getPosition() {
         return position;

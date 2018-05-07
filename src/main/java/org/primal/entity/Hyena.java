@@ -7,6 +7,7 @@ import org.primal.map.Map;
 import java.util.LinkedList;
 
 public class Hyena extends Animal {
+
     public Hyena(float x, float y, Map map, float stamina, float fullness) {
         super(x, y, map, 100, stamina, fullness);
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
