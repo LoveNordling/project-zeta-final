@@ -27,4 +27,8 @@ public abstract class Herbivore extends Animal {
     public void startChasing() {
         this.chasedStatus  = true;
     }
+
+    public boolean isHerbivore() {
+        return true;
+    }
 }

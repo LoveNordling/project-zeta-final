@@ -1,6 +1,7 @@
 package org.primal.entity;
 
 import org.primal.behaviour.Behaviour;
+import org.primal.behaviour.ChaseBehaviour;
 import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
@@ -15,6 +16,7 @@ public class Lion extends Carnivore {
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
         this.behaviours = new LinkedList<>();
         this.behaviours.add(foodBehaviour);
+        this.behaviours.add(new ChaseBehaviour(this, map));
         this.starvationRate = 1;
         this.color = new java.awt.Color(0, 0, 150);
         this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
