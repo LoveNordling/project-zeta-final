@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.primal.map.Map;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +18,7 @@ public class Main extends Application {
     private Simulation simulation;
 
     public static void main(String[] args) {
-
+       
         File dir = new File("output/");
         dir.mkdir();
 
@@ -35,7 +36,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        
         Map map = new Map(2);
         Simulation simulation = new Simulation(map);
         simulation.start();
@@ -48,6 +49,7 @@ public class Main extends Application {
                 gui.setVisible(true);
             }
         });
+         
 
         //stage.show();
     }

@@ -23,7 +23,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private int mapWidth;
     private float convertionRate;
     private boolean commandSent = false;
-    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL }
+    private boolean inputMode = false;
+    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT }
     private Commands command;
     public Surface(Map map) {
         super();
@@ -99,8 +100,48 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private void spawn(){
         System.out.println("Due to reasons this function is not implemented");
     }
+    private void input(){
+        boolean exit = false;
+        
+
+
+        inputMode = true;
+        while(!exit){
+            String comnd = JOptionPane.showInputDialog(this, "Enter Command", "Input Box", JOptionPane.PLAIN_MESSAGE);
+            System.out.println(comnd);
+
+            
+            if(comnd.equals("q") || comnd.equals("quit") || comnd.equals("exit")){
+                exit = true;
+            }
+            else if(comnd.equals("n") || comnd.equals("nuke") || comnd.equals("kill all")){
+                command = Commands.KILLALL;
+            }
+            else if(comnd.equals("k") || comnd.equals("kill")){
+                commandSent = true;
+                command = Commands.KILL;
+                return;
+            }
+            else if(comnd.equals("p") || comnd.equals("print") || comnd.equals("print all")){
+                command = Commands.PRINTALL;
+                
+            }
+            else{
+                System.out.println("invalid command");
+                command = Commands.NOTHING;
+            }
+            execCommands();
+            
+        }
+
+
+        inputMode = false;
+    }
     private void execCommands(){
         switch(command){
+            case INPUT:
+                input();
+                break;
             case PRINTALL:
                 printAll();
                 break;
@@ -143,12 +184,18 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         Float coords = translate(x, y);
 
         if(commandSent == true){
+            System.out.println("hej");
             execCommands(coords);
             commandSent = false;
         }
         else{
             Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
             System.out.println(t);
+        }
+
+
+        if(inputMode){
+            input();
         }
     }
     public void keyPressed(KeyEvent e){
@@ -166,6 +213,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         }
         else if(key == KeyEvent.VK_N){
             command = Commands.KILLALL;
+        }
+        else if(key == KeyEvent.VK_I){
+            command = Commands.INPUT;
         }
         else if(key == KeyEvent.VK_R){
             command = Commands.RESPAWN;
@@ -187,6 +237,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         }
         else{
             System.out.println("Invalid command");
+            return;
         }
         execCommands();
     }
@@ -219,7 +270,6 @@ public class GUI extends JFrame {
 
     private void initUI(Map map) {
         add(new Surface(map));
-
         setTitle("Primal");
         setSize(1000, 1000);
         setLocationRelativeTo(null);
