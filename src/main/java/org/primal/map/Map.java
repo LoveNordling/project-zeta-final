@@ -36,6 +36,8 @@ public class Map {
         }
         for (int i = 0; i < mapSize / 2; i++) {
             addAnimals();
+        }
+        for (int i = 0; i < mapSize / 2; i++) {
             addPlants();
         }
     }

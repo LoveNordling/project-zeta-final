@@ -22,7 +22,8 @@ public abstract class LivingEntity extends Entity {
 
     public void updateShape() {
         if (this.isAnimal()) {
-            ((Rectangle.Float) this.shape).setRect((getX() + 0.5) * Tile.getSize(), (getY() + 0.5) * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
+            float visualSize = Tile.getSize() / 4;
+            ((Rectangle.Float) this.shape).setRect(getX() * Tile.getSize() - visualSize / 2, getY() * Tile.getSize() - visualSize / 2, visualSize, visualSize);
         }
     }
 
@@ -45,9 +46,10 @@ public abstract class LivingEntity extends Entity {
     public void performAction() {
     }
 
-    public void heal(){
+    public void heal() {
         health = maxHP;
     }
+
     public Color getColor() {
         return color;
     }
