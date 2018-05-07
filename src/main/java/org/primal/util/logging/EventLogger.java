@@ -41,9 +41,9 @@ public class EventLogger {
 	}
 
 	// Used for performance logging.
-	public synchronized void log(LogLevel level, long msg) {
+	public synchronized void log(LogLevel level, String msg, long time) {
 		if(this.level.getLevel() > level.getLever() && this.level.isPerf() == level.isPerf()) {
-			log.println(msg);
+			log.println(msg + " : " + time);
 			log.flush();
 		}
 	}
