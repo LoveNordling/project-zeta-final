@@ -8,7 +8,7 @@ import org.primal.tile.Tile;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class Lion extends Animal {
+public class Lion extends Carnivore {
 
     public Lion(float x, float y, Map map, float stamina, float fullness) {
         super(x, y, map, 100, stamina, fullness);
