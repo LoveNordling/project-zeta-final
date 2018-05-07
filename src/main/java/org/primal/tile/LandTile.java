@@ -27,4 +27,9 @@ public class LandTile extends Tile {
             }
         }
     }
+
+    @Override
+    public boolean isLandTile() {
+        return true;
+    }
 }

@@ -11,8 +11,8 @@ import java.io.PrintStream;
 
 public class Main extends Application {
 
-    public int windowWidth = 600;
-    public int windowHeight = 600;
+    public int windowWidth = 480 * 2;
+    public int windowHeight = 480 * 2;
     private Map map;
     private Simulation simulation;
 

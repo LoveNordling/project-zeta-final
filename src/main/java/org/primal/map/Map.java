@@ -131,7 +131,7 @@ public class Map {
 
         ArrayList<Tile> tiles = getTiles(randX, randY, packWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 if (species == 0) {
                     animal = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
                 } else if (species == 1) {

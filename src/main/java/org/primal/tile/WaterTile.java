@@ -37,4 +37,9 @@ public class WaterTile extends Tile {
         }
         updateCount ++;
     }
+
+    @Override
+    public boolean isWaterTile() {
+        return true;
+    }
 }

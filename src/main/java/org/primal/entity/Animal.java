@@ -93,10 +93,19 @@ public abstract class Animal extends LivingEntity {
         return true;
     }
 
+    public boolean isValidMovement(Point2D.Float newPos) {
+        if(map.getTile((float) newPos.getX(),(float) newPos.getY()).isWaterTile()){
+            return false;
+        }
+        // Add further checks here
+
+        return true;
+    }
+
     public void move() {
         Point2D.Float newPos = new Point2D.Float((float)(this.position.getX() + movementDirection.getX()*speed), (float)(this.position.getY() + movementDirection.getY()*speed));
         Point2D collisionPoint = map.checkCollision((float)newPos.getX(), (float)newPos.getY());
-        if (collisionPoint.getX() == 0 && collisionPoint.getY() == 0) {
+        if (collisionPoint.getX() == 0 && collisionPoint.getY() == 0 && isValidMovement(newPos)) {
             this.position.setLocation(Math.max(newPos.getX(),0), Math.max(newPos.getY(), 0));
         } else {
 
@@ -114,7 +123,9 @@ public abstract class Animal extends LivingEntity {
         
         oldTile.removeLivingEntity(this);
         newTile.addLivingEntity(this);
-    }    private void updateLastDir(Character c) {
+    }
+    
+    private void updateLastDir(Character c) {
         for (int i = 0; i < lastDirections.length - 1; i++) {
             lastDirections[i + 1] = lastDirections[i];
         }
