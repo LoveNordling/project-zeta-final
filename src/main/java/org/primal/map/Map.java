@@ -4,7 +4,9 @@ import org.primal.entity.Animal;
 import org.primal.entity.Lion;
 import org.primal.entity.Plant;
 import org.primal.entity.Tree;
+import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
+import org.primal.tile.WaterTile;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class Map {
         chunkSize = 16;
         mapSize = width * chunkSize;
 
+        for (int i = 0; i < mapSize / 4; i++) {
+            addWaterTiles();
+        }
         for (int i = 0; i < mapSize / 2; i++) {
             addPlants();
         }
@@ -76,6 +81,24 @@ public class Map {
         return false;
     }
 
+    private void addWaterTiles() {
+        Random generator = new Random();
+        int randX = generator.nextInt(mapSize) + 1;
+        int randY = generator.nextInt(mapSize) + 1;
+        int waterWidth = generator.nextInt(2) + 1;
+
+        ArrayList<Tile> tiles = getTiles(randX, randY, waterWidth);
+        for (Tile tile : tiles) {
+            tile.changeToWaterTile();
+        }
+        Chunk[][] chunks = getChunks();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < width; y++) {
+                chunks[x][y].changeToWaterTiles();
+            }
+        }
+    }
+
     private void addAnimals() {
         Chunk[][] chunks = getChunks();
         Chunk chunk;
@@ -89,12 +112,12 @@ public class Map {
                 tiles = chunk.getTiles();
                 for (int i = 0; i < chunkSize; i++) {
                     for (int j = 0; j < chunkSize; j++) {
-
-                        float xPos = i + chunk.getX() * chunkSize;
-                        float yPos = j + chunk.getY() * chunkSize;
-
-                        animal = new Lion(xPos, yPos, this, 100.0f, 100.0f);
-                        tiles[i][j].addLivingEntity(animal);
+                        if (tiles[i][j] instanceof LandTile) {
+                            float xPos = i + chunk.getX() * chunkSize;
+                            float yPos = j + chunk.getY() * chunkSize;
+                            animal = new Lion(xPos, yPos, this, 100.0f, 100.0f);
+                            tiles[i][j].addLivingEntity(animal);
+                        }
                     }
                 }
             }
@@ -110,8 +133,10 @@ public class Map {
         ArrayList<Tile> tiles = getTiles(randX, randY, forestWidth);
         for (Tile tile : tiles) {
             // TODO: add check if tile already contains plant
-            Plant plant = new Tree(tile.getX(), tile.getY(), this);
-            tile.addLivingEntity(plant);
+            if (tile instanceof LandTile) {
+                Plant plant = new Tree(tile.getX(), tile.getY(), this);
+                tile.addLivingEntity(plant);
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import org.primal.map.Chunk;
 import org.primal.map.Map;
 import org.primal.tile.Pixel;
 import org.primal.tile.Tile;
+import org.primal.tile.WaterTile;
 
 import javax.swing.*;
 import java.awt.*;

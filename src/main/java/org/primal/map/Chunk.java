@@ -4,6 +4,7 @@ import org.primal.SimObject;
 import org.primal.entity.LivingEntity;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
+import org.primal.tile.WaterTile;
 
 public class Chunk extends SimObject {
 
@@ -35,6 +36,16 @@ public class Chunk extends SimObject {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
                     entity.simulate();
+                }
+            }
+        }
+    }
+
+    public void changeToWaterTiles() {
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                if (tiles[x][y].shouldChangeToWaterTile()) {
+                    tiles[x][y] = new WaterTile(tiles[x][y].getX(), tiles[x][y].getY(), map);
                 }
             }
         }
