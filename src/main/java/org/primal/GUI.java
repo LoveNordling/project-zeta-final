@@ -3,17 +3,21 @@ package org.primal;
 import org.primal.entity.LivingEntity;
 import org.primal.map.Chunk;
 import org.primal.map.Map;
+import org.primal.tile.Pixel;
 import org.primal.tile.Tile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Point2D.Float;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.geom.Point2D.Float;
 
 class Surface extends JPanel implements MouseListener, KeyListener {
+
+
     private Map map;
     private int mapWidth;
     private float convertionRate;
@@ -23,8 +27,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     public Surface(Map map) {
         super();
 
-        mapWidth = map.width*360;
-        convertionRate = ((float)map.getSize())/((float)mapWidth);
+        mapWidth = map.width*480;
+        convertionRate = ((float) map.getSize()) / ((float) mapWidth);
         this.addKeyListener(this);
         this.addMouseListener(this);
         System.out.println(this.isFocusable());
@@ -40,11 +44,12 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 for (int x = 0; x < chunk.getSize(); x++) {
                     for (int y = 0; y < chunk.getSize(); y++) {
                         Tile tile = chunk.getTile(x, y);
-                        g2d.setPaint(new Color(0, 100, 50));
-                        g2d.fill(tile.getShape());
-                        g2d.setPaint(new Color(0, 0, 0));
-                        g2d.draw(tile.getShape());
-                        for (LivingEntity entity : tile.getLivingEntities().values()) {
+                        for (Pixel pixel : tile.getPixels()) {
+                            g2d.setPaint(pixel.getColor());
+                            g2d.fill(pixel.getRectangle());
+                            g2d.draw(pixel.getRectangle());
+                        }
+                        for (LivingEntity entity : tile.getLivingEntities()) {
                             g2d.setPaint(entity.getColor());
                             g2d.fill(entity.getShape());
                         }
@@ -52,21 +57,21 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 }
             }
         }
-        g2d.drawString("Java 2D", 50, 50);
         repaint();
     }
-
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         doDrawing(g);
     }
-    private Float translate(int x, int y){
-        float fX = x*convertionRate;
-        float fY = y*convertionRate;
+
+    private Float translate(int x, int y) {
+        float fX = x * convertionRate;
+        float fY = y * convertionRate;
         return new Float(fX, fY);
     }
+
     private void printAll(){
         map.printAll();
     }
@@ -112,6 +117,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 break;
         }
     }
+
     private void execCommands(Float pos){
         switch(command){
             case SPAWNLIONS:
@@ -134,6 +140,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         int x = click.getX();
         int y = click.getY();
         Float coords = translate(x, y);
+
         if(commandSent == true){
             execCommands(coords);
             commandSent = false;
@@ -212,7 +219,7 @@ public class GUI extends JFrame {
     private void initUI(Map map) {
         add(new Surface(map));
 
-        setTitle("Simple Java 2D example");
+        setTitle("Primal");
         setSize(1000, 1000);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

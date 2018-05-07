@@ -9,8 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
-
 public class Main extends Application {
+
     public int windowWidth = 600;
     public int windowHeight = 600;
     private Map map;
@@ -33,7 +33,6 @@ public class Main extends Application {
         launch(args);
     }
 
-
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -41,15 +40,14 @@ public class Main extends Application {
         Simulation simulation = new Simulation(map);
         simulation.start();
 
-
         EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 GUI gui = new GUI(map);
                 gui.setVisible(true);
             }
         });
-
 
         //stage.show();
     }

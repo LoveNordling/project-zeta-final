@@ -1,42 +1,54 @@
 package org.primal.entity;
 
-import org.primal.tile.Tile;
 import org.primal.map.Map;
+import org.primal.tile.Tile;
 
 import java.awt.*;
 
 public abstract class LivingEntity extends Entity {
-    protected Rectangle.Float shape;
+
+    protected Shape shape;
+    protected Color color;
     float health;
     private float maxHP;
     float energySatisfaction;
-    protected Color color;
 
-    public LivingEntity(float x, float y, float health) {
-        super(x, y);
-        this.shape = shape;
+    public LivingEntity(float x, float y, Map map, float health) {
+        super(x, y, map);
         this.color = new Color(0, 0, 0);
         this.health = health;
         this.maxHP = health;
     }
 
     public void updateShape() {
-        this.shape.setRect((getPosition()[0] - 0.5) * Tile.getSize(), (getPosition()[1] - 0.5) * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+        if (this.isAnimal()) {
+            ((Rectangle.Float) this.shape).setRect((getX() - 0.5) * Tile.getSize(), (getY() - 0.5) * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+        }
     }
 
-    public Rectangle.Float getShape() {
+    public boolean isAnimal() {
+        return false;
+    }
+
+    public boolean isPlant() {
+        return false;
+    }
+
+    public Shape getShape() {
         updateShape();
         return this.shape;
     }
 
-    public void simulate(Map map) {}
+    public void simulate() {
+    }
 
-    public void performAction(Map map) {}
+    public void performAction() {
+    }
 
     public void heal(){
         health = maxHP;
     }
-    public Color getColor(){
+    public Color getColor() {
         return color;
     }
 }

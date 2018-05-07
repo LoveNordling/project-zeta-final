@@ -4,6 +4,7 @@ import org.primal.entity.Animal;
 import org.primal.map.Map;
 
 public class Behaviour {
+
     int weight = 0;
     Map map;
     Animal host;
@@ -18,7 +19,7 @@ public class Behaviour {
     }
 
     public void act() {
-        host.move(map);
+        host.move();
     }
 
     public int getWeight() {
