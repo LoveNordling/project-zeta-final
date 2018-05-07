@@ -11,6 +11,7 @@ public class Tree extends Plant {
     public Tree(float x, float y, Map map, float size) {
         super(x, y, map);
         this.color = new java.awt.Color(ThreadLocalRandom.current().nextInt(30, 100), 158, 9);
-        this.shape = new Ellipse2D.Float(this.getX() * Tile.getSize() - Tile.getSize()*size, this.getY() * Tile.getSize() - Tile.getSize()*size, Tile.getSize()*size, Tile.getSize()*size);
+        float visualSize = Tile.getSize()*size;
+        this.shape = new Ellipse2D.Float(this.getX() * Tile.getSize() - visualSize/2, this.getY() * Tile.getSize() - visualSize/2, visualSize, visualSize);
     }
 }
