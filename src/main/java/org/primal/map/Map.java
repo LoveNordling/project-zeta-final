@@ -154,7 +154,8 @@ public class Map {
         for (Tile tile : tiles) {
             // TODO: add check if tile already contains plant
             if (tile instanceof LandTile) {
-                Plant plant = new Tree(tile.getX(), tile.getY(), this);
+                float treeSize = generator.nextInt(2) + 1.5f;
+                Plant plant = new Tree(tile.getX(), tile.getY(), this, treeSize);
                 tile.addLivingEntity(plant);
             }
         }
