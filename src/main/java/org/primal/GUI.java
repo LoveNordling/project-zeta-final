@@ -18,7 +18,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private int mapWidth;
     private float convertionRate;
     private boolean commandSent = false;
-    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN }
+    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL }
     private Commands command;
     public Surface(Map map) {
         super();
@@ -73,7 +73,11 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private void healAnimals(Float pos){
         System.out.println("Thoughts and prayers sent!");
         Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
-        t.heal();
+        t.antiSlaughter();
+    }
+    private void massHeal(){
+        System.out.println("Useless func");
+        map.antiNuke();
     }
     private void killSomeAnimals(Float pos){
         System.out.println("This is a christian minecraft server: No killing allowed");
@@ -102,6 +106,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 break;
             case RESPAWN:
                 spawn();
+                break;
+            case MASSHEAL:
+                massHeal();
                 break;
         }
     }
@@ -154,6 +161,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         }
         else if(key == KeyEvent.VK_R){
             command = Commands.RESPAWN;
+        }
+        else if(key == KeyEvent.VK_M){
+            command = Commands.MASSHEAL;
         }
         else if(key == KeyEvent.VK_S){
             commandSent = true;

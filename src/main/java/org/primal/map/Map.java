@@ -52,6 +52,13 @@ public class Map {
             }
         }
     }
+    public void antiNuke(){
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < width; y++) {
+                chunks[x][y].antiDecimate();
+            }
+        }
+    }
     public Chunk getChunk(float x, float y) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {

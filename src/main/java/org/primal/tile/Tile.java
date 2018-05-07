@@ -35,11 +35,11 @@ public class Tile extends SimObject {
             this.livingEntities.remove(ent);
         }
         else{
-            System.out.println("bla");
+            System.out.println("remove livingEntity failed");
         }
     }
     
-    public void heal(){
+    public void antiSlaughter(){
         for (LivingEntity entity : getLivingEntities().values()) {
             entity.heal();
         }
