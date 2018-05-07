@@ -1,9 +1,6 @@
 package org.primal.map;
 
-import org.primal.entity.Animal;
-import org.primal.entity.Lion;
-import org.primal.entity.Plant;
-import org.primal.entity.Tree;
+import org.primal.entity.*;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 import org.primal.tile.WaterTile;
@@ -38,9 +35,9 @@ public class Map {
             addWaterTiles();
         }
         for (int i = 0; i < mapSize / 2; i++) {
+            addAnimals();
             addPlants();
         }
-        addAnimals();
     }
 
     public LinkedList<Chunk> getMegaChunks() {
@@ -120,26 +117,24 @@ public class Map {
     }
 
     private void addAnimals() {
-        Chunk[][] chunks = getChunks();
-        Chunk chunk;
-        Tile[][] tiles;
+        Random generator = new Random();
+        int randX = generator.nextInt(mapSize) + 1;
+        int randY = generator.nextInt(mapSize) + 1;
+        int packWidth = generator.nextInt(3);
+        int species = generator.nextInt(3);
         Animal animal;
-        int chunkSize = chunks[0][0].getSize();
 
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < width; y++) {
-                chunk = chunks[x][y];
-                tiles = chunk.getTiles();
-                for (int i = 0; i < chunkSize; i++) {
-                    for (int j = 0; j < chunkSize; j++) {
-                        if (tiles[i][j] instanceof LandTile) {
-                            float xPos = i + chunk.getX() * chunkSize;
-                            float yPos = j + chunk.getY() * chunkSize;
-                            animal = new Lion(xPos, yPos, this, 100.0f, 100.0f);
-                            tiles[i][j].addLivingEntity(animal);
-                        }
-                    }
+        ArrayList<Tile> tiles = getTiles(randX, randY, packWidth);
+        for (Tile tile : tiles) {
+            if (tile instanceof LandTile) {
+                if (species == 0) {
+                    animal = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+                } else if (species == 1) {
+                    animal = new Hyena(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+                } else {
+                    animal = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
                 }
+                tile.addLivingEntity(animal);
             }
         }
     }
