@@ -17,7 +17,7 @@ public abstract class Herbivore extends Animal {
     }
 
     public void simulate() {
-        move();
+        super.simulate();
     }
 
     public boolean isChased() {

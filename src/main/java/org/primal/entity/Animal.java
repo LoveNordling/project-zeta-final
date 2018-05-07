@@ -8,6 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.awt.geom.Point2D;
 
 public abstract class Animal extends LivingEntity {
 
@@ -19,7 +20,8 @@ public abstract class Animal extends LivingEntity {
     private int mapSize = 4 * 16;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
-    private float lengthUnit = 0.1f;
+    protected float speed = 0.1f;
+    protected Point2D.Float movementDirection;
 
     public Animal(float x, float y, Map map, float health, float stamina, float fullness) {
         // TODO: remove static x y below.
@@ -30,7 +32,9 @@ public abstract class Animal extends LivingEntity {
         this.stamina = stamina;
         this.fullness = fullness;
         energySatisfaction = 100;
-        //this.shape.setOnMousePressed(click -> System.out.printf("Type: Animal %n Fullness: " + getFullness() + "%n Stamina: " + getStamina() + "%n"));
+        double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
+        this.movementDirection = new Point2D.Float((float)Math.cos(startAngle), (float)Math.sin(startAngle));
+
     }
 
     public Animal(float x, float y, Map map) {
@@ -42,14 +46,24 @@ public abstract class Animal extends LivingEntity {
 
         mapSize = map.getSize(); //temp solution
         Tile currentTile = map.getTile(getX(), getY());
+        Behaviour best = getBestBehaviour();
+        best.act();
 
-        getBestBehaviour().act();
+
         updateStats();
 
         Tile newTile = map.getTile(getX(), getY());
         if (currentTile != newTile) {
             moveTile(currentTile, newTile);
         }
+
+    }
+
+    protected Point2D normalize(Point2D p){
+        double x = p.getX();
+        double y = p.getY();
+        float abs = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        return new Point2D.Float((float) x/abs, (float) y / abs);
     }
 
     private Behaviour getBestBehaviour() {
@@ -73,112 +87,38 @@ public abstract class Animal extends LivingEntity {
         }
     }
 
+
     @Override
     public boolean isAnimal() {
         return true;
     }
 
     public void move() {
-        if (lastDirections[0] != lastDirections[1]) {
-            stepInDir(lastDirections[0]);
+        Point2D.Float newPos = new Point2D.Float((float)(this.position.getX() + movementDirection.getX()*speed), (float)(this.position.getY() + movementDirection.getY()*speed));
+        Point2D collisionPoint = map.checkCollision((float)newPos.getX(), (float)newPos.getY());
+        if (collisionPoint.getX() == 0 && collisionPoint.getY() == 0) {
+            this.position.setLocation(Math.max(newPos.getX(),0), Math.max(newPos.getY(), 0));
         } else {
-            randomDir();
+
+            float dotProduct = (float)(movementDirection.getX()*collisionPoint.getX() +  movementDirection.getY()*collisionPoint.getY());
+            movementDirection.setLocation(movementDirection.getX()-2*collisionPoint.getX()*dotProduct, movementDirection.getY()-2*collisionPoint.getY()*dotProduct);
+
+            move();
         }
+
+
         updateShape();
     }
 
-    // N = North, S = South, W = West, E = East
-    // A = NorthEast, B = SouthEast, C = SouthWest, D = NorthWest
-    private void stepInDir(Character c) {
-        //float[] newPos = new float[2];
-        float newPosX = getX();
-        float newPosY = getY();
-
-        switch (c) {
-            case 'E':
-                newPosX += lengthUnit;
-                updateLastDir('E');
-                break;
-            case 'W':
-                newPosX -= lengthUnit;
-                updateLastDir('W');
-                break;
-            case 'N':
-                newPosY += lengthUnit;
-                updateLastDir('N');
-                break;
-            case 'S':
-                newPosY -= lengthUnit;
-                updateLastDir('S');
-                break;
-            case 'A':
-                newPosX += lengthUnit / 2;
-                newPosY += lengthUnit / 2;
-                updateLastDir('A');
-                break;
-            case 'B':
-                newPosX += lengthUnit / 2;
-                newPosY -= lengthUnit / 2;
-                updateLastDir('B');
-                break;
-            case 'C':
-                newPosX -= lengthUnit / 2;
-                newPosY -= lengthUnit / 2;
-                updateLastDir('C');
-                break;
-            default:
-                newPosX -= lengthUnit / 2;
-                newPosY += lengthUnit / 2;
-                updateLastDir('D');
-                break;
-        }
-        if (map.withinBounds(newPosX, newPosY)) {
-            this.position.setLocation(newPosX, newPosY);
-        } else {
-            randomDir();
-        }
-    }
-
-    private void randomDir() {
-        int n = ThreadLocalRandom.current().nextInt(0, 8);
-        switch (n) {
-            case 0:
-                stepInDir('E');
-                break;
-            case 1:
-                stepInDir('W');
-                break;
-            case 2:
-                stepInDir('N');
-                break;
-            case 3:
-                stepInDir('S');
-                break;
-            case 4:
-                stepInDir('A');
-                break;
-            case 5:
-                stepInDir('B');
-                break;
-            case 6:
-                stepInDir('C');
-                break;
-            default:
-                stepInDir('D');
-                break;
-        }
-    }
-
-    private void updateLastDir(Character c) {
+    private void moveTile(Tile oldTile, Tile newTile) {
+        
+        oldTile.removeLivingEntity(this);
+        newTile.addLivingEntity(this);
+    }    private void updateLastDir(Character c) {
         for (int i = 0; i < lastDirections.length - 1; i++) {
             lastDirections[i + 1] = lastDirections[i];
         }
         lastDirections[0] = c;
-    }
-
-    private void moveTile(Tile oldTile, Tile newTile) {
-        oldTile.removeLivingEntity(this);
-        newTile.addLivingEntity(this);
     }
 
     public int getId() {
@@ -211,6 +151,11 @@ public abstract class Animal extends LivingEntity {
 
     public abstract void eat(LivingEntity food);
 
+    public void setPosition(Point2D.Float p){
+        this.position = p;
+    }
+    public void setDirection(Point2D.Float p){this.movementDirection = p; }
+
     public float getFullness() {
         return this.fullness;
     }
@@ -218,4 +163,7 @@ public abstract class Animal extends LivingEntity {
     public float getStamina() {
         return this.stamina;
     }
+
+    public float getSpeed(){return this.speed; }
+    public Point2D.Float getDirection(){return this.movementDirection; }
 }
