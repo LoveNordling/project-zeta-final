@@ -51,6 +51,15 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                             g2d.fill(pixel.getRectangle());
                             g2d.draw(pixel.getRectangle());
                         }
+                    }
+                }
+            }
+        }
+        for (Chunk[] chunks : map.getChunks()) {
+            for (Chunk chunk : chunks) {
+                for (int x = 0; x < chunk.getSize(); x++) {
+                    for (int y = 0; y < chunk.getSize(); y++) {
+                        Tile tile = chunk.getTile(x, y);
                         for (LivingEntity entity : tile.getLivingEntities()) {
                             g2d.setPaint(entity.getColor());
                             g2d.fill(entity.getShape());
