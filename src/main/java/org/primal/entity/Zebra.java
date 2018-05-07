@@ -7,7 +7,7 @@ import org.primal.map.Map;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class Zebra extends Animal {
+public class Zebra extends Herbivore {
 
     public Zebra(float x, float y, Map map, float stamina, float fullness, Graphics g) {
         super(x, y, map, 100, stamina, fullness);
@@ -16,10 +16,5 @@ public class Zebra extends Animal {
         this.behaviours = new LinkedList<Behaviour>();
         this.behaviours.add(foodBehaviour);
         this.starvationRate = 1;
-    }
-
-    @Override
-    public void eat(LivingEntity food) {
-
     }
 }
