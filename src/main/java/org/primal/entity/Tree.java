@@ -4,12 +4,13 @@ import org.primal.map.Map;
 import org.primal.tile.Tile;
 
 import java.awt.geom.Ellipse2D;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Tree extends Plant {
 
-    public Tree(float x, float y, Map map) {
+    public Tree(float x, float y, Map map, float size) {
         super(x, y, map);
-        this.color = new java.awt.Color(0, 138, 3);
-        this.shape = new Ellipse2D.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize()*1.5f, Tile.getSize()*1.5f);
+        this.color = new java.awt.Color(ThreadLocalRandom.current().nextInt(30, 80), 158, 9);
+        this.shape = new Ellipse2D.Float(this.getX() * Tile.getSize() - Tile.getSize()*size, this.getY() * Tile.getSize() - Tile.getSize()*size, Tile.getSize()*size, Tile.getSize()*size);
     }
 }
