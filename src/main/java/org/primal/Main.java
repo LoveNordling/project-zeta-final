@@ -6,6 +6,7 @@ import org.primal.map.Map;
 
 import javax.swing.*;
 import java.awt.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -14,6 +15,7 @@ public class Main extends Application {
 
     public int windowWidth = 600;
     public int windowHeight = 600;
+    private boolean enableLog = true;
     private Map map;
     private Simulation simulation;
 
