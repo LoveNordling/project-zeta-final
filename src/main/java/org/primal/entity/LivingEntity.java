@@ -10,12 +10,14 @@ public abstract class LivingEntity extends Entity {
     protected Shape shape;
     protected Color color;
     float health;
+    private float maxHP;
     float energySatisfaction;
 
     public LivingEntity(float x, float y, Map map, float health) {
         super(x, y, map);
         this.color = new Color(0, 0, 0);
         this.health = health;
+        this.maxHP = health;
     }
 
     public void updateShape() {
@@ -43,6 +45,9 @@ public abstract class LivingEntity extends Entity {
     public void performAction() {
     }
 
+    public void heal(){
+        health = maxHP;
+    }
     public Color getColor() {
         return color;
     }

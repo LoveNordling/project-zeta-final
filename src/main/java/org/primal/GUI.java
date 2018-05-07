@@ -10,20 +10,29 @@ import org.primal.tile.WaterTile;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D.Float;
 
-class Surface extends JPanel implements MouseListener {
+class Surface extends JPanel implements MouseListener, KeyListener {
+
 
     private Map map;
-    private int mapWidth = 960;
+    private int mapWidth;
     private float convertionRate;
-
+    private boolean commandSent = false;
+    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL }
+    private Commands command;
     public Surface(Map map) {
         super();
 
+        mapWidth = map.width*480;
         convertionRate = ((float) map.getSize()) / ((float) mapWidth);
+        this.addKeyListener(this);
         this.addMouseListener(this);
+        System.out.println(this.isFocusable());
         this.map = map;
     }
 
@@ -64,13 +73,122 @@ class Surface extends JPanel implements MouseListener {
         return new Float(fX, fY);
     }
 
+    private void printAll(){
+        map.printAll();
+    }
+    private void healAnimals(Float pos){
+        System.out.println("Thoughts and prayers sent!");
+        Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
+        t.antiSlaughter();
+    }
+    private void massHeal(){
+        System.out.println("Useless func");
+        map.antiNuke();
+    }
+    private void killSomeAnimals(Float pos){
+        System.out.println("This is a christian minecraft server: No killing allowed");
+    }
+    private void killAnimals(Float pos){
+        Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
+        t.slaughter();
+    }
+    private void NUKEDECIMATESLAUGHTER(){
+        System.out.println("Freedom sent");
+        map.nuke();
+    }
+    private void spawn(){
+        System.out.println("Due to reasons this function is not implemented");
+    }
+    private void execCommands(){
+        switch(command){
+            case PRINTALL:
+                printAll();
+                break;
+            case HEJ:
+                System.out.println("Hej på dig");
+                break;
+            case KILLALL:
+                NUKEDECIMATESLAUGHTER();
+                break;
+            case RESPAWN:
+                spawn();
+                break;
+            case MASSHEAL:
+                massHeal();
+                break;
+        }
+    }
+
+    private void execCommands(Float pos){
+        switch(command){
+            case SPAWNLIONS:
+                System.out.println("lions");
+                break;
+            case KILL:
+                killAnimals(pos);
+                break;
+            case KILLSOME:
+                killSomeAnimals(pos);
+                break;
+            case HEAL:
+                healAnimals(pos);
+                break;
+       
+        }
+    }
     public void mouseClicked(MouseEvent click) {
+        this.requestFocusInWindow();
         int x = click.getX();
         int y = click.getY();
         Float coords = translate(x, y);
 
-        Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
-        System.out.println(t);
+        if(commandSent == true){
+            execCommands(coords);
+            commandSent = false;
+        }
+        else{
+            Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
+            System.out.println(t);
+        }
+    }
+    public void keyPressed(KeyEvent e){
+        int key = e.getKeyCode();
+        
+        if(key == KeyEvent.VK_A){
+            command = Commands.SPAWNLIONS;
+            commandSent = true;
+        }
+        else if(key == KeyEvent.VK_P){
+            command = Commands.PRINTALL;
+        }
+        else if(key == KeyEvent.VK_H){
+            command = Commands.HEJ;
+        }
+        else if(key == KeyEvent.VK_N){
+            command = Commands.KILLALL;
+        }
+        else if(key == KeyEvent.VK_R){
+            command = Commands.RESPAWN;
+        }
+        else if(key == KeyEvent.VK_M){
+            command = Commands.MASSHEAL;
+        }
+        else if(key == KeyEvent.VK_S){
+            commandSent = true;
+            command = Commands.KILLSOME;
+        }
+        else if(key == KeyEvent.VK_K){
+            commandSent = true;
+            command = Commands.KILL;
+        }
+        else if(key == KeyEvent.VK_D){
+            commandSent = true;
+            command = Commands.HEAL;
+        }
+        else{
+            System.out.println("Invalid command");
+        }
+        execCommands();
     }
 
     // Useless methods (needed to be implemented)
@@ -85,6 +203,11 @@ class Surface extends JPanel implements MouseListener {
 
     public void mouseEntered(MouseEvent e) {
     }
+    public void keyReleased(KeyEvent e){
+    }
+    public void keyTyped(KeyEvent e){
+    }
+    
 
 }
 
