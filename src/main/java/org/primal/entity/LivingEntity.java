@@ -22,7 +22,7 @@ public abstract class LivingEntity extends Entity {
 
     public void updateShape() {
         if (this.isAnimal()) {
-            ((Rectangle.Float) this.shape).setRect((getX() - 0.5) * Tile.getSize(), (getY() - 0.5) * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+            ((Rectangle.Float) this.shape).setRect((getX() - 0.5) * Tile.getSize(), (getY() - 0.5) * Tile.getSize(), Tile.getSize() / 4, Tile.getSize() / 4);
         }
     }
 

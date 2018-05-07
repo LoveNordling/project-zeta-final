@@ -105,7 +105,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 printAll();
                 break;
             case HEJ:
-                System.out.println("Hej på dig");
+                System.out.println("Hej pa dig");
                 break;
             case KILLALL:
                 NUKEDECIMATESLAUGHTER();
