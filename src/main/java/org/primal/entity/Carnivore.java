@@ -23,7 +23,8 @@ public abstract class Carnivore extends Animal {
     }
 
     public void simulate() {
-        move();
+        super.simulate();
+        //move();
     }
 
     public void chase(Herbivore target) {

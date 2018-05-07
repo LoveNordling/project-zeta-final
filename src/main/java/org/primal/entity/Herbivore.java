@@ -17,7 +17,7 @@ public abstract class Herbivore extends Animal {
     }
 
     public void simulate() {
-
+        super.simulate();
     }
 
     public boolean isChased() {
@@ -26,5 +26,9 @@ public abstract class Herbivore extends Animal {
 
     public void startChasing() {
         this.chasedStatus  = true;
+    }
+
+    public boolean isHerbivore() {
+        return true;
     }
 }

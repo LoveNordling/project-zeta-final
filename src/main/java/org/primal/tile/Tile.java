@@ -31,6 +31,8 @@ public class Tile extends SimObject {
         this.livingEntities = livingEntities;
     }
 
+    public void update() {}
+
     public static int getSize() {
         return size;
     }
@@ -53,6 +55,7 @@ public class Tile extends SimObject {
 
     public void removeLivingEntity(LivingEntity ent) {
         if (this.livingEntities.contains(ent)) {
+
             this.livingEntities.remove(ent);
         }
         else{

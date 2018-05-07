@@ -1,6 +1,7 @@
 package org.primal;
 
 import org.primal.map.Chunk;
+import org.primal.util.ThrowingTask;
 import org.primal.map.Map;
 import org.primal.util.ThrowingTask;
 
@@ -9,6 +10,7 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 
 public class Simulation {
 

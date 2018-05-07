@@ -91,11 +91,16 @@ public class Map {
         return ch.getTile(xInt % chunkSize, yInt % chunkSize);
     }
 
+    public Point2D checkCollision(float x, float y) {
+        if(x <= 0){return new Point2D.Float(1,0);}
+        else if(y <= 0){return new Point2D.Float(0,1);}
+        else if(x >= mapSize){return new Point2D.Float(-1,0);}
+        else if(y >= mapSize){return new Point2D.Float(0,-1);}
+        else{return new Point2D.Float(0,0);}
+    }
+
     public boolean withinBounds(float x, float y) {
-        if (x >= 0 && y >= 0 && x < mapSize && y < mapSize) {
-            return true;
-        }
-        return false;
+        return (x >= 0 && y >= 0 && x < mapSize && y < mapSize);
     }
 
     private void addWaterTiles() {
@@ -149,7 +154,8 @@ public class Map {
         for (Tile tile : tiles) {
             // TODO: add check if tile already contains plant
             if (tile instanceof LandTile) {
-                Plant plant = new Tree(tile.getX(), tile.getY(), this);
+                float treeSize = generator.nextInt(2) + 1.5f;
+                Plant plant = new Tree(tile.getX(), tile.getY(), this, treeSize);
                 tile.addLivingEntity(plant);
             }
         }
