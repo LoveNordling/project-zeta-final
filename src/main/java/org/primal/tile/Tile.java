@@ -31,6 +31,8 @@ public class Tile extends SimObject {
         this.livingEntities = livingEntities;
     }
 
+    public void update() {}
+
     public static int getSize() {
         return size;
     }
