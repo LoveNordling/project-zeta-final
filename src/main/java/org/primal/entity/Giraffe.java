@@ -17,8 +17,4 @@ public class Giraffe extends Herbivore {
         this.color = new java.awt.Color(171, 56, 190);
     }
 
-    @Override
-    public void eat(LivingEntity food) {
-
-    }
 }

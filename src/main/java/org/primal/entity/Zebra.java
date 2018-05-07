@@ -17,9 +17,4 @@ public class Zebra extends Herbivore {
         this.behaviours.add(foodBehaviour);
         this.starvationRate = 1;
     }
-
-    @Override
-    public void eat(LivingEntity food) {
-
-    }
 }

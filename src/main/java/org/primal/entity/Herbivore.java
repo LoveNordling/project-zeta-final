@@ -10,7 +10,7 @@ public abstract class Herbivore extends Animal {
 
     }
 
-    public void eat(Plant food) {
+    public void eat(LivingEntity food) {
         map.getTile(food.getX(), food.getY()).removeLivingEntity(food);
         this.stamina = 100;
         //EAT FOOD

@@ -17,8 +17,4 @@ public class Hyena extends Carnivore {
         this.color = new java.awt.Color(223, 2, 0);
     }
 
-    @Override
-    public void eat(LivingEntity food) {
-
-    }
 }
