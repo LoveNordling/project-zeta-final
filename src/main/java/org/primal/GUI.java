@@ -24,7 +24,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private float convertionRate;
     private boolean commandSent = false;
     private boolean inputMode = false;
-    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT }
+    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS }
     private Commands command;
     public Surface(Map map) {
         super();
@@ -73,7 +73,11 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         float fY = y * convertionRate;
         return new Float(fX, fY);
     }
-
+    private void listCommands(){
+        //TODO add alot of print statements
+        //TODO if possible add some kind of command listening in window
+        System.out.println("The first of many print statements");
+    }
     private void printAll(){
         map.printAll();
     }
@@ -123,8 +127,11 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 return;
             }
             else if(comnd.equals("p") || comnd.equals("print") || comnd.equals("print all")){
-                command = Commands.PRINTALL;
-                
+                command = Commands.PRINTALL;                
+            }
+            
+            else if(comnd.equals("l") || comnd.equals("list") || comnd.equals("list all") || comnd.equals("help")){
+                command = Commands.LISTCOMMANDS;                
             }
             else{
                 System.out.println("invalid command");
@@ -141,6 +148,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         switch(command){
             case INPUT:
                 input();
+                break;
+            case LISTCOMMANDS:
+                listCommands();
                 break;
             case PRINTALL:
                 printAll();
@@ -214,6 +224,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         else if(key == KeyEvent.VK_N){
             command = Commands.KILLALL;
         }
+        else if(key == KeyEvent.VK_L){
+            command = Commands.LISTCOMMANDS;
+        }
         else if(key == KeyEvent.VK_I){
             command = Commands.INPUT;
         }
@@ -237,7 +250,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         }
         else{
             System.out.println("Invalid command");
-            return;
+            command = Commands.NOTHING;
         }
         execCommands();
     }
