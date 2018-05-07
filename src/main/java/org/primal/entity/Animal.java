@@ -20,7 +20,7 @@ public abstract class Animal extends LivingEntity {
     private int mapSize = 4 * 16;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
-    protected float speed = 0.1f;
+    protected float speed = 0.01f;
     protected Point2D.Float movementDirection;
 
     public Animal(float x, float y, Map map, float health, float stamina, float fullness) {
@@ -35,6 +35,13 @@ public abstract class Animal extends LivingEntity {
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
         this.movementDirection = new Point2D.Float((float)Math.cos(startAngle), (float)Math.sin(startAngle));
 
+    }
+
+    protected Point2D normalize(Point2D p){
+        double x = p.getX();
+        double y = p.getY();
+        float abs = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        return new Point2D.Float((float) x/abs, (float) y / abs);
     }
 
     public Animal(float x, float y, Map map) {
@@ -57,13 +64,6 @@ public abstract class Animal extends LivingEntity {
             moveTile(currentTile, newTile);
         }
 
-    }
-
-    protected Point2D normalize(Point2D p){
-        double x = p.getX();
-        double y = p.getY();
-        float abs = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-        return new Point2D.Float((float) x/abs, (float) y / abs);
     }
 
     private Behaviour getBestBehaviour() {
