@@ -2,18 +2,18 @@ package org.primal.util.logging;
 
 public enum LogLevel {
 
-	PERF(0) {
+	ALL(7),
+	PERF(6) {
 		@Override
 		public boolean isPerf() {
 			return true;
 		}
 	},
-	FINEST(1) {},
-	FINE(2) {},
+	FINEST(5) {},
+	FINE(4) {},
 	INFO(3) {},
-	WARN(4) {},
-	ERR(5) {},
-	ALL(6) {};
+	WARN(2) {},
+	ERR(1) {};
 
 	private int level;
 
