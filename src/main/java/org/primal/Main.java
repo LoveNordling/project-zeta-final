@@ -1,16 +1,12 @@
 package org.primal;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
 import org.primal.map.Map;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
-public class Main extends Application {
+public class Main {
 
     public int windowWidth = 600;
     public int windowHeight = 600;
@@ -18,7 +14,7 @@ public class Main extends Application {
     private Simulation simulation;
 
     public static void main(String[] args) {
-       
+
         File dir = new File("output/");
         dir.mkdir();
 
@@ -31,26 +27,16 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        
         Map map = new Map(2);
-        Simulation simulation = new Simulation(map);
+
+        GUI gui = new GUI(map);
+
+        Runnable action = gui::repaint;
+        Simulation simulation = new Simulation(map, action);
+
+        gui.setVisible(true);
+
         simulation.start();
-
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                GUI gui = new GUI(map);
-                gui.setVisible(true);
-            }
-        });
-         
-
-        //stage.show();
     }
+
 }

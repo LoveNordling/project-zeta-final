@@ -22,6 +22,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private boolean commandSent = false;
     private boolean inputMode = false;
 
+    public static Graphics mainGraphics;
+
     public enum Commands {NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT}
 
     private Commands command;
@@ -79,11 +81,12 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 }
             }
         }
-        repaint();
+        //repaint();
     }
 
     @Override
     public void paintComponent(Graphics g) {
+        mainGraphics = g;
         super.paintComponent(g);
         doDrawing(g);
     }
@@ -400,6 +403,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
 public class GUI extends JFrame {
 
+    private Surface surface;
+
     public GUI(Map map) {
         initUI(map);
     }
@@ -410,10 +415,15 @@ public class GUI extends JFrame {
      * @param map the map to be drawn/graphically shown
      */
     private void initUI(Map map) {
-        add(new Surface(map));
+        this.surface = new Surface(map);
+        add(this.surface);
         setTitle("Primal");
         setSize(1000, 1000);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void repaint() {
+        this.surface.repaint();
     }
 }
