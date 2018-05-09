@@ -11,26 +11,42 @@ import org.primal.entity.Herbivore;
 
 public class ChaseBehaviour extends Behaviour {
     protected Point2D.Float chaseDir;
+    private boolean isChasing = false;
+    private LivingEntity chasedAnimal;
+
     public ChaseBehaviour(Animal host, Map map) {
 
         super(host, map);
     }
 
     public void decide() {
-        ArrayList<Tile> tiles = map.getTiles(host.getX(), host.getY(), 1);
-        for (Tile tile : tiles) {
-            for (LivingEntity entity : tile.getLivingEntities()) {
-                if (entity instanceof Herbivore) {
-                    this.weight = Math.round(100 - host.getFullness());
-                    this.chaseDir = new Point2D.Float(entity.getX() - host.getX(), entity.getY() - host.getY());
-                    normalize(chaseDir);
-                    return;
+        if (!isChasing) {
+            ArrayList<Tile> tiles = map.getTiles(host.getX(), host.getY(), 3);
+            for (Tile tile : tiles) {
+                for (LivingEntity entity : tile.getLivingEntities()) {
+                    if (entity instanceof Herbivore) {
+                        this.isChasing = true;
+                        this.chasedAnimal = entity;
+
+                        this.weight = Math.round(100 - host.getFullness());
+                        this.chaseDir = new Point2D.Float(entity.getX() - host.getX(), entity.getY() - host.getY());
+                        normalize(chaseDir);
+
+                        return;
+                    }
                 }
             }
+            this.weight = 0;
+        }
+        else {
+            this.weight = Math.round(100 - host.getFullness());
+            this.chaseDir = new Point2D.Float(chasedAnimal.getX() - host.getX(), chasedAnimal.getY() - host.getY());
+            chaseDir = normalize(chaseDir);
+
         }
     }
 
-    protected Point2D normalize(Point2D p){
+    protected Point2D.Float normalize(Point2D p){
         double x = p.getX();
         double y = p.getY();
         float abs = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
@@ -38,7 +54,18 @@ public class ChaseBehaviour extends Behaviour {
     }
 
     public void act() {
-        host.setDirection(this.chaseDir);
-        host.move();
+        if (chasedAnimal == null) {
+            System.out.println("Anima e null");
+            isChasing = false;
+            return;
+        } else if (chasedAnimal.getX() - host.getX() < 0.3 && chasedAnimal.getY() - host.getY() < 0.3) {
+            host.eat(chasedAnimal);
+            System.out.println("Eaten!!");
+            chasedAnimal = null;
+            isChasing = false;
+        } else {
+            host.setDirection(this.chaseDir);
+            host.move();
+        }
     }
 }

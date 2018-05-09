@@ -21,4 +21,9 @@ public class Lion extends Carnivore {
         this.color = new java.awt.Color(0, 0, 150);
         this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
     }
+
+    @Override
+    public String toString() {
+        return "Lion";
+    }
 }

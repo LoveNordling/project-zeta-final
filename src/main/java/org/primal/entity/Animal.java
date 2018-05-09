@@ -12,7 +12,7 @@ import java.awt.geom.Point2D;
 
 public abstract class Animal extends LivingEntity {
 
-    float starvationRate = 0.001f;
+    float starvationRate = 0.01f;
     float stamina;
     float fullness;
     LinkedList<Behaviour> behaviours;
@@ -20,7 +20,7 @@ public abstract class Animal extends LivingEntity {
     private int mapSize = 4 * 16;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
-    protected float speed = 0.01f;
+    protected float speed = 0.05f;
     protected Point2D.Float movementDirection;
 
     public Animal(float x, float y, Map map, float health, float stamina, float fullness) {
