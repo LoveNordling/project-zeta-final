@@ -1,14 +1,16 @@
 package org.primal;
 
+
+
+import org.primal.map.Map;
 import org.primal.map.Chunk;
 import org.primal.util.ThrowingTask;
-import org.primal.map.Map;
 
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executors;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * A simulation running on multiple concurrent threads utilizing a scheduledExecutor.
@@ -57,6 +59,24 @@ public class Simulation {
     }
 
     /**
+     * Initializes a simulation with a given map and a {@code Runnable} that will be called at the end of every cycle.
+     * @param map    the map the simulation is simulating.
+     * @param action the {@code Runnable} to be executed at the end of each cycle. 
+     * @see   org.primal.map.Map
+     */
+    public Simulation(Map map, Runnable action) {
+        this.map = map;
+
+        // One thread for every chunk for now
+        int chunkNumber = this.map.width;
+
+        this.simulationThreadPool = Executors.newScheduledThreadPool(chunkNumber);
+
+        updateLoopSynchronizationBarrier = new CyclicBarrier(chunkNumber, action);
+
+    }
+
+    /**
      * Starts the simulation by scheduling all the chunks in {@code map} to the threadpool.
      * It does this by calling {@code map}s {@code getChunks()} method and iterating over the result to schedule the chunks.
      * @see org.primal.map.Chunk
@@ -76,11 +96,6 @@ public class Simulation {
         }
 
         this.started = true;
-
-        updateLoop();
-    }
-
-    private void updateLoop() {
 
     }
 
