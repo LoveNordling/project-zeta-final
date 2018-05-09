@@ -14,12 +14,13 @@ import java.util.concurrent.TimeUnit;
  * A simulation running on multiple concurrent threads utilizing a scheduledExecutor.
  * The simulation also uses a CyclicBarrier for syncronization between worker threads.
  * The simulation currently strives to run at 60 cylces per second.
- * One 'cycle' is defined as the time it takes all the Chunks in a given map to complete their <code> updateChunk </code> method.
+ * One 'cycle' is defined as the time it takes all the Chunks in a given map to complete their {@code updateChunks()} method.
  * Currently tightly coupled with the Primal project.
- * @see ScheduledExecutorService
- * @see CyclicBarrier
- * @see org.primal.map.Chunk#updatechunk()
+ * @see java.util.concurrent.ScheduledExecutorService
+ * @see java.util.concurrent.CyclicBarrier
+ * @see org.primal.map.Chunk#updateChunk()
  */
+
 
 public class Simulation {
 
@@ -56,10 +57,11 @@ public class Simulation {
     }
 
     /**
-     * Starts the simulation by scheduling all the chunks in <code> map </code> to the threadpool.
-     * It does this by calling <code> map </code>s <code> getChunks() </code> method and iterating over the result to schedule the chunks.
+     * Starts the simulation by scheduling all the chunks in {@code map} to the threadpool.
+     * It does this by calling {@code map}s {@code getChunks()} method and iterating over the result to schedule the chunks.
      * @see org.primal.map.Chunk
      * @see org.primal.map.Map#getChunks()
+     * @see org.primal.util.ThrowingTask
      */
     public void start() {
 
@@ -86,8 +88,7 @@ public class Simulation {
      * Private class implementing a wrapper around a given chunk to facilitate scheduling in a ThreadPool without forcing the Chunk to implement
      * the Runnable interface.
      * The Worker uses a CyclicBarrier to syncronize the different Worker threads in the simulation.
-     * @see ThreadPool
-     * @see CyclicBarrier
+     * @see java.util.concurrent.CyclicBarrier
      * @see org.primal.map.Chunk
      */
     private class Worker implements Runnable {
