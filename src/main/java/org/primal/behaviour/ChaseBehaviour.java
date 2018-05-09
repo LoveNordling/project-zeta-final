@@ -4,6 +4,7 @@ import org.primal.entity.LivingEntity;
 import org.primal.tile.Tile;
 import org.primal.entity.Animal;
 import org.primal.map.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 import java.util.ArrayList;
 import org.primal.entity.Herbivore;
@@ -12,12 +13,25 @@ import org.primal.util.Vec2D;
 public class ChaseBehaviour extends Behaviour {
     protected Vec2D chaseDir;
     private boolean isChasing = false;
-    private LivingEntity chasedAnimal;
+    private volatile LivingEntity chasedAnimal;
+
+    /**
+     * Creates a chasing behaviour. The behaviour can be used to make an animal chase and eat other animals.
+     * @param host = the Animal associated with this behaviour
+     * @param map = the current Map
+     */
 
     public ChaseBehaviour(Animal host, Map map) {
 
         super(host, map);
     }
+
+    /**
+     * Method that checks whether an animal should start chasing another. It checks surrounding tiles for herbivores and if
+     * found then it is selected and the weight of this behaviour is set.
+     * Otherwise it sets the weight of this behaviour only according to the fullness of the host.
+     * The hungrier the animal is the higher the weight of this behaviour.
+     */
 
     public void decide() {
         if (!isChasing) {
@@ -46,6 +60,10 @@ public class ChaseBehaviour extends Behaviour {
         }
     }
 
+
+    /**
+     * If the animal is close enough to its prey then it will eat it. Otherwise it will move towards it.
+     */
 
     public void act() {
         if (chasedAnimal == null) {

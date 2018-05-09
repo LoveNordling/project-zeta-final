@@ -3,6 +3,7 @@
 .gradle
 /build/
 out/
+output/
 
 # Ignore Intellijs iml-files
 *.iml

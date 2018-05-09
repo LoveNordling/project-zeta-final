@@ -24,6 +24,16 @@ public abstract class Animal extends LivingEntity {
     protected float speed = 0.05f;
     protected Vec2D movementDirection;
 
+    /**
+     * Creates an Animal object.
+     * @param x = the x-coordinate
+     * @param y = the y-coordinate
+     * @param map = the current Map
+     * @param health = starting health-points
+     * @param stamina = starting stamina-points
+     * @param fullness = starting fullness points
+     */
+
     public Animal(float x, float y, Map map, float health, float stamina, float fullness) {
         // TODO: remove static x y below.
         super(x, y, map, health);
@@ -38,10 +48,22 @@ public abstract class Animal extends LivingEntity {
 
     }
 
+    /**
+     * Creates an animal object. Health, stamina, and fullness will be set to 0.
+     * @param x = the x-coordinate
+     * @param y = the y-coordinate
+     * @param map = the current Map
+     */
 
     public Animal(float x, float y, Map map) {
         this(x, y, map, 100, 100, 100);
     }
+
+
+    /**
+     * The simulation method used when simulating an animal. Goes through the list of behaviours and weighs
+     * which option is the most important. The behaviour is the acted upon and the stats of the animal is updated.
+     */
 
     public void simulate() {
         super.simulate();
@@ -61,6 +83,11 @@ public abstract class Animal extends LivingEntity {
 
     }
 
+    /**
+     * Goes through the list of behaviours and returns the most heavily weighted option.
+     * @return Behaviour The option currently being prioritized.
+     */
+
     private Behaviour getBestBehaviour() {
         Behaviour best = behaviours.getFirst();
         for (Behaviour behaviour : behaviours) {
@@ -69,6 +96,10 @@ public abstract class Animal extends LivingEntity {
         }
         return best;
     }
+
+    /**
+     * Updates the animal's stamina, fullness, health and energy.
+     */
 
     private void updateStats() {
         if (stamina > 0 && fullness > 0) {
@@ -82,11 +113,19 @@ public abstract class Animal extends LivingEntity {
         }
     }
 
+    /**
+     * Checks whether the object is an animal
+     * @return true
+     */
 
     @Override
     public boolean isAnimal() {
         return true;
     }
+
+    /**
+     * Moves the Animal to a new point in the map. Checks for collision so it does not move out of bounds.
+     */
 
     public void move() {
         Vec2D newPos = new Vec2D((this.position.getX() + movementDirection.getX()*speed), (this.position.getY() + movementDirection.getY()*speed));
@@ -105,6 +144,12 @@ public abstract class Animal extends LivingEntity {
         updateShape();
     }
 
+    /**
+     * Moves all objects on a tile to a new tile.
+     * @param oldTile = the tile whose entities should be moved from.
+     * @param newTile = the target tile for the entities.
+     */
+
     private void moveTile(Tile oldTile, Tile newTile) {
         
         oldTile.removeLivingEntity(this);
@@ -116,11 +161,22 @@ public abstract class Animal extends LivingEntity {
         lastDirections[0] = c;
     }
 
+    /**
+     * Returns the unique ID of an animal.
+     * @return int the ID of the animal
+     */
+
     public int getId() {
         return id;
     }
 
     //temp func for testing if animal is at edge of map
+
+    /**
+     * Checks whether an animal is at the edge of the map.
+     * @return true if on the edge, else false
+     */
+
     public boolean atEdge() {
         //float[] pos = this.getPosition();
         ArrayList<Tile> tiles = map.getTiles(getX(), getY(), 1);
@@ -131,6 +187,11 @@ public abstract class Animal extends LivingEntity {
     }
 
     //Temp func for testing
+
+    /**
+     * Moves a entity in a random direction.
+     */
+
     public void move1Unit() {
         int n = ThreadLocalRandom.current().nextInt(0, 4);
         if (n == 0 && getX() < (mapSize - 2)) {
@@ -144,21 +205,60 @@ public abstract class Animal extends LivingEntity {
         }
     }
 
+    /**
+     * Function for eating another living entity.
+     * @param food = the entity to be eaten
+     */
+
     public abstract void eat(LivingEntity food);
+
+
+    /**
+     * Updates the position of an animal.
+     * @param p = the current position
+     */
 
     public void setPosition(Vec2D p){
         this.position = p;
     }
+
+    /**
+     * Sets the direction of the animals movement
+     * @param p = the current position
+     */
+
     public void setDirection(Vec2D p){this.movementDirection = p; }
+
+    /**
+     * Returns the fullness of the animal (hunger)
+     * @return float The hunger level of the animal
+     */
 
     public float getFullness() {
         return this.fullness;
     }
 
+    /**
+     * Returns the stamina of the animal
+     * @return float The stamina level
+     */
+
     public float getStamina() {
         return this.stamina;
     }
 
+
+    /**
+     * Returns the speed of the animal. Decides how far the animal travels per tick.
+     * @return float The current speed.
+     */
+
     public float getSpeed(){return this.speed; }
+
+    /**
+     * Returns the direction the animal is currently facing.
+     * @return Point2D The direction of the animal.
+     */
+
     public Vec2D getDirection(){return this.movementDirection; }
 }
