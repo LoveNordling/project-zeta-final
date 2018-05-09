@@ -1,18 +1,19 @@
 package org.primal;
 
 import org.primal.map.Map;
+import org.primal.util.Vec2D;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
+
 
 public abstract class SimObject {
 
-    protected Point2D.Float position;
+    protected Vec2D position;
     protected Shape shape;
     protected Map map;
 
     public SimObject(float x, float y, Map map) {
-        this.position = new Point2D.Float(x, y);
+        this.position = new Vec2D(x, y);
         this.map = map;
     }
 
@@ -20,7 +21,7 @@ public abstract class SimObject {
         return shape;
     }
 
-    public Point2D getPosition() {
+    public Vec2D getPosition() {
         return position;
     }
 
