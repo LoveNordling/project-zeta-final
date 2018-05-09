@@ -24,8 +24,12 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private float convertionRate;
     private boolean commandSent = false;
     private boolean inputMode = false;
-    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNZEBRA, SPAWNHYENA }
+    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE }
     private Commands command;
+    /** Surface initiates the surface of the graphics
+     *
+     * @param map the map which will be drawn
+     */
     public Surface(Map map) {
         super();
 
@@ -36,9 +40,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         System.out.println(this.isFocusable());
         this.map = map;
     }
-    /* doDrawing generates the graphical representation of the simulation
+    /** doDrawing generates the graphical representation of the simulation
      *
-     * @param Graphics g 
+     * @param g the graphics being drawn upon
      */
     private void doDrawing(Graphics g) {
         super.paintComponent(g);
@@ -80,7 +84,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         super.paintComponent(g);
         doDrawing(g);
     }
-    /* translate translates the x and y coords of the graphical component to its backend representation 
+    /** translate translates the x and y coords of the graphical component to it's backend representation 
      *
      * @param x the x coordinate generated from the map
      * @param y the y coordinate generated from the map
@@ -91,19 +95,19 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         float fY = y * convertionRate;
         return new Float(fX, fY);
     }
-    /* listCommands is a function used to send out the availible commands to the terminal
+    /** listCommands is a function used to send out the availible commands to the terminal
      */
     private void listCommands(){
         //TODO add alot of print statements
         //TODO if possible add some kind of command listening in window
         System.out.println("The first of many print statements");
     }
-    /* printAll prints out inforamtion about all the living entites 
+    /** printAll prints out inforamtion about all the living entites 
      */
     private void printAll(){
         map.printAll();
     }
-    /* healAnimals heals the animals in the the tile with the position pos
+    /** healAnimals heals the animals in the the tile with the position pos
      *
      * @param pos is the position of the tile to have it's inhabitats healed 
      */
@@ -112,35 +116,36 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
         t.antiSlaughter();
     }
-    /* massHeal a function for healing all the animals on the map
+    /** massHeal a function for healing all the animals on the map
      */
     private void massHeal(){
         System.out.println("Useless func");
         map.antiNuke();
     }
-    /* killSomeAnimals a function for killing a random amount of animals on the tile with position pos, the random amount is between 0 and the amount of animals existing on the tile
+    /** killSomeAnimals a function for killing a random amount of animals on the tile with position pos, the random amount is between 0 and the amount of animals existing on the tile
      */
     private void killSomeAnimals(Float pos){
         System.out.println("This is a christian minecraft server: No killing allowed");
     }
-    /* killAnimals kills all the animals on the tile with the position pos
+    /** killAnimals kills all the animals on the tile with the position pos
      */
     private void killAnimals(Float pos){
         Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
         t.slaughter();
     }
-    /* NUKEDECIMATESLAUGHTER removes all existing beings on the map from existance
+    /** NUKEDECIMATESLAUGHTER removes all existing beings on the map from existance
      */
     private void NUKEDECIMATESLAUGHTER(){
         System.out.println("Freedom sent");
         map.nuke();
     }
-    /* spawn respawns a new set of beings, genarly used in conjunction with the inevitble destruction of all things living
+    /** spawn respawns a new set of beings, genarly used in conjunction with the inevitble destruction of all things living
      */
     private void spawn(){
         System.out.println("Due to reasons this function is not implemented");
     }
-    /* input opens a window that that runs diffrent commands depending on input, type l/list commands/list to see all commands
+    
+    /** input opens a window that that runs diffrent commands depending on input, type l/list commands/list to see all commands
      * 
      */
     private void input(){
@@ -160,6 +165,36 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             else if(comnd.equals("n") || comnd.equals("nuke") || comnd.equals("kill all")){
                 command = Commands.KILLALL;
             }
+            else if(comnd.equals("zebra") || comnd.equals("spawn zebra")){
+                command = Commands.SPAWNZEBRA;
+                commandSent = true;
+                return;
+            }
+            
+            else if(comnd.equals("giraffe") || comnd.equals("spawn giraffe")){
+                command = Commands.SPAWNZEBRA;
+                commandSent = true;
+                return;
+            }
+            
+            else if(comnd.equals("hyena") || comnd.equals("spawn hyena")){
+                command = Commands.SPAWNHYENA;
+                commandSent = true;
+                return;
+            }
+            
+            else if(comnd.equals("lion") || comnd.equals("spawn lion")){
+                command = Commands.SPAWNLION;
+                commandSent = true;
+                return;
+            }
+
+            else if(comnd.equals("tree") || comnd.equals("spawn tree")){
+                command = Commands.SPAWNTREE;
+                commandSent = true;
+                return;
+            }
+            
             else if(comnd.equals("k") || comnd.equals("kill")){
                 commandSent = true;
                 command = Commands.KILL;
@@ -167,6 +202,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             }
             else if(comnd.equals("p") || comnd.equals("print") || comnd.equals("print all")){
                 command = Commands.PRINTALL;                
+            }
+            else if(comnd.equals("freeze") || comnd.equals("freeze chunk")){
+                command = Commands.FREEZECHUNK;                
             }
             
             else if(comnd.equals("l") || comnd.equals("list") || comnd.equals("list all") || comnd.equals("help")){
@@ -183,7 +221,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
         inputMode = false;
     }
-    /* execCommands runs the currently active command if it is a zero arguments command
+    /** execCommands runs the currently active command if it is a zero arguments command
      *
      */
     private void execCommands(){
@@ -211,7 +249,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 break;
         }
     }
-    /* execCommands runs the currently active command if it is a 1 argument command
+    /** execCommands runs the currently active command if it is a 1 argument command
      *
      * @param pos the argument to be sent onward to the function coresponding to the command 
      */
@@ -231,7 +269,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 break;
        
         }
-    }/* mouseClicked is a function that is run when a click on the screen is received
+    }/** mouseClicked is a function that is run when a click on the screen is received
       *
       * this function will either print out inforamtion about the living entities on the clicked tile or perform an action dependant on the command on it
       *
@@ -258,7 +296,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             input();
         }
     }
-    /* keyPressed sets the active command depending on which key is pressed, if the corresponding command is a zero argument command the active command is executed
+    /** keyPressed sets the active command depending on which key is pressed, if the corresponding command is a zero argument command the active command is executed
      *
      * to see list of commands type click l or use the command box
      * the key used to open the command box is 'i'
@@ -338,7 +376,7 @@ public class GUI extends JFrame {
         initUI(map);
     }
 
-    /* initUI initiates the graphical interface 
+    /** initUI initiates the graphical interface 
      *
      * @param map the map to be drawn/grapicaly shown
      */
