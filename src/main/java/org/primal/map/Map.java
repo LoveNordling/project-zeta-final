@@ -3,8 +3,8 @@ package org.primal.map;
 import org.primal.entity.*;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
+import org.primal.util.Vec2D;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -90,7 +90,7 @@ public class Map {
     public Chunk getChunk(float x, float y) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
-                Point2D chunkPosition = chunks[i][j].getPosition();
+                Vec2D chunkPosition = chunks[i][j].getPosition();
                 if (x == chunkPosition.getX() && y == chunkPosition.getY()) {
                     return chunks[i][j];
                 }
@@ -123,17 +123,17 @@ public class Map {
      * @return X and y points in direction to move.
      * (0,0) if within bounds, else points in opposite direction of initial x and y.
      */
-    public Point2D checkCollision(float x, float y) {
+    public Vec2D checkCollision(double x, double y) {
         if (x <= 0) {
-            return new Point2D.Float(1, 0);
+            return new Vec2D(1, 0);
         } else if (y <= 0) {
-            return new Point2D.Float(0, 1);
+            return new Vec2D(0, 1);
         } else if (x >= mapSize) {
-            return new Point2D.Float(-1, 0);
+            return new Vec2D(-1, 0);
         } else if (y >= mapSize) {
-            return new Point2D.Float(0, -1);
+            return new Vec2D(0, -1);
         } else {
-            return new Point2D.Float(0, 0);
+            return new Vec2D(0, 0);
         }
     }
 

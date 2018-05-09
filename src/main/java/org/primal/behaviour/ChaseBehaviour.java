@@ -6,12 +6,12 @@ import org.primal.entity.Animal;
 import org.primal.map.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import org.primal.entity.Herbivore;
+import org.primal.util.Vec2D;
 
 public class ChaseBehaviour extends Behaviour {
-    protected Point2D.Float chaseDir;
+    protected Vec2D chaseDir;
     private boolean isChasing = false;
     private volatile LivingEntity chasedAnimal;
 
@@ -43,8 +43,8 @@ public class ChaseBehaviour extends Behaviour {
                         this.chasedAnimal = entity;
 
                         this.weight = Math.round(100 - host.getFullness());
-                        this.chaseDir = new Point2D.Float(entity.getX() - host.getX(), entity.getY() - host.getY());
-                        normalize(chaseDir);
+                        this.chaseDir = new Vec2D(entity.getX() - host.getX(), entity.getY() - host.getY());
+                        chaseDir = chaseDir.normalize();
 
                         return;
                     }
@@ -54,23 +54,12 @@ public class ChaseBehaviour extends Behaviour {
         }
         else {
             this.weight = Math.round(100 - host.getFullness());
-            this.chaseDir = new Point2D.Float(chasedAnimal.getX() - host.getX(), chasedAnimal.getY() - host.getY());
-            normalize(chaseDir);
+            this.chaseDir = new Vec2D(chasedAnimal.getX() - host.getX(), chasedAnimal.getY() - host.getY());
+            chaseDir = chaseDir.normalize();
+
         }
     }
 
-    /**
-     * Normalizes a vector
-     * @param p = the vector to be normalized
-     * @return a normalized vector
-     */
-
-    protected Point2D normalize(Point2D p) {
-        double x = p.getX();
-        double y = p.getY();
-        float abs = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-        return new Point2D.Float((float) x/abs, (float) y / abs);
-    }
 
     /**
      * If the animal is close enough to its prey then it will eat it. Otherwise it will move towards it.
