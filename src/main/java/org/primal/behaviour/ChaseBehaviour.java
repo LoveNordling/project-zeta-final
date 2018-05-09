@@ -44,7 +44,7 @@ public class ChaseBehaviour extends Behaviour {
 
                         this.weight = Math.round(100 - host.getFullness());
                         this.chaseDir = new Vec2D(entity.getX() - host.getX(), entity.getY() - host.getY());
-                        chaseDir.normalize();
+                        chaseDir = chaseDir.normalize();
 
                         return;
                     }
@@ -55,7 +55,7 @@ public class ChaseBehaviour extends Behaviour {
         else {
             this.weight = Math.round(100 - host.getFullness());
             this.chaseDir = new Vec2D(chasedAnimal.getX() - host.getX(), chasedAnimal.getY() - host.getY());
-            chaseDir.normalize();
+            chaseDir = chaseDir.normalize();
 
         }
     }
