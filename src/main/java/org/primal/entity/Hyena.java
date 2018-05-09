@@ -12,10 +12,11 @@ public class Hyena extends Carnivore {
     /**
      * Creates a Hyena object
      * Creates a new carnivore object
-     * @param x = x-coordinate
-     * @param y = y-coordinate
-     * @param map = current Map
-     * @param stamina = stamina points
+     *
+     * @param x        = x-coordinate
+     * @param y        = y-coordinate
+     * @param map      = current Map
+     * @param stamina  = stamina points
      * @param fullness = fullness points
      */
 
@@ -26,7 +27,6 @@ public class Hyena extends Carnivore {
         this.behaviours.add(foodBehaviour);
         starvationRate = 1;
         this.color = new java.awt.Color(108, 63, 22);
-        this.shapeSize = Tile.getSize()/4;
+        this.shapeSize = Tile.getSize() / 4;
     }
-
 }
