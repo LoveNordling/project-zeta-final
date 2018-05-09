@@ -3,12 +3,13 @@ package org.primal.entity;
 import org.primal.behaviour.Behaviour;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
+import org.primal.util.Vec2D;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
-import java.awt.geom.Point2D;
+
 
 public abstract class Animal extends LivingEntity {
 
@@ -21,7 +22,7 @@ public abstract class Animal extends LivingEntity {
     private Graphics g;
     private Character[] lastDirections = new Character[4];
     protected float speed = 0.05f;
-    protected Point2D.Float movementDirection;
+    protected Vec2D movementDirection;
 
     /**
      * Creates an Animal object.
@@ -43,7 +44,7 @@ public abstract class Animal extends LivingEntity {
         this.fullness = fullness;
         energySatisfaction = 100;
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
-        this.movementDirection = new Point2D.Float((float)Math.cos(startAngle), (float)Math.sin(startAngle));
+        this.movementDirection = new Vec2D((float)Math.cos(startAngle), (float)Math.sin(startAngle));
 
     }
 
@@ -58,18 +59,6 @@ public abstract class Animal extends LivingEntity {
         this(x, y, map, 100, 100, 100);
     }
 
-    /**
-     * Normalizes a vector
-     * @param p = vector to be normalized
-     * @return Point2D A normalized vector
-     */
-
-    protected Point2D normalize(Point2D p){
-        double x = p.getX();
-        double y = p.getY();
-        float abs = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-        return new Point2D.Float((float) x/abs, (float) y / abs);
-    }
 
     /**
      * The simulation method used when simulating an animal. Goes through the list of behaviours and weighs
@@ -139,8 +128,8 @@ public abstract class Animal extends LivingEntity {
      */
 
     public void move() {
-        Point2D.Float newPos = new Point2D.Float((float)(this.position.getX() + movementDirection.getX()*speed), (float)(this.position.getY() + movementDirection.getY()*speed));
-        Point2D collisionPoint = map.checkCollision((float)newPos.getX(), (float)newPos.getY());
+        Vec2D newPos = new Vec2D((this.position.getX() + movementDirection.getX()*speed), (this.position.getY() + movementDirection.getY()*speed));
+        Vec2D collisionPoint = map.checkCollision(newPos.getX(), newPos.getY());
         if (collisionPoint.getX() == 0 && collisionPoint.getY() == 0) {
             this.position.setLocation(Math.max(newPos.getX(),0), Math.max(newPos.getY(), 0));
         } else {
@@ -223,12 +212,13 @@ public abstract class Animal extends LivingEntity {
 
     public abstract void eat(LivingEntity food);
 
+
     /**
      * Updates the position of an animal.
      * @param p = the current position
      */
 
-    public void setPosition(Point2D.Float p){
+    public void setPosition(Vec2D p){
         this.position = p;
     }
 
@@ -237,7 +227,7 @@ public abstract class Animal extends LivingEntity {
      * @param p = the current position
      */
 
-    public void setDirection(Point2D.Float p){this.movementDirection = p; }
+    public void setDirection(Vec2D p){this.movementDirection = p; }
 
     /**
      * Returns the fullness of the animal (hunger)
@@ -257,17 +247,18 @@ public abstract class Animal extends LivingEntity {
         return this.stamina;
     }
 
+
     /**
      * Returns the speed of the animal. Decides how far the animal travels per tick.
      * @return float The current speed.
      */
 
-    public float getSpeed() {return this.speed; }
+    public float getSpeed(){return this.speed; }
 
     /**
      * Returns the direction the animal is currently facing.
      * @return Point2D The direction of the animal.
      */
 
-    public Point2D.Float getDirection(){return this.movementDirection; }
+    public Vec2D getDirection(){return this.movementDirection; }
 }
