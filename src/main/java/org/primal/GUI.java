@@ -24,7 +24,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private float convertionRate;
     private boolean commandSent = false;
     private boolean inputMode = false;
-    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE }
+    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT }
     private Commands command;
     /** Surface initiates the surface of the graphics
      *
@@ -95,6 +95,12 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         float fY = y * convertionRate;
         return new Float(fX, fY);
     }
+    /** spawnEnvironment generates plants and trees
+     * useful incase of unexpected nuke
+     */
+    private void spawnEnvironment(){
+        map.addPlants();
+    }
     /** listCommands is a function used to send out the availible commands to the terminal
      */
     private void listCommands(){
@@ -142,7 +148,19 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     /** spawn respawns a new set of beings, genarly used in conjunction with the inevitble destruction of all things living
      */
     private void spawn(){
+        map.addAnimals();
         System.out.println("Due to reasons this function is not implemented");
+    }
+
+    private void spawnLions(Float pos){
+        System.out.println("Lions has arrived");
+        Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
+        map.spawnLion(t);
+    }
+    private void spawnGiraffe(Float pos){
+        System.out.println("Giraffe has arrived");
+        Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
+        map.spawnGiraffe(t);
     }
     
     /** input opens a window that that runs diffrent commands depending on input, type l/list commands/list to see all commands
@@ -161,6 +179,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             
             if(comnd.equals("q") || comnd.equals("quit") || comnd.equals("exit")){
                 exit = true;
+                command = Commands.NOTHING;
             }
             else if(comnd.equals("n") || comnd.equals("nuke") || comnd.equals("kill all")){
                 command = Commands.KILLALL;
@@ -172,7 +191,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             }
             
             else if(comnd.equals("giraffe") || comnd.equals("spawn giraffe")){
-                command = Commands.SPAWNZEBRA;
+                command = Commands.SPAWNGIRAFFE;
                 commandSent = true;
                 return;
             }
@@ -184,7 +203,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             }
             
             else if(comnd.equals("lion") || comnd.equals("spawn lion")){
-                command = Commands.SPAWNLION;
+                command = Commands.SPAWNLIONS;
                 commandSent = true;
                 return;
             }
@@ -199,6 +218,13 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 commandSent = true;
                 command = Commands.KILL;
                 return;
+            }
+            else if(comnd.equals("spawn environment") || comnd.equals("e")){
+                command = Commands.SPAWNENVIRONMENT;
+            }
+            
+            else if(comnd.equals("spawn animals") || comnd.equals("animals")){
+                command = Commands.RESPAWN;
             }
             else if(comnd.equals("p") || comnd.equals("print") || comnd.equals("print all")){
                 command = Commands.PRINTALL;                
@@ -229,6 +255,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             case INPUT:
                 input();
                 break;
+            case SPAWNENVIRONMENT:
+                spawnEnvironment();
+                break;
             case LISTCOMMANDS:
                 listCommands();
                 break;
@@ -256,7 +285,10 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private void execCommands(Float pos){
         switch(command){
             case SPAWNLIONS:
-                System.out.println("lions");
+                spawnLions(pos);
+                break;
+            case SPAWNGIRAFFE:
+                spawnGiraffe(pos);
                 break;
             case KILL:
                 killAnimals(pos);
@@ -312,6 +344,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         }
         else if(key == KeyEvent.VK_P){
             command = Commands.PRINTALL;
+        }
+        else if(key == KeyEvent.VK_E){
+            command = Commands.SPAWNENVIRONMENT;
         }
         else if(key == KeyEvent.VK_H){
             command = Commands.HEJ;

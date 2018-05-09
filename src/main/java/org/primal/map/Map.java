@@ -168,6 +168,47 @@ public class Map {
                 chunks[x][y].changeToWaterTiles();
             }
         }
+    }/** spawnLion spawns a lion on the tile tile
+      *
+      * @param tile the tile for the lion to be spawned upon
+      */
+    public void spawnLion(Tile tile){
+        Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+        tile.addLivingEntity(lion);
+    }
+
+    
+    /** spawnLion spawns amount amount of lions on the tile tile
+      *
+      * @param tile the tile for the lions to be spawned upon
+      * @param amount the amount of lions to be spawned
+      */
+    public void spawnLion(Tile tile, int amount){
+        for(int i=0; i<amount; i++){
+            Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+            tile.addLivingEntity(lion);
+        }
+    }
+    /** spawnGiraffe spawns a giraffe on the tile tile
+      *
+      * @param tile the tile for the giraffe to be spawned upon
+      */
+    public void spawnGiraffe(Tile tile){
+        Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+        tile.addLivingEntity(giraffe);
+    }
+
+    
+    /** spawnLion spawns amount amount of giraffes on the tile tile
+      *
+      * @param tile the tile for the giraffes to be spawned upon
+      * @param amount the amount of giraffes to be spawned
+      */
+    public void spawnGiraffe(Tile tile, int amount){
+        for(int i=0; i<amount; i++){
+            Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+            tile.addLivingEntity(giraffe);
+        }
     }
 
     /**
@@ -175,7 +216,7 @@ public class Map {
      * Then a species is randomly chosen.
      * On each of the selected tiles one instance of the selected species is spawned.
      */
-    private void addAnimals() {
+    public void addAnimals() {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
@@ -202,7 +243,7 @@ public class Map {
      * Randomly selects a group of tiles with a random radius between 0 and 2.
      * On each of the selected tiles one tree is spawned.
      */
-    private void addPlants() {
+    public void addPlants() {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
