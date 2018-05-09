@@ -5,42 +5,45 @@ import org.primal.map.Chunk;
 import org.primal.map.Map;
 import org.primal.tile.Pixel;
 import org.primal.tile.Tile;
-import org.primal.tile.WaterTile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D.Float;
 
 class Surface extends JPanel implements MouseListener, KeyListener {
-
 
     private Map map;
     private int mapWidth;
     private float convertionRate;
     private boolean commandSent = false;
     private boolean inputMode = false;
-    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT }
+
+    public enum Commands {NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT}
+
     private Commands command;
-    /** Surface initiates the surface of the graphics
+
+    /**
+     * Surface initiates the surface of the graphics
      *
      * @param map the map which will be drawn
      */
     public Surface(Map map) {
         super();
 
-        mapWidth = map.width*480;
+        mapWidth = map.width * 480;
         convertionRate = ((float) map.getSize()) / ((float) mapWidth);
         this.addKeyListener(this);
         this.addMouseListener(this);
         System.out.println(this.isFocusable());
         this.map = map;
     }
-    /** doDrawing generates the graphical representation of the simulation
+
+    /**
+     * doDrawing generates the graphical representation of the simulation
      *
      * @param g the graphics being drawn upon
      */
@@ -84,7 +87,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         super.paintComponent(g);
         doDrawing(g);
     }
-    /** translate translates the x and y coords of the graphical component to it's backend representation 
+
+    /**
+     * translate translates the x and y coords of the graphical component to it's backend representation
      *
      * @param x the x coordinate generated from the map
      * @param y the y coordinate generated from the map
@@ -95,163 +100,159 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         float fY = y * convertionRate;
         return new Float(fX, fY);
     }
-    /** spawnEnvironment generates plants and trees
+
+    /**
+     * spawnEnvironment generates plants and trees
      * useful incase of unexpected nuke
      */
-    private void spawnEnvironment(){
+    private void spawnEnvironment() {
         map.addPlants();
     }
-    /** listCommands is a function used to send out the availible commands to the terminal
+
+    /**
+     * listCommands is a function used to send out the availible commands to the terminal
      */
-    private void listCommands(){
+    private void listCommands() {
         //TODO add alot of print statements
         //TODO if possible add some kind of command listening in window
         System.out.println("The first of many print statements");
     }
-    /** printAll prints out inforamtion about all the living entites 
+
+    /**
+     * printAll prints out inforamtion about all the living entites
      */
-    private void printAll(){
+    private void printAll() {
         map.printAll();
     }
-    /** healAnimals heals the animals in the the tile with the position pos
+
+    /**
+     * healAnimals heals the animals in the the tile with the position pos
      *
-     * @param pos is the position of the tile to have it's inhabitats healed 
+     * @param pos is the position of the tile to have it's inhabitats healed
      */
-    private void healAnimals(Float pos){
+    private void healAnimals(Float pos) {
         System.out.println("Thoughts and prayers sent!");
         Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
         t.antiSlaughter();
     }
-    /** massHeal a function for healing all the animals on the map
+
+    /**
+     * massHeal a function for healing all the animals on the map
      */
-    private void massHeal(){
+    private void massHeal() {
         System.out.println("Useless func");
         map.antiNuke();
     }
-    /** killSomeAnimals a function for killing a random amount of animals on the tile with position pos, the random amount is between 0 and the amount of animals existing on the tile
+
+    /**
+     * killSomeAnimals a function for killing a random amount of animals on the tile with position pos, the random amount is between 0 and the amount of animals existing on the tile
      */
-    private void killSomeAnimals(Float pos){
-        System.out.println("This is a christian minecraft server: No killing allowed");
+    private void killSomeAnimals(Float pos) {
+        System.out.println("killSomeAnimals");
     }
-    /** killAnimals kills all the animals on the tile with the position pos
+
+    /**
+     * killAnimals kills all the animals on the tile with the position pos
      */
-    private void killAnimals(Float pos){
+    private void killAnimals(Float pos) {
         Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
         t.slaughter();
     }
-    /** NUKEDECIMATESLAUGHTER removes all existing beings on the map from existance
+
+    /**
+     * NUKEDECIMATESLAUGHTER removes all existing beings on the map from existance
      */
-    private void NUKEDECIMATESLAUGHTER(){
+    private void NUKEDECIMATESLAUGHTER() {
         System.out.println("Freedom sent");
         map.nuke();
     }
-    /** spawn respawns a new set of beings, genarly used in conjunction with the inevitble destruction of all things living
+
+    /**
+     * spawn respawns a new set of beings, genarly used in conjunction with the inevitble destruction of all things living
      */
-    private void spawn(){
+    private void spawn() {
         map.addAnimals();
         System.out.println("Due to reasons this function is not implemented");
     }
 
-    private void spawnLions(Float pos){
+    private void spawnLions(Float pos) {
         System.out.println("Lions has arrived");
         Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
         map.spawnLion(t);
     }
-    private void spawnGiraffe(Float pos){
+
+    private void spawnGiraffe(Float pos) {
         System.out.println("Giraffe has arrived");
         Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
         map.spawnGiraffe(t);
     }
-    
-    /** input opens a window that that runs diffrent commands depending on input, type l/list commands/list to see all commands
-     * 
-     */
-    private void input(){
-        boolean exit = false;
-        
 
+    /**
+     * input opens a window that that runs diffrent commands depending on input, type l/list commands/list to see all commands
+     */
+    private void input() {
+        boolean exit = false;
 
         inputMode = true;
-        while(!exit){
-            String comnd = JOptionPane.showInputDialog(this, "Enter Command", "Input Box", JOptionPane.PLAIN_MESSAGE);
-            System.out.println(comnd);
+        while (!exit) {
+            String input = JOptionPane.showInputDialog(this, "Enter Command", "Input Box", JOptionPane.PLAIN_MESSAGE);
+            System.out.println(input);
 
-            
-            if(comnd.equals("q") || comnd.equals("quit") || comnd.equals("exit")){
+            if (input.equals("q") || input.equals("quit") || input.equals("exit")) {
                 exit = true;
                 command = Commands.NOTHING;
-            }
-            else if(comnd.equals("n") || comnd.equals("nuke") || comnd.equals("kill all")){
+            } else if (input.equals("n") || input.equals("nuke") || input.equals("kill all")) {
                 command = Commands.KILLALL;
-            }
-            else if(comnd.equals("zebra") || comnd.equals("spawn zebra")){
+            } else if (input.equals("zebra") || input.equals("spawn zebra")) {
                 command = Commands.SPAWNZEBRA;
                 commandSent = true;
                 return;
-            }
-            
-            else if(comnd.equals("giraffe") || comnd.equals("spawn giraffe")){
+            } else if (input.equals("giraffe") || input.equals("spawn giraffe")) {
                 command = Commands.SPAWNGIRAFFE;
                 commandSent = true;
                 return;
-            }
-            
-            else if(comnd.equals("hyena") || comnd.equals("spawn hyena")){
+            } else if (input.equals("hyena") || input.equals("spawn hyena")) {
                 command = Commands.SPAWNHYENA;
                 commandSent = true;
                 return;
-            }
-            
-            else if(comnd.equals("lion") || comnd.equals("spawn lion")){
+            } else if (input.equals("lion") || input.equals("spawn lion")) {
                 command = Commands.SPAWNLIONS;
                 commandSent = true;
                 return;
-            }
-
-            else if(comnd.equals("tree") || comnd.equals("spawn tree")){
+            } else if (input.equals("tree") || input.equals("spawn tree")) {
                 command = Commands.SPAWNTREE;
                 commandSent = true;
                 return;
-            }
-            
-            else if(comnd.equals("k") || comnd.equals("kill")){
+            } else if (input.equals("k") || input.equals("kill")) {
                 commandSent = true;
                 command = Commands.KILL;
                 return;
-            }
-            else if(comnd.equals("spawn environment") || comnd.equals("e")){
+            } else if (input.equals("spawn environment") || input.equals("e")) {
                 command = Commands.SPAWNENVIRONMENT;
-            }
-            
-            else if(comnd.equals("spawn animals") || comnd.equals("animals")){
+            } else if (input.equals("spawn animals") || input.equals("animals")) {
                 command = Commands.RESPAWN;
-            }
-            else if(comnd.equals("p") || comnd.equals("print") || comnd.equals("print all")){
-                command = Commands.PRINTALL;                
-            }
-            else if(comnd.equals("freeze") || comnd.equals("freeze chunk")){
-                command = Commands.FREEZECHUNK;                
-            }
-            
-            else if(comnd.equals("l") || comnd.equals("list") || comnd.equals("list all") || comnd.equals("help")){
-                command = Commands.LISTCOMMANDS;                
-            }
-            else{
+            } else if (input.equals("p") || input.equals("print") || input.equals("print all")) {
+                command = Commands.PRINTALL;
+            } else if (input.equals("freeze") || input.equals("freeze chunk")) {
+                command = Commands.FREEZECHUNK;
+            } else if (input.equals("l") || input.equals("list") || input.equals("list all") || input.equals("help")) {
+                command = Commands.LISTCOMMANDS;
+            } else {
                 System.out.println("invalid command");
                 command = Commands.NOTHING;
             }
             execCommands();
-            
-        }
 
+        }
 
         inputMode = false;
     }
-    /** execCommands runs the currently active command if it is a zero arguments command
-     *
+
+    /**
+     * execCommands runs the currently active command if it is a zero arguments command
      */
-    private void execCommands(){
-        switch(command){
+    private void execCommands() {
+        switch (command) {
             case INPUT:
                 input();
                 break;
@@ -278,12 +279,14 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 break;
         }
     }
-    /** execCommands runs the currently active command if it is a 1 argument command
+
+    /**
+     * execCommands runs the currently active command if it is a 1 argument command
      *
-     * @param pos the argument to be sent onward to the function coresponding to the command 
+     * @param pos the argument to be sent onward to the function coresponding to the command
      */
-    private void execCommands(Float pos){
-        switch(command){
+    private void execCommands(Float pos) {
+        switch (command) {
             case SPAWNLIONS:
                 spawnLions(pos);
                 break;
@@ -299,86 +302,75 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             case HEAL:
                 healAnimals(pos);
                 break;
-       
+
         }
-    }/** mouseClicked is a function that is run when a click on the screen is received
-      *
-      * this function will either print out inforamtion about the living entities on the clicked tile or perform an action dependant on the command on it
-      *
-      * @param click inforamtion generated from the mouse click
-      */
+    }
+
+    /**
+     * mouseClicked is a function that is run when a click on the screen is received
+     * this function will either print out information about the living entities on the clicked tile or perform an action dependant on the command on it
+     *
+     * @param click information generated from the mouse click
+     */
     public void mouseClicked(MouseEvent click) {
         this.requestFocusInWindow();
         int x = click.getX();
         int y = click.getY();
         Float coords = translate(x, y);
 
-        if(commandSent == true){
+        if (commandSent) {
             System.out.println("hej");
             execCommands(coords);
             commandSent = false;
-        }
-        else{
+        } else {
             Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
             System.out.println(t);
         }
 
-
-        if(inputMode){
+        if (inputMode) {
             input();
         }
     }
-    /** keyPressed sets the active command depending on which key is pressed, if the corresponding command is a zero argument command the active command is executed
-     *
+
+    /**
+     * keyPressed sets the active command depending on which key is pressed, if the corresponding command is a zero argument command the active command is executed
      * to see list of commands type click l or use the command box
      * the key used to open the command box is 'i'
      *
      * @param e inforamtion about the key pressed
      */
-    public void keyPressed(KeyEvent e){
+    public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        
-        if(key == KeyEvent.VK_A){
+
+        if (key == KeyEvent.VK_A) {
             command = Commands.SPAWNLIONS;
             commandSent = true;
-        }
-        else if(key == KeyEvent.VK_P){
+        } else if (key == KeyEvent.VK_P) {
             command = Commands.PRINTALL;
-        }
-        else if(key == KeyEvent.VK_E){
+        } else if (key == KeyEvent.VK_E) {
             command = Commands.SPAWNENVIRONMENT;
-        }
-        else if(key == KeyEvent.VK_H){
+        } else if (key == KeyEvent.VK_H) {
             command = Commands.HEJ;
-        }
-        else if(key == KeyEvent.VK_N){
+        } else if (key == KeyEvent.VK_N) {
             command = Commands.KILLALL;
-        }
-        else if(key == KeyEvent.VK_L){
+        } else if (key == KeyEvent.VK_L) {
             command = Commands.LISTCOMMANDS;
-        }
-        else if(key == KeyEvent.VK_I){
+        } else if (key == KeyEvent.VK_I) {
             command = Commands.INPUT;
-        }
-        else if(key == KeyEvent.VK_R){
+        } else if (key == KeyEvent.VK_R) {
             command = Commands.RESPAWN;
-        }
-        else if(key == KeyEvent.VK_M){
+        } else if (key == KeyEvent.VK_M) {
             command = Commands.MASSHEAL;
-        }
-        else if(key == KeyEvent.VK_S){
+        } else if (key == KeyEvent.VK_S) {
             commandSent = true;
             command = Commands.KILLSOME;
-        }
-        else if(key == KeyEvent.VK_K){
+        } else if (key == KeyEvent.VK_K) {
             commandSent = true;
             command = Commands.KILL;
-        }
-        else if(key == KeyEvent.VK_D){
+        } else if (key == KeyEvent.VK_D) {
             commandSent = true;
             command = Commands.HEAL;
-        }
-        else{
+        } else {
             System.out.println("Invalid command");
             command = Commands.NOTHING;
         }
@@ -397,11 +389,12 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
     public void mouseEntered(MouseEvent e) {
     }
-    public void keyReleased(KeyEvent e){
+
+    public void keyReleased(KeyEvent e) {
     }
-    public void keyTyped(KeyEvent e){
+
+    public void keyTyped(KeyEvent e) {
     }
-    
 
 }
 
@@ -411,9 +404,10 @@ public class GUI extends JFrame {
         initUI(map);
     }
 
-    /** initUI initiates the graphical interface 
+    /**
+     * initUI initiates the graphical interface
      *
-     * @param map the map to be drawn/grapicaly shown
+     * @param map the map to be drawn/graphically shown
      */
     private void initUI(Map map) {
         add(new Surface(map));
