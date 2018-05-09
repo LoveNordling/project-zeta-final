@@ -2,8 +2,6 @@ package org.primal;
 
 import org.primal.map.Map;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -16,7 +14,7 @@ public class Main {
     private Simulation simulation;
 
     public static void main(String[] args) {
-       
+
         File dir = new File("output/");
         dir.mkdir();
 
@@ -30,16 +28,15 @@ public class Main {
         }
 
         Map map = new Map(2);
-        
+
         GUI gui = new GUI(map);
 
-        Runnable action = () -> {gui.repaint();};
-        Simulation simulation = new Simulation(map,action);
+        Runnable action = gui::repaint;
+        Simulation simulation = new Simulation(map, action);
 
         gui.setVisible(true);
 
         simulation.start();
-
     }
-        
+
 }

@@ -1,16 +1,14 @@
 package org.primal;
 
-
-
-import org.primal.map.Map;
 import org.primal.map.Chunk;
+import org.primal.map.Map;
 import org.primal.util.ThrowingTask;
 
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.Executors;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A simulation running on multiple concurrent threads utilizing a scheduledExecutor.
@@ -18,11 +16,11 @@ import java.util.concurrent.ScheduledExecutorService;
  * The simulation currently strives to run at 60 cylces per second.
  * One 'cycle' is defined as the time it takes all the Chunks in a given map to complete their {@code updateChunks()} method.
  * Currently tightly coupled with the Primal project.
+ *
  * @see java.util.concurrent.ScheduledExecutorService
  * @see java.util.concurrent.CyclicBarrier
  * @see org.primal.map.Chunk#updateChunk()
  */
-
 
 public class Simulation {
 
@@ -35,13 +33,13 @@ public class Simulation {
     // The threadpool used to manage worker threads.
     private ScheduledExecutorService simulationThreadPool;
 
-
     private boolean started, running;
 
     /**
      * Initializes a simulation with a given map.
+     *
      * @param map the map the simulation is simulating.
-     * @see   org.primal.map.Map
+     * @see org.primal.map.Map
      */
     public Simulation(Map map) {
         this.map = map;
@@ -60,9 +58,10 @@ public class Simulation {
 
     /**
      * Initializes a simulation with a given map and a {@code Runnable} that will be called at the end of every cycle.
+     *
      * @param map    the map the simulation is simulating.
-     * @param action the {@code Runnable} to be executed at the end of each cycle. 
-     * @see   org.primal.map.Map
+     * @param action the {@code Runnable} to be executed at the end of each cycle.
+     * @see org.primal.map.Map
      */
     public Simulation(Map map, Runnable action) {
         this.map = map;
@@ -79,6 +78,7 @@ public class Simulation {
     /**
      * Starts the simulation by scheduling all the chunks in {@code map} to the threadpool.
      * It does this by calling {@code map}s {@code getChunks()} method and iterating over the result to schedule the chunks.
+     *
      * @see org.primal.map.Chunk
      * @see org.primal.map.Map#getChunks()
      * @see org.primal.util.ThrowingTask
@@ -103,6 +103,7 @@ public class Simulation {
      * Private class implementing a wrapper around a given chunk to facilitate scheduling in a ThreadPool without forcing the Chunk to implement
      * the Runnable interface.
      * The Worker uses a CyclicBarrier to syncronize the different Worker threads in the simulation.
+     *
      * @see java.util.concurrent.CyclicBarrier
      * @see org.primal.map.Chunk
      */
