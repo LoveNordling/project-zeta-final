@@ -4,11 +4,13 @@ import org.primal.map.Map;
 import org.primal.tile.Tile;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 public abstract class LivingEntity extends Entity {
 
-    protected Shape shape;
+    protected Ellipse2D.Float shape;
     protected Color color;
+    protected float shapeSize;
     float health;
     private float maxHP;
     float energySatisfaction;
@@ -34,8 +36,8 @@ public abstract class LivingEntity extends Entity {
 
     public void updateShape() {
         if (this.isAnimal()) {
-            float visualSize = Tile.getSize() / 4;
-            ((Rectangle.Float) this.shape).setRect(getX() * Tile.getSize() - visualSize / 2, getY() * Tile.getSize() - visualSize / 2, visualSize, visualSize);
+            float size = this.shapeSize;
+            this.shape.setFrame(getX() * Tile.getSize() - size / 2, getY() * Tile.getSize() - size / 2, size, size);
         }
     }
 
