@@ -11,10 +11,11 @@ public class Hyena extends Carnivore {
     /**
      * Creates a Hyena object
      * Creates a new carnivore object
-     * @param x = x-coordinate
-     * @param y = y-coordinate
-     * @param map = current Map
-     * @param stamina = stamina points
+     *
+     * @param x        = x-coordinate
+     * @param y        = y-coordinate
+     * @param map      = current Map
+     * @param stamina  = stamina points
      * @param fullness = fullness points
      */
 

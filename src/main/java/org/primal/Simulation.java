@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * A simulation running on multiple concurrent threads utilizing a scheduledExecutor.
- * The simulation also uses a CyclicBarrier for syncronization between worker threads.
- * The simulation currently strives to run at 60 cylces per second.
+ * The simulation also uses a CyclicBarrier for synchronization between worker threads.
+ * The simulation currently strives to run at 60 cycles per second.
  * One 'cycle' is defined as the time it takes all the Chunks in a given map to complete their {@code updateChunks()} method.
  * Currently tightly coupled with the Primal project.
  *
@@ -33,8 +33,6 @@ public class Simulation {
     // The threadpool used to manage worker threads.
     private ScheduledExecutorService simulationThreadPool;
 
-    private boolean started, running;
-
     /**
      * Initializes a simulation with a given map.
      *
@@ -53,7 +51,6 @@ public class Simulation {
         };
 
         updateLoopSynchronizationBarrier = new CyclicBarrier(chunkNumber, synchronizationAction);
-
     }
 
     /**
@@ -72,7 +69,6 @@ public class Simulation {
         this.simulationThreadPool = Executors.newScheduledThreadPool(chunkNumber);
 
         updateLoopSynchronizationBarrier = new CyclicBarrier(chunkNumber, action);
-
     }
 
     /**
@@ -84,19 +80,15 @@ public class Simulation {
      * @see org.primal.util.ThrowingTask
      */
     public void start() {
-
         for (Chunk[] chunks : this.map.getChunks()) {
             for (Chunk c : chunks) {
-                /**
+                /*
                  * ThrowingTask is a wrapper around Worker to circumvent the fact that ScheduledThreadPools swallows all exceptions by default.
                  * 16 Milliseconds is approximatly 1/60 seconds.
                  */
                 simulationThreadPool.scheduleAtFixedRate(new ThrowingTask(new Worker(c)), 0, 16, TimeUnit.MILLISECONDS);
             }
         }
-
-        this.started = true;
-
     }
 
     /**
@@ -124,17 +116,15 @@ public class Simulation {
                 // This error thrown if the thread was interrupted during execution
             } catch (InterruptedException ex) {
                 System.err.println("Thread " + Thread.currentThread() + "was interrupted");
-                return;
 
-                /**
+                /*
                  * This error thrown if ANOTHER thread was interrupted or the barrier was somehow broken
                  * Either by the barrier being reset(), or the barrier being broken when await() was called,
                  * or the barrier action failed due to an exception
                  */
             } catch (BrokenBarrierException ex) {
-                return;
+                System.err.println("Error: " + ex);
             }
         }
     }
-
 }

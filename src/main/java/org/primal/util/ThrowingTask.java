@@ -22,5 +22,4 @@ public class ThrowingTask implements Runnable {
             ex.printStackTrace();
         }
     }
-
 }

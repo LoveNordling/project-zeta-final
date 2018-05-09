@@ -14,7 +14,6 @@ public class Main {
     private Simulation simulation;
 
     public static void main(String[] args) {
-
         File dir = new File("output/");
         dir.mkdir();
 
@@ -28,7 +27,6 @@ public class Main {
         }
 
         Map map = new Map(2);
-
         GUI gui = new GUI(map);
 
         Runnable action = gui::repaint;
@@ -38,5 +36,4 @@ public class Main {
 
         simulation.start();
     }
-
 }

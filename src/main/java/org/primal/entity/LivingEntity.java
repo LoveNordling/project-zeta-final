@@ -15,9 +15,10 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Creates a living entity. Classes such as Animals extends this class.
-     * @param x = the x-coordinate
-     * @param y = the y-coordinate
-     * @param map = the current Map
+     *
+     * @param x      = the x-coordinate
+     * @param y      = the y-coordinate
+     * @param map    = the current Map
      * @param health = starting health points
      */
 
@@ -41,6 +42,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Checks whether an object is an animal. Should be overridden.
+     *
      * @return false
      */
 
@@ -50,6 +52,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Checks whether an object is a plant. Should be overridden.
+     *
      * @return false
      */
 
@@ -59,6 +62,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Returns the objects shape.
+     *
      * @return Shape The objects shape.
      */
 
@@ -84,6 +88,7 @@ public abstract class LivingEntity extends Entity {
 
     /**
      * Returns the color of the object's shape.
+     *
      * @return Color The color of the object's shape.
      */
 
