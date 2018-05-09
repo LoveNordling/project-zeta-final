@@ -10,32 +10,38 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Carnivore extends Animal {
 
+    /**
+     * Creates a new carnivore object
+     * @param x = x-coordinate
+     * @param y = y-coordinate
+     * @param map = current Map
+     * @param health = health points
+     * @param stamina = stamina points
+     * @param fullness = fullness points
+     */
 
     public Carnivore(float x, float y, Map map, float health, float stamina, float fullness) {
         super(x, y, map, health, fullness, stamina);
     }
+
+    /**
+     * Fucntion for eating another animal
+     * @param food = animal to be eaten
+     */
+
     public void eat(LivingEntity food) {
-        if (food instanceof Herbivore) {
-            Tile tile = map.getTile(food.getX(), food.getY());
-            tile.removeLivingEntity(food);
-            this.stamina = getStamina() + 10;
-        }
+                Tile tile = map.getTile(food.getX(), food.getY());
+                tile.removeLivingEntity(food);
+                this.fullness = 100;
     }
+
+    /**
+     * Simulation method, calls on the simulate function in its super class
+     */
 
     public void simulate() {
         super.simulate();
         //move();
-    }
-
-    public void chase(Herbivore target) {
-
-        float dx = target.getX() - this.getX();
-        float dy = target.getY() - this.getY();
-
-        float newX = getX() + dx * 0.1f;
-        float newY = getY() + dy * 0.1f;
-
-        this.position.setLocation(newX, newY);
     }
 }
 

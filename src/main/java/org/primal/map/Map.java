@@ -3,23 +3,28 @@ package org.primal.map;
 import org.primal.entity.*;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
-import org.primal.tile.WaterTile;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Map holds a 2d array of chunks and handles the logic for spawning entities in the different chunks.
+ */
 public class Map {
 
     public int width;
     public AtomicInteger entityId = new AtomicInteger(0);
-    private LinkedList<Chunk> megaChunks;
     private int mapSize;
     private int chunkSize;
     private Chunk[][] chunks;
 
+    /**
+     * Creates a map with width x width chunks and randomly adds water, plants and animals.
+     *
+     * @param width Width in amount of chunks.
+     */
     public Map(int width) {
         this.width = width;
         chunks = new Chunk[width][width];
@@ -36,42 +41,52 @@ public class Map {
         }
         for (int i = 0; i < mapSize / 2; i++) {
             addAnimals();
+        }
+        for (int i = 0; i < mapSize / 2; i++) {
             addPlants();
         }
     }
 
-    public LinkedList<Chunk> getMegaChunks() {
-        return megaChunks;
-    }
-
-    public Chunk[][] getChunks() {
-        return chunks;
-    }
-
-    public void setChunks(Chunk[][] chunks) {
-        this.chunks = chunks;
-    }
-    public void printAll(){
+    /**
+     * Runs printChunk function (which prints all entities in chunk) for all chunks in map.
+     */
+    public void printAll() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < width; y++) {
                 chunks[x][y].printChunk();
             }
         }
     }
-    public void nuke(){
+
+    /**
+     * Removes all entities in all chunks in map.
+     */
+    public void nuke() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < width; y++) {
                 chunks[x][y].decimate();
             }
         }
     }
-    public void antiNuke(){
+
+    /**
+     * Adds all entities after having nuked the map.
+     */
+    public void antiNuke() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < width; y++) {
                 chunks[x][y].antiDecimate();
             }
         }
     }
+
+    /**
+     * Returns chunk at position (x,y).
+     *
+     * @param x X value for chunk to get.
+     * @param y Y value for chunk to get.
+     * @return Chunk at position (x,y) if x and y is valid, else null.
+     */
     public Chunk getChunk(float x, float y) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
@@ -84,6 +99,13 @@ public class Map {
         return null;
     }
 
+    /**
+     * Returns tile at position (x,y).
+     *
+     * @param x X value for tile to get.
+     * @param y Y value for tile to get.
+     * @return Tile at position (x,y) if x and y is valid, else null.
+     */
     public Tile getTile(float x, float y) {
         int xInt = (int) x;
         int yInt = (int) y;
@@ -91,18 +113,45 @@ public class Map {
         return ch.getTile(xInt % chunkSize, yInt % chunkSize);
     }
 
+    /**
+     * Checks if coordinates are within map boundaries,
+     * if they are then directional points (0,0) are returned
+     * else directional points to move in opposite direction are returned.
+     *
+     * @param x X value to check.
+     * @param y Y value to check.
+     * @return X and y points in direction to move.
+     * (0,0) if within bounds, else points in opposite direction of initial x and y.
+     */
     public Point2D checkCollision(float x, float y) {
-        if(x <= 0){return new Point2D.Float(1,0);}
-        else if(y <= 0){return new Point2D.Float(0,1);}
-        else if(x >= mapSize){return new Point2D.Float(-1,0);}
-        else if(y >= mapSize){return new Point2D.Float(0,-1);}
-        else{return new Point2D.Float(0,0);}
+        if (x <= 0) {
+            return new Point2D.Float(1, 0);
+        } else if (y <= 0) {
+            return new Point2D.Float(0, 1);
+        } else if (x >= mapSize) {
+            return new Point2D.Float(-1, 0);
+        } else if (y >= mapSize) {
+            return new Point2D.Float(0, -1);
+        } else {
+            return new Point2D.Float(0, 0);
+        }
     }
 
+    /**
+     * Checks if x and y are within map boundaries.
+     *
+     * @param x X value to check.
+     * @param y Y value to check.
+     * @return True if within bounds, else false.
+     */
     public boolean withinBounds(float x, float y) {
         return (x >= 0 && y >= 0 && x < mapSize && y < mapSize);
     }
 
+    /**
+     * Randomly selects a group of tiles with a random radius between 1 and 2.
+     * Then iterates through the tiles and replaces the chosen ones with water tiles.
+     */
     private void addWaterTiles() {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
@@ -121,6 +170,11 @@ public class Map {
         }
     }
 
+    /**
+     * Randomly selects a group of tiles with a random radius between 0 and 2.
+     * Then a species is randomly chosen.
+     * On each of the selected tiles one instance of the selected species is spawned.
+     */
     private void addAnimals() {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
@@ -144,6 +198,10 @@ public class Map {
         }
     }
 
+    /**
+     * Randomly selects a group of tiles with a random radius between 0 and 2.
+     * On each of the selected tiles one tree is spawned.
+     */
     private void addPlants() {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
@@ -152,7 +210,6 @@ public class Map {
 
         ArrayList<Tile> tiles = getTiles(randX, randY, forestWidth);
         for (Tile tile : tiles) {
-            // TODO: add check if tile already contains plant
             if (tile instanceof LandTile) {
                 float treeSize = generator.nextInt(2) + 1.5f;
                 Plant plant = new Tree(tile.getX(), tile.getY(), this, treeSize);
@@ -161,6 +218,14 @@ public class Map {
         }
     }
 
+    /**
+     * Returns tile at coordinate (x,y) and tiles surrounding it by specified radius.
+     *
+     * @param x      X coordinate of tile in center of chosen tiles.
+     * @param y      Y coordinate of tile in center of chosen tiles.
+     * @param radius Radius by which to retrieve neighbouring tiles.
+     * @return ArrayList of the chosen tiles.
+     */
     public ArrayList<Tile> getTiles(float x, float y, int radius) {
         ArrayList<Tile> tiles = new ArrayList<>();
         Tile currentTile;
@@ -174,6 +239,10 @@ public class Map {
             }
         }
         return tiles;
+    }
+
+    public Chunk[][] getChunks() {
+        return chunks;
     }
 
     public int getSize() {

@@ -27,23 +27,37 @@ If the compilation worked as planned, navigate to */build/libs* where the file *
 **src**  
 This folder contains all vital code and all tests.
 
-**src/org/primal/java**  
-Root folder for the java code.
-- /behaviour
-- /entity
-- /graphics
-- /map
-- /responses
-- /tile
 
-**src/test**  
-This folder conatains all tests.
+```
+src
+├── main
+│   └── java
+│       └── org
+│           └── primal
+│               ├── behaviour
+│               ├── entity
+│               ├── map
+│               ├── tile
+│               ├── util
+|               ├── GUI.java
+│               ├── SimObject.java
+│               ├── Simulation.java
+│               └── Main.java
+│
+└── test
+    └── java
+        └── org
+            └── primal
+                ├── behaviour
+                └── entity
+        
+```
 
 **guidelines**  
 Guidelines for working on the project.
 
 **docs**  
-
+Contains extracted Javadoc documentation for the project.
 
 **meta**  
 Contains group contract and a presentation of the members of the project.
