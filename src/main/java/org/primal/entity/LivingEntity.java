@@ -4,11 +4,13 @@ import org.primal.map.Map;
 import org.primal.tile.Tile;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 public abstract class LivingEntity extends Entity {
 
-    protected Shape shape;
+    protected Ellipse2D.Float shape;
     protected Color color;
+    protected float shapeSize;
     float health;
     private float maxHP;
     float energySatisfaction;
@@ -21,7 +23,6 @@ public abstract class LivingEntity extends Entity {
      * @param map    = the current Map
      * @param health = starting health points
      */
-
     public LivingEntity(float x, float y, Map map, float health) {
         super(x, y, map);
         this.color = new Color(0, 0, 0);
@@ -32,11 +33,10 @@ public abstract class LivingEntity extends Entity {
     /**
      * Updates the shape of the object. Shapes are assumed to be rectangles.
      */
-
     public void updateShape() {
         if (this.isAnimal()) {
-            float visualSize = Tile.getSize() / 4;
-            ((Rectangle.Float) this.shape).setRect(getX() * Tile.getSize() - visualSize / 2, getY() * Tile.getSize() - visualSize / 2, visualSize, visualSize);
+            float size = this.shapeSize;
+            this.shape.setFrame(getX() * Tile.getSize() - size / 2, getY() * Tile.getSize() - size / 2, size, size);
         }
     }
 
@@ -45,7 +45,6 @@ public abstract class LivingEntity extends Entity {
      *
      * @return false
      */
-
     public boolean isAnimal() {
         return false;
     }
@@ -55,7 +54,6 @@ public abstract class LivingEntity extends Entity {
      *
      * @return false
      */
-
     public boolean isPlant() {
         return false;
     }
@@ -65,7 +63,6 @@ public abstract class LivingEntity extends Entity {
      *
      * @return Shape The objects shape.
      */
-
     public Shape getShape() {
         updateShape();
         return this.shape;
@@ -74,14 +71,12 @@ public abstract class LivingEntity extends Entity {
     /**
      * Simulation function, used when simulating an object.
      */
-
     public void simulate() {
     }
 
     /**
      * Sets the health of the object to max capacity.
      */
-
     public void heal() {
         health = maxHP;
     }
@@ -91,7 +86,6 @@ public abstract class LivingEntity extends Entity {
      *
      * @return Color The color of the object's shape.
      */
-
     public Color getColor() {
         return color;
     }

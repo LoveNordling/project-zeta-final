@@ -6,6 +6,7 @@ import org.primal.tile.Tile;
 import org.primal.util.Vec2D;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -37,7 +38,7 @@ public abstract class Animal extends LivingEntity {
         // TODO: remove static x y below.
         super(x, y, map, health);
 
-        this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+        this.shape = new Ellipse2D.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
 
         this.stamina = stamina;
         this.fullness = fullness;
@@ -175,10 +176,7 @@ public abstract class Animal extends LivingEntity {
     public boolean atEdge() {
         //float[] pos = this.getPosition();
         ArrayList<Tile> tiles = map.getTiles(getX(), getY(), 1);
-        if (tiles.size() != 9) {
-            return true;
-        }
-        return false;
+        return tiles.size() != 9;
     }
 
     //Temp func for testing
