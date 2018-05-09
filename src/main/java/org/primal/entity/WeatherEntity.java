@@ -6,8 +6,9 @@ public class WeatherEntity extends Entity {
 
     /**
      * Creates a weather entity
-     * @param x = the x-coordinate
-     * @param y = the y-coordinate
+     *
+     * @param x   = the x-coordinate
+     * @param y   = the y-coordinate
      * @param map = the current Map
      */
 

@@ -22,6 +22,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private boolean commandSent = false;
     private boolean inputMode = false;
 
+    public static Graphics mainGraphics;
+
     public enum Commands {NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT}
 
     private Commands command;
@@ -79,21 +81,22 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 }
             }
         }
-        repaint();
+        //repaint();
     }
 
     @Override
     public void paintComponent(Graphics g) {
+        mainGraphics = g;
         super.paintComponent(g);
         doDrawing(g);
     }
 
     /**
-     * translate translates the x and y coords of the graphical component to it's backend representation
+     * translate translates the x and y coordinates of the graphical component to it's backend representation
      *
      * @param x the x coordinate generated from the map
      * @param y the y coordinate generated from the map
-     * @return reterns the coordinate for the backend position choosen on the frontend graphics
+     * @return returns the coordinate for the backend position chosen on the frontend graphics
      */
     private Float translate(int x, int y) {
         float fX = x * convertionRate;
@@ -103,14 +106,14 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
     /**
      * spawnEnvironment generates plants and trees
-     * useful incase of unexpected nuke
+     * useful in case of unexpected nuke
      */
     private void spawnEnvironment() {
         map.addPlants();
     }
 
     /**
-     * listCommands is a function used to send out the availible commands to the terminal
+     * listCommands is a function used to send out the available commands to the terminal
      */
     private void listCommands() {
         //TODO add alot of print statements
@@ -119,7 +122,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * printAll prints out inforamtion about all the living entites
+     * printAll prints out information about all the living entites
      */
     private void printAll() {
         map.printAll();
@@ -128,7 +131,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     /**
      * healAnimals heals the animals in the the tile with the position pos
      *
-     * @param pos is the position of the tile to have it's inhabitats healed
+     * @param pos is the position of the tile to have it's inhabitants healed
      */
     private void healAnimals(Float pos) {
         System.out.println("Thoughts and prayers sent!");
@@ -160,7 +163,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * NUKEDECIMATESLAUGHTER removes all existing beings on the map from existance
+     * NUKEDECIMATESLAUGHTER removes all existing beings on the map from existence
      */
     private void NUKEDECIMATESLAUGHTER() {
         System.out.println("Freedom sent");
@@ -168,7 +171,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * spawn respawns a new set of beings, genarly used in conjunction with the inevitble destruction of all things living
+     * spawn respawn a new set of beings, generally used in conjunction with the inevitable destruction of all things living
      */
     private void spawn() {
         map.addAnimals();
@@ -188,7 +191,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * input opens a window that that runs diffrent commands depending on input, type l/list commands/list to see all commands
+     * input opens a window that that runs different commands depending on input, type l/list commands/list to see all commands
      */
     private void input() {
         boolean exit = false;
@@ -283,7 +286,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     /**
      * execCommands runs the currently active command if it is a 1 argument command
      *
-     * @param pos the argument to be sent onward to the function coresponding to the command
+     * @param pos the argument to be sent onward to the function corresponding to the command
      */
     private void execCommands(Float pos) {
         switch (command) {
@@ -337,7 +340,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * to see list of commands type click l or use the command box
      * the key used to open the command box is 'i'
      *
-     * @param e inforamtion about the key pressed
+     * @param e information about the key pressed
      */
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -400,6 +403,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
 public class GUI extends JFrame {
 
+    private Surface surface;
+
     public GUI(Map map) {
         initUI(map);
     }
@@ -410,10 +415,15 @@ public class GUI extends JFrame {
      * @param map the map to be drawn/graphically shown
      */
     private void initUI(Map map) {
-        add(new Surface(map));
+        this.surface = new Surface(map);
+        add(this.surface);
         setTitle("Primal");
         setSize(1000, 1000);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void repaint() {
+        this.surface.repaint();
     }
 }

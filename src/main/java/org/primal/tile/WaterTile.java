@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WaterTile extends Tile {
+
     private int updateCount = 0;
 
     public WaterTile(float x, float y, Map map) {
@@ -35,6 +36,6 @@ public class WaterTile extends Tile {
             randomizePixels(getX(), getY());
             updateCount = 0;
         }
-        updateCount ++;
+        updateCount++;
     }
 }
