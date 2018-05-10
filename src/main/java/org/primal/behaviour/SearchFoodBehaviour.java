@@ -10,7 +10,7 @@ public class SearchFoodBehaviour extends Behaviour {
     }
 
     public void decide() {
-        this.weight = 70;
+        this.weight = 70; //TEMP VALUE
     }
 
     public void act() {

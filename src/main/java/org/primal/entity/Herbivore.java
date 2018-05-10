@@ -33,6 +33,7 @@ public abstract class Herbivore extends Animal {
         if (food.isPlant()) {
             System.out.println("Ate tree");
             this.fullness = 100;
+            this.health = 100;
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
 
-    float starvationRate = 0.01f;
+    float starvationRate = 0.0001f;
     float stamina;
     float fullness;
     LinkedList<Behaviour> behaviours;
@@ -102,12 +102,13 @@ public abstract class Animal extends LivingEntity {
             stamina -= starvationRate;
             fullness -= starvationRate;
         } else if (fullness <= 0) {
-            health -= 10 * starvationRate;
+            health -= starvationRate;
             if (health <= 0) {
                 starve();
             }
-         }
-         System.out.println("Nothing to do?");
+         } else {
+            fullness -= starvationRate;
+        }
     }
 
     /**
@@ -264,5 +265,4 @@ public abstract class Animal extends LivingEntity {
      */
 
     public abstract void starve();
-
 }
