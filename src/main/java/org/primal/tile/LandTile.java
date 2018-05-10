@@ -20,8 +20,8 @@ public class LandTile extends Tile {
     }
 
     public void randomizePixels(float x, float y) {
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 colors[i][j] = new Color(ThreadLocalRandom.current().nextInt(165, 205), 204, 8);
             }
         }

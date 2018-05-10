@@ -89,4 +89,11 @@ public abstract class LivingEntity extends Entity {
     public Color getColor() {
         return color;
     }
+    /** getType the type of the living entity used to check if 2 living entities is the same type
+     *  
+     * @return it's type which is an empty string unless overriden
+     */
+    public String getType(){
+        return "";
+    }
 }

@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+
 public abstract class Animal extends LivingEntity {
 
     private static AtomicInteger counter = new AtomicInteger();
@@ -48,7 +49,9 @@ public abstract class Animal extends LivingEntity {
         energySatisfaction = 100;
         this.id = counter.getAndIncrement();
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
+
         this.movementDirection = new Vec2D((float) Math.cos(startAngle), (float) Math.sin(startAngle));
+
 
     }
 
@@ -210,6 +213,7 @@ public abstract class Animal extends LivingEntity {
      */
     public abstract void eat(LivingEntity food);
 
+
     /**
      * Updates the position of an animal.
      *
@@ -237,6 +241,7 @@ public abstract class Animal extends LivingEntity {
         return this.stamina;
     }
 
+
     /**
      * Returns the speed of the animal. Decides how far the animal travels per tick.
      *
@@ -254,6 +259,11 @@ public abstract class Animal extends LivingEntity {
     public Vec2D getDirection() {
         return this.movementDirection;
     }
+
+    /** breed is used by those who override it to generate an animal of the same race
+     */
+    public void breed(){}
+
 
     /**
      * Sets the direction of the animals movement
