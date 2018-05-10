@@ -30,7 +30,7 @@ public class Chunk extends SimObject {
             }
         }
 
-        renderImage();
+        //renderImage();
     }
 
     public void renderImage() {
@@ -97,7 +97,6 @@ public class Chunk extends SimObject {
                 }
             }
         }
-        renderImage();
     }
 
     public Tile[][] getTiles() {
