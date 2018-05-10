@@ -101,12 +101,13 @@ public abstract class Animal extends LivingEntity {
         if (stamina > 0 && fullness > 0) {
             stamina -= starvationRate;
             fullness -= starvationRate;
-        } else if (energySatisfaction > 0) {
-            energySatisfaction -= starvationRate;
-        }
-        if (energySatisfaction < 50 && health <= 0) {
-            health -= starvationRate * 10;
-        }
+        } else if (fullness <= 0) {
+            health -= 10 * starvationRate;
+            if (health <= 0) {
+                starve();
+            }
+         }
+         System.out.println("Nothing to do?");
     }
 
     /**
@@ -257,4 +258,11 @@ public abstract class Animal extends LivingEntity {
     public Vec2D getDirection() {
         return this.movementDirection;
     }
+
+    /**
+     * Starves the animal (used when health reaches 0)
+     */
+
+    public abstract void starve();
+
 }

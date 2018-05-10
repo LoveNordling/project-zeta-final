@@ -5,6 +5,7 @@ import org.primal.map.Map;
 public abstract class Herbivore extends Animal {
 
     boolean chasedStatus = false;
+    boolean isAlive = true;
 
     /**
      * Creates a herbivore object
@@ -30,7 +31,7 @@ public abstract class Herbivore extends Animal {
 
     public void eat(LivingEntity food) {
         if (food.isPlant()) {
-            map.getTile(food.getX(), food.getY()).removeLivingEntity(food);
+            System.out.println("Ate tree");
             this.fullness = 100;
         }
     }
@@ -69,5 +70,30 @@ public abstract class Herbivore extends Animal {
 
     public boolean isHerbivore() {
         return true;
+    }
+
+    /**
+     * Checks whether an animal is Alive
+     * @return true if animal is alive, false if dead
+     */
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    /**
+     * Kills the animal setting it's alive status to false and removes it from the map.
+     */
+
+    public void kill() {
+        isAlive = false;
+        map.getTile(this.getX(), this.getY()).removeLivingEntity(this);
+    }
+
+    /**
+     * Starves the animal (used when health reaches 0)
+     */
+    public void starve() {
+        kill();
+        System.out.println("Herbivore starved");
     }
 }
