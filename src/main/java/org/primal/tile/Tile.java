@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Tile extends SimObject {
 
-    Color[][] colors = new Color[30][30];
+    Color[][] colors = new Color[3][3];
     private static int size = 30;
     List<Pixel> pixels;
     private ConcurrentLinkedQueue<LivingEntity> livingEntities;
@@ -65,6 +65,17 @@ public class Tile extends SimObject {
         }
     }
 
+    public boolean contains(String type, int amount){
+        for(LivingEntity entity : getLivingEntities()){
+            if(entity.getType().equals(type)){
+                amount--;
+            }
+        }
+        if(amount <1){
+            return true;
+        }
+        return false;
+    }
     public void slaughter() {
         livingEntities.clear();
     }

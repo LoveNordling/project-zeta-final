@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 
 public class Vec2D extends Point2D.Double {
 
+
     public Vec2D(double x, double y) {
         super(x, y);
     }

@@ -9,7 +9,9 @@ import org.primal.util.Vec2D;
 
 import java.util.ArrayList;
 
+
 public class ChaseBehaviour extends Behaviour {
+
 
     protected Vec2D chaseDir;
     private boolean isChasing = false;
@@ -54,7 +56,6 @@ public class ChaseBehaviour extends Behaviour {
             this.weight = Math.round(100 - host.getFullness());
             this.chaseDir = new Vec2D(chasedAnimal.getX() - host.getX(), chasedAnimal.getY() - host.getY());
             chaseDir = chaseDir.normalize();
-
         }
     }
 

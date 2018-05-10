@@ -14,7 +14,9 @@ public class Chunk extends SimObject {
     private Tile[][] tiles;
     private int size = 16;
     private int id;
+    private boolean isFrozen = false;
     private BufferedImage image;
+
 
     public Chunk(float x, float y, Map map) {
         super(x, y, map);
@@ -38,7 +40,7 @@ public class Chunk extends SimObject {
             for (int j = 0; j < size; j++) {
                 for (int k = 0; k < 30; k++) {
                     for (int l = 0; l < 30; l++) {
-                        Color color = tiles[i][j].getColors()[k][l];
+                        Color color = tiles[i][j].getColors()[k / 10][l / 10];
                         image.setRGB((i * 30) + k, (j * 30) + l, color.getRGB());
                     }
                 }
@@ -62,7 +64,18 @@ public class Chunk extends SimObject {
         }
     }
 
-    public void printChunk() {
+    /** freeze sets the chunk's status to be frozen, meaning animals on the chunk wont move
+     */
+    public void freeze(){
+        isFrozen = true;
+    }
+
+    /** unfreeze the chunk so animals on the chunk can be moved
+     */
+    public void unfreeze(){
+        isFrozen = false;
+    }
+    public void printChunk(){
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
@@ -79,6 +92,9 @@ public class Chunk extends SimObject {
         } catch (InterruptedException e) {
             System.out.println("Sleep failed");
         }*/
+        if(isFrozen){
+            return;
+        }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
