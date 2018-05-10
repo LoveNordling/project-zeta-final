@@ -22,7 +22,6 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private boolean commandSent = false;
     private boolean inputMode = false;
     public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT, UNFREEZECHUNK }
-    public static Graphics mainGraphics;
 
     private Commands command;
     private boolean first = true;
@@ -440,9 +439,6 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
     public void keyTyped(KeyEvent e) {
     }
-
-    public enum Commands {NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT}
-
 }
 
 public class GUI extends JFrame {
