@@ -15,7 +15,6 @@ public class Tile extends SimObject {
     private static int size = 30;
     List<Pixel> pixels;
     private ConcurrentLinkedQueue<LivingEntity> livingEntities;
-    private boolean changeToWaterTile = false;
 
     public Tile(float x, float y, Map map) {
         super(x, y, map);
@@ -33,14 +32,6 @@ public class Tile extends SimObject {
     }
 
     public void update() {
-    }
-
-    public boolean shouldChangeToWaterTile() {
-        return changeToWaterTile;
-    }
-
-    public void changeToWaterTile() {
-        changeToWaterTile = true;
     }
 
     public List<Pixel> getPixels() {
@@ -65,17 +56,18 @@ public class Tile extends SimObject {
         }
     }
 
-    public boolean contains(String type, int amount){
-        for(LivingEntity entity : getLivingEntities()){
-            if(entity.getType().equals(type)){
+    public boolean contains(String type, int amount) {
+        for (LivingEntity entity : getLivingEntities()) {
+            if (entity.getType().equals(type)) {
                 amount--;
             }
         }
-        if(amount <1){
+        if (amount < 1) {
             return true;
         }
         return false;
     }
+
     public void slaughter() {
         livingEntities.clear();
     }

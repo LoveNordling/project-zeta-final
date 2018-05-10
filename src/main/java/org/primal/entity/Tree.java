@@ -20,7 +20,7 @@ public class Tree extends Plant {
 
     public Tree(float x, float y, Map map, float size) {
         super(x, y, map);
-        this.color = new Color(ThreadLocalRandom.current().nextInt(30, 100), 158, 9, 40);
+        this.color = new Color(ThreadLocalRandom.current().nextInt(30, 100), 158, 9, 80);
         float visualSize = Tile.getSize() * size;
         this.shape = new Ellipse2D.Float(this.getX() * Tile.getSize() - visualSize / 2, this.getY() * Tile.getSize() - visualSize / 2, visualSize, visualSize);
     }
