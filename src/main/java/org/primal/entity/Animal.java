@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
 
-    float starvationRate = 0.01f;
+    float starvationRate = 0.0001f;
     float stamina;
     float fullness;
     LinkedList<Behaviour> behaviours;
@@ -104,11 +104,13 @@ public abstract class Animal extends LivingEntity {
         if (stamina > 0 && fullness > 0) {
             stamina -= starvationRate;
             fullness -= starvationRate;
-        } else if (energySatisfaction > 0) {
-            energySatisfaction -= starvationRate;
-        }
-        if (energySatisfaction < 50 && health <= 0) {
-            health -= starvationRate * 10;
+        } else if (fullness <= 0) {
+            health -= starvationRate;
+            if (health <= 0) {
+                starve();
+            }
+         } else {
+            fullness -= starvationRate;
         }
     }
 
@@ -262,7 +264,15 @@ public abstract class Animal extends LivingEntity {
     public Vec2D getDirection() {
         return this.movementDirection;
     }
+
     /** breed is used by those who override it to generate an animal of the same race
      */
     public void breed(){}
+
+
+    /**
+     * Starves the animal (used when health reaches 0)
+     */
+
+    public abstract void starve();
 }
