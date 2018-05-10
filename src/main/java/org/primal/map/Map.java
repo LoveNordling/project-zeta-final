@@ -1,6 +1,11 @@
 package org.primal.map;
 
-import org.primal.entity.*;
+import org.primal.entity.Animal;
+import org.primal.entity.Giraffe;
+import org.primal.entity.Hyena;
+import org.primal.entity.Lion;
+import org.primal.entity.Plant;
+import org.primal.entity.Tree;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 import org.primal.util.Vec2D;
@@ -169,44 +174,49 @@ public class Map {
                 chunks[x][y].changeToWaterTiles();
             }
         }
-    }/** spawnLion spawns a lion on the tile tile
-      *
-      * @param tile the tile for the lion to be spawned upon
-      */
-    public void spawnLion(Tile tile){
+    }
+
+    /**
+     * spawnLion spawns a lion on the tile tile
+     *
+     * @param tile the tile for the lion to be spawned upon
+     */
+    public void spawnLion(Tile tile) {
         Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
         tile.addLivingEntity(lion);
     }
 
-    
-    /** spawnLion spawns amount amount of lions on the tile tile
-      *
-      * @param tile the tile for the lions to be spawned upon
-      * @param amount the amount of lions to be spawned
-      */
-    public void spawnLion(Tile tile, int amount){
-        for(int i=0; i<amount; i++){
+    /**
+     * spawnLion spawns amount amount of lions on the tile tile
+     *
+     * @param tile   the tile for the lions to be spawned upon
+     * @param amount the amount of lions to be spawned
+     */
+    public void spawnLion(Tile tile, int amount) {
+        for (int i = 0; i < amount; i++) {
             Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
             tile.addLivingEntity(lion);
         }
     }
-    /** spawnGiraffe spawns a giraffe on the tile tile
-      *
-      * @param tile the tile for the giraffe to be spawned upon
-      */
-    public void spawnGiraffe(Tile tile){
+
+    /**
+     * spawnGiraffe spawns a giraffe on the tile tile
+     *
+     * @param tile the tile for the giraffe to be spawned upon
+     */
+    public void spawnGiraffe(Tile tile) {
         Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
         tile.addLivingEntity(giraffe);
     }
 
-    
-    /** spawnLion spawns amount amount of giraffes on the tile tile
-      *
-      * @param tile the tile for the giraffes to be spawned upon
-      * @param amount the amount of giraffes to be spawned
-      */
-    public void spawnGiraffe(Tile tile, int amount){
-        for(int i=0; i<amount; i++){
+    /**
+     * spawnLion spawns amount amount of giraffes on the tile tile
+     *
+     * @param tile   the tile for the giraffes to be spawned upon
+     * @param amount the amount of giraffes to be spawned
+     */
+    public void spawnGiraffe(Tile tile, int amount) {
+        for (int i = 0; i < amount; i++) {
             Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
             tile.addLivingEntity(giraffe);
         }
