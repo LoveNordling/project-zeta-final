@@ -51,6 +51,13 @@ public class Map {
         for (int i = 0; i < mapSize / 2; i++) {
             addPlants();
         }
+
+        Chunk[][] chunks = getChunks();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < width; y++) {
+                chunks[x][y].renderImage();
+            }
+        }
     }
 
     /**

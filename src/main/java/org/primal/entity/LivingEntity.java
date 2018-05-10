@@ -12,8 +12,8 @@ public abstract class LivingEntity extends Entity {
     protected Color color;
     protected float shapeSize;
     float health;
-    private float maxHP;
     float energySatisfaction;
+    private float maxHP;
 
     /**
      * Creates a living entity. Classes such as Animals extends this class.

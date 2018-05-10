@@ -22,8 +22,7 @@ public class LandTile extends Tile {
     public void randomizePixels(float x, float y) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                Color color = new Color(ThreadLocalRandom.current().nextInt(165, 205), 204, 8);
-                pixels.add(new Pixel(new Rectangle(((int) x * 30) + (i * 10), ((int) y * 30) + (j * 10), 10, 10), color));
+                colors[i][j] = new Color(ThreadLocalRandom.current().nextInt(165, 205), 204, 8);
             }
         }
     }

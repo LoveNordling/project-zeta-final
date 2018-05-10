@@ -6,16 +6,22 @@ import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
 import org.primal.tile.WaterTile;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class Chunk extends SimObject {
 
     private Tile[][] tiles;
     private int size = 16;
     private int id;
     private boolean isFrozen = false;
+    private BufferedImage image;
+
 
     public Chunk(float x, float y, Map map) {
         super(x, y, map);
         tiles = new Tile[size][size];
+        image = new BufferedImage(size * 30, size * 30, BufferedImage.TYPE_INT_RGB);
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -23,6 +29,21 @@ public class Chunk extends SimObject {
                 float yPos = j + getY() * this.size;
                 Tile tile = new LandTile(xPos, yPos, map);
                 tiles[i][j] = tile;
+            }
+        }
+
+        //renderImage();
+    }
+
+    public void renderImage() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                for (int k = 0; k < 30; k++) {
+                    for (int l = 0; l < 30; l++) {
+                        Color color = tiles[i][j].getColors()[k / 10][l / 10];
+                        image.setRGB((i * 30) + k, (j * 30) + l, color.getRGB());
+                    }
+                }
             }
         }
     }
@@ -108,5 +129,9 @@ public class Chunk extends SimObject {
 
     public Tile getTile(int x, int y) {
         return tiles[x][y];
+    }
+
+    public BufferedImage getImage() {
+        return image;
     }
 }
