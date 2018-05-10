@@ -8,7 +8,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Tile extends SimObject {
 
@@ -31,7 +30,8 @@ public class Tile extends SimObject {
         this.livingEntities = livingEntities;
     }
 
-    public void update() {}
+    public void update() {
+    }
 
     public static int getSize() {
         return size;
@@ -55,24 +55,21 @@ public class Tile extends SimObject {
 
     public void removeLivingEntity(LivingEntity ent) {
         if (this.livingEntities.contains(ent)) {
-
             this.livingEntities.remove(ent);
-        }
-        else{
+        } else {
             System.out.println("remove livingEntity failed");
         }
     }
-    
-    public void antiSlaughter(){
+
+    public void antiSlaughter() {
         for (LivingEntity entity : getLivingEntities()) {
             entity.heal();
         }
     }
-    
-    public void slaughter(){
+
+    public void slaughter() {
         livingEntities.clear();
     }
-    
 
     public ConcurrentLinkedQueue<LivingEntity> getLivingEntities() {
         return livingEntities;

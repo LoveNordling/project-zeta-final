@@ -3,6 +3,7 @@ package org.primal.entity;
 import org.primal.behaviour.Behaviour;
 import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
+import org.primal.tile.Tile;
 
 import java.util.LinkedList;
 
@@ -11,10 +12,11 @@ public class Hyena extends Carnivore {
     /**
      * Creates a Hyena object
      * Creates a new carnivore object
-     * @param x = x-coordinate
-     * @param y = y-coordinate
-     * @param map = current Map
-     * @param stamina = stamina points
+     *
+     * @param x        = x-coordinate
+     * @param y        = y-coordinate
+     * @param map      = current Map
+     * @param stamina  = stamina points
      * @param fullness = fullness points
      */
 
@@ -24,7 +26,7 @@ public class Hyena extends Carnivore {
         this.behaviours = new LinkedList<>();
         this.behaviours.add(foodBehaviour);
         starvationRate = 1;
-        this.color = new java.awt.Color(223, 2, 0);
+        this.color = new java.awt.Color(108, 63, 22);
+        this.shapeSize = Tile.getSize() / 4;
     }
-
 }

@@ -3,15 +3,17 @@ package org.primal.entity;
 import org.primal.map.Map;
 
 public abstract class Herbivore extends Animal {
+
     boolean chasedStatus = false;
 
     /**
      * Creates a herbivore object
-     * @param x = x-coordinate
-     * @param y = y-coordinate
-     * @param map = current Map
-     * @param health = health points
-     * @param stamina = stamina points
+     *
+     * @param x        = x-coordinate
+     * @param y        = y-coordinate
+     * @param map      = current Map
+     * @param health   = health points
+     * @param stamina  = stamina points
      * @param fullness = fullness points
      */
 
@@ -22,6 +24,7 @@ public abstract class Herbivore extends Animal {
 
     /**
      * Function for eating an object
+     *
      * @param food = the food to be eaten
      */
 
@@ -42,6 +45,7 @@ public abstract class Herbivore extends Animal {
 
     /**
      * Checks if an animal is being chased by a carnivore
+     *
      * @return true if chased, else false
      */
 
@@ -54,11 +58,12 @@ public abstract class Herbivore extends Animal {
      */
 
     public void startChasing() {
-        this.chasedStatus  = true;
+        this.chasedStatus = true;
     }
 
     /**
      * Method to see if the animal is a herbivore
+     *
      * @return true
      */
 

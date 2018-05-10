@@ -2,21 +2,17 @@ package org.primal.entity;
 
 import org.primal.map.Map;
 import org.primal.tile.Tile;
-import org.primal.map.Chunk;
-
-import java.util.ArrayList;
-import java.sql.SQLOutput;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class Carnivore extends Animal {
 
     /**
      * Creates a new carnivore object
-     * @param x = x-coordinate
-     * @param y = y-coordinate
-     * @param map = current Map
-     * @param health = health points
-     * @param stamina = stamina points
+     *
+     * @param x        = x-coordinate
+     * @param y        = y-coordinate
+     * @param map      = current Map
+     * @param health   = health points
+     * @param stamina  = stamina points
      * @param fullness = fullness points
      */
 
@@ -25,20 +21,20 @@ public abstract class Carnivore extends Animal {
     }
 
     /**
-     * Fucntion for eating another animal
+     * Function for eating another animal
+     *
      * @param food = animal to be eaten
      */
 
     public void eat(LivingEntity food) {
-                Tile tile = map.getTile(food.getX(), food.getY());
-                tile.removeLivingEntity(food);
-                this.fullness = 100;
+        Tile tile = map.getTile(food.getX(), food.getY());
+        tile.removeLivingEntity(food);
+        this.fullness = 100;
     }
 
     /**
      * Simulation method, calls on the simulate function in its super class
      */
-
     public void simulate() {
         super.simulate();
         //move();

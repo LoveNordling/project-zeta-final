@@ -22,7 +22,6 @@ public class Behaviour {
     }
 
     public void act() {
-
         Vec2D position = host.getPosition();
         Vec2D direction = host.getDirection();
 
@@ -31,8 +30,8 @@ public class Behaviour {
 
         Vec2D newDir = direction;
 
-        float newDirX = (float)newDir.getX()*(float)Math.cos(angleChange) - (float)newDir.getY()*(float)Math.sin(angleChange);
-        float newDirY = (float)newDir.getX()*(float)Math.sin(angleChange) + (float)newDir.getY()*(float)Math.cos(angleChange);
+        float newDirX = (float) newDir.getX() * (float) Math.cos(angleChange) - (float) newDir.getY() * (float) Math.sin(angleChange);
+        float newDirY = (float) newDir.getX() * (float) Math.sin(angleChange) + (float) newDir.getY() * (float) Math.cos(angleChange);
 
         newDir = new Vec2D(newDirX, newDirY);
         host.setDirection(newDir);

@@ -26,20 +26,23 @@ public class Chunk extends SimObject {
             }
         }
     }
-    public void decimate(){
+
+    public void decimate() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 getTile(i, j).slaughter();
             }
         }
     }
-    public void antiDecimate(){
+
+    public void antiDecimate() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 getTile(i, j).antiSlaughter();
             }
         }
     }
+
     /** freeze sets the chunk's status to be frozen, meaning animals on the chunk wont move
      */
     public void freeze(){
@@ -60,6 +63,7 @@ public class Chunk extends SimObject {
             }
         }
     }
+
     public void updateChunk() {
         /*
         try {
