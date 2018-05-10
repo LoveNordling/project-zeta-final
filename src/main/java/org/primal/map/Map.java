@@ -202,14 +202,12 @@ public class Map {
     }
 
     private void replaceTile(Tile old, Tile replacer) {
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < width; y++) {
-                for (int z = 0; z < 16; z++) {
-                    for (int w = 0; w < 16; w++) {
-                        if (chunks[x][y].getTiles()[z][w].equals(old)) {
-                            chunks[x][y].getTiles()[z][w] = replacer;
-                        }
-                    }
+        Chunk chunk = getChunk((int) old.getX() / chunkSize, (int) old.getY() / chunkSize);
+        Tile[][] tiles = chunk.getTiles();
+        for (int z = 0; z < 16; z++) {
+            for (int w = 0; w < 16; w++) {
+                if (tiles[z][w].equals(old)) {
+                    tiles[z][w] = replacer;
                 }
             }
         }
