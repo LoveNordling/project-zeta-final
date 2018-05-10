@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 public abstract class Animal extends LivingEntity {
 
     protected float speed = 0.05f;
@@ -44,7 +45,9 @@ public abstract class Animal extends LivingEntity {
         this.fullness = fullness;
         energySatisfaction = 100;
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
+
         this.movementDirection = new Vec2D((float) Math.cos(startAngle), (float) Math.sin(startAngle));
+
 
     }
 
@@ -206,6 +209,7 @@ public abstract class Animal extends LivingEntity {
      */
     public abstract void eat(LivingEntity food);
 
+
     /**
      * Updates the position of an animal.
      *
@@ -232,6 +236,7 @@ public abstract class Animal extends LivingEntity {
     public float getStamina() {
         return this.stamina;
     }
+
 
     /**
      * Returns the speed of the animal. Decides how far the animal travels per tick.

@@ -99,7 +99,7 @@ public class Map {
      * @param y Y value for chunk to get.
      * @return Chunk at position (x,y) if x and y is valid, else null.
      */
-    public Chunk getChunk(float x, float y) {
+    public Chunk getChunk(double x, double y) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < width; j++) {
                 Vec2D chunkPosition = chunks[i][j].getPosition();
@@ -110,6 +110,7 @@ public class Map {
         }
         return null;
     }
+   
 
     /**
      * Returns tile at position (x,y).
@@ -305,5 +306,8 @@ public class Map {
 
     public int getSize() {
         return mapSize;
+    }
+    public int getChunkSize(){
+        return chunkSize;
     }
 }

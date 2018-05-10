@@ -21,6 +21,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private float conversionRate;
     private boolean commandSent = false;
     private boolean inputMode = false;
+    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT, UNFREEZECHUNK }
+
     private Commands command;
     private boolean first = true;
 
@@ -90,6 +92,35 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         return new Float(fX, fY);
     }
 
+
+    /** freeze freeze the tile at the position pos
+     *
+     * @param pos the backend position that is somewhere within the tile we want to freeze
+     */
+    private void freeze(Float pos){
+        int xInt = (int) pos.getX();
+        int yInt = (int) pos.getY();
+        int cSize = map.getChunkSize();
+
+
+        Chunk c = map.getChunk(xInt/cSize, yInt/cSize);
+        c.freeze();
+        
+    }
+    
+    /** unfreeze unfreeze the tile at the position pos
+     *
+     * @param pos the backend position that is somewhere within the tile we want to unfreeze
+     */
+    private void unfreeze(Float pos){
+        int xInt = (int) pos.getX();
+        int yInt = (int) pos.getY();
+        int cSize = map.getChunkSize();
+
+
+        Chunk c = map.getChunk(xInt/cSize, yInt/cSize);
+        c.unfreeze();
+    }
     /**
      * spawnEnvironment generates plants and trees
      * useful in case of unexpected nuke
@@ -98,10 +129,12 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         map.addPlants();
     }
 
+
     /**
      * listCommands is a function used to send out the available commands to the terminal
      */
     private void listCommands() {
+
         //TODO add alot of print statements
         //TODO if possible add some kind of command listening in window
         System.out.println("The first of many print statements");
@@ -196,7 +229,23 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 command = Commands.SPAWNZEBRA;
                 commandSent = true;
                 return;
-            } else if (input.equals("giraffe") || input.equals("spawn giraffe")) {
+
+            }
+
+            else if(input.equals("freeze") || input.equals("freeze chunk")){
+                command = Commands.FREEZECHUNK;
+                commandSent = true;
+                return;
+            }
+
+            
+            else if(input.equals("unfreeze") || input.equals("unfreeze chunk")){
+                command = Commands.UNFREEZECHUNK;
+                commandSent = true;
+                return;
+            }
+            
+            else if(input.equals("giraffe") || input.equals("spawn giraffe")){
                 command = Commands.SPAWNGIRAFFE;
                 commandSent = true;
                 return;
@@ -281,6 +330,12 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 break;
             case SPAWNGIRAFFE:
                 spawnGiraffe(pos);
+                break;
+            case FREEZECHUNK:
+                freeze(pos);
+                break;
+            case UNFREEZECHUNK:
+                unfreeze(pos);
                 break;
             case KILL:
                 killAnimals(pos);
@@ -384,9 +439,6 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
     public void keyTyped(KeyEvent e) {
     }
-
-    public enum Commands {NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT}
-
 }
 
 public class GUI extends JFrame {
