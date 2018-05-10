@@ -34,4 +34,9 @@ public class Hyena extends Carnivore {
         this.color = new java.awt.Color(108, 63, 22);
         this.shapeSize = Tile.getSize() / 4;
     }
+
+    @Override
+    public String toString() {
+        return "Hyena #" + getId();
+    }
 }

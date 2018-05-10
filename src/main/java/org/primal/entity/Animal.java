@@ -10,9 +10,12 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class Animal extends LivingEntity {
 
+    private static AtomicInteger counter = new AtomicInteger();
     protected float speed = 0.05f;
     protected Vec2D movementDirection;
     float starvationRate = 0.0001f;
@@ -43,6 +46,7 @@ public abstract class Animal extends LivingEntity {
         this.stamina = stamina;
         this.fullness = fullness;
         energySatisfaction = 100;
+        this.id = counter.getAndIncrement();
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
         this.movementDirection = new Vec2D((float) Math.cos(startAngle), (float) Math.sin(startAngle));
 

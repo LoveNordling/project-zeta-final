@@ -35,6 +35,6 @@ public class Lion extends Carnivore {
 
     @Override
     public String toString() {
-        return "Lion";
+        return "Lion #" + getId();
     }
 }
