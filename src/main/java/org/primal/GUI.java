@@ -23,6 +23,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private boolean inputMode = false;
     public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT, UNFREEZECHUNK }
 
+
     private Commands command;
     private boolean first = true;
 

@@ -4,6 +4,7 @@ import org.primal.entity.Animal;
 import org.primal.entity.Giraffe;
 import org.primal.entity.Hyena;
 import org.primal.entity.Lion;
+import org.primal.entity.Zebra;
 import org.primal.entity.Plant;
 import org.primal.entity.Tree;
 import org.primal.tile.LandTile;
@@ -193,6 +194,16 @@ public class Map {
         tile.addLivingEntity(lion);
     }
 
+     /**
+     * spawnZebra spawns a zebra on the tile tile
+     *
+     * @param tile the tile for the zebra to be spawned upon
+     */
+    public void spawnZebra(Tile tile) {
+        Zebra zebra = new Zebra(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+        tile.addLivingEntity(zebra);
+    }
+
     /**
      * spawnLion spawns amount amount of lions on the tile tile
      *
@@ -212,8 +223,10 @@ public class Map {
      * @param tile the tile for the giraffe to be spawned upon
      */
     public void spawnGiraffe(Tile tile) {
+        System.out.println("Y");
         Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
         tile.addLivingEntity(giraffe);
+        System.out.println("Z");
     }
 
     /**

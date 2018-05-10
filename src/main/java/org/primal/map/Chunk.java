@@ -17,6 +17,7 @@ public class Chunk extends SimObject {
     private boolean isFrozen = false;
     private BufferedImage image;
 
+
     public Chunk(float x, float y, Map map) {
         super(x, y, map);
         tiles = new Tile[size][size];
