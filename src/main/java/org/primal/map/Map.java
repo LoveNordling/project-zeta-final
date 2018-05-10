@@ -178,7 +178,6 @@ public class Map {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < width; y++) {
                 chunks[x][y].changeToWaterTiles();
-                chunks[x][y].renderImage();
             }
         }
 
