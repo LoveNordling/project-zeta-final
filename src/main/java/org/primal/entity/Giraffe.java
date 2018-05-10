@@ -2,7 +2,6 @@ package org.primal.entity;
 
 import org.primal.behaviour.Behaviour;
 import org.primal.behaviour.FeedingBehaviour;
-import org.primal.behaviour.FleeBehaviour;
 import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
@@ -26,12 +25,11 @@ public class Giraffe extends Herbivore {
         super(x, y, map, 100, stamina, fullness);
         Behaviour searchBehaviour = new SearchFoodBehaviour(this, map);
         Behaviour foodBehaviour = new FeedingBehaviour(this, map);
-        Behaviour fleeBehaviour = new FleeBehaviour(this, map);
         this.behaviours = new LinkedList<>();
 
         this.behaviours.add(searchBehaviour);
         this.behaviours.add(foodBehaviour);
-       // this.behaviours.add(fleeBehaviour);
+
 
         starvationRate = 1;
         this.color = new java.awt.Color(255, 251, 0);
