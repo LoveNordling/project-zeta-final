@@ -3,7 +3,6 @@ package org.primal;
 import org.primal.entity.LivingEntity;
 import org.primal.map.Chunk;
 import org.primal.map.Map;
-import org.primal.tile.Pixel;
 import org.primal.tile.Tile;
 
 import javax.swing.*;
@@ -16,15 +15,17 @@ import java.awt.geom.Point2D.Float;
 
 class Surface extends JPanel implements MouseListener, KeyListener {
 
+    public static Graphics mainGraphics;
     private Map map;
     private int mapWidth;
-    private float convertionRate;
+    private float conversionRate;
     private boolean commandSent = false;
     private boolean inputMode = false;
     public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT, UNFREEZECHUNK }
     public static Graphics mainGraphics;
 
     private Commands command;
+    private boolean first = true;
 
     /**
      * Surface initiates the surface of the graphics
@@ -35,10 +36,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         super();
 
         mapWidth = map.width * 480;
-        convertionRate = ((float) map.getSize()) / ((float) mapWidth);
+        conversionRate = ((float) map.getSize()) / ((float) mapWidth);
         this.addKeyListener(this);
         this.addMouseListener(this);
-        System.out.println(this.isFocusable());
         this.map = map;
     }
 
@@ -53,19 +53,10 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
         for (Chunk[] chunks : map.getChunks()) {
             for (Chunk chunk : chunks) {
-                for (int x = 0; x < chunk.getSize(); x++) {
-                    for (int y = 0; y < chunk.getSize(); y++) {
-                        Tile tile = chunk.getTile(x, y);
-                        tile.update();
-                        for (Pixel pixel : tile.getPixels()) {
-                            g2d.setPaint(pixel.getColor());
-                            g2d.fill(pixel.getRectangle());
-                            g2d.draw(pixel.getRectangle());
-                        }
-                    }
-                }
+                g2d.drawImage(chunk.getImage(), null, (int) chunk.getX() * 480, (int) chunk.getY() * 480);
             }
         }
+
         for (Chunk[] chunks : map.getChunks()) {
             for (Chunk chunk : chunks) {
                 for (int x = 0; x < chunk.getSize(); x++) {
@@ -97,8 +88,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * @return returns the coordinate for the backend position chosen on the frontend graphics
      */
     private Float translate(int x, int y) {
-        float fX = x * convertionRate;
-        float fY = y * convertionRate;
+        float fX = x * conversionRate;
+        float fY = y * conversionRate;
         return new Float(fX, fY);
     }
 
@@ -450,6 +441,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
+    public enum Commands {NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT}
+
 }
 
 public class GUI extends JFrame {
@@ -466,10 +459,14 @@ public class GUI extends JFrame {
      * @param map the map to be drawn/graphically shown
      */
     private void initUI(Map map) {
-        this.surface = new Surface(map);
-        add(this.surface);
+        surface = new Surface(map);
+        surface.setPreferredSize(new Dimension(map.width * 480, map.width * 480));
+
+        JScrollPane scrollPane = new JScrollPane(surface);
+        getContentPane().add(scrollPane);
+
         setTitle("Primal");
-        setSize(1000, 1000);
+        setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

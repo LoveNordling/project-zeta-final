@@ -86,7 +86,7 @@ public class Simulation {
                  * ThrowingTask is a wrapper around Worker to circumvent the fact that ScheduledThreadPools swallows all exceptions by default.
                  * 16 Milliseconds is approximatly 1/60 seconds.
                  */
-                simulationThreadPool.scheduleAtFixedRate(new ThrowingTask(new Worker(c)), 0, 16, TimeUnit.MILLISECONDS);
+                simulationThreadPool.scheduleAtFixedRate(new ThrowingTask(new Worker(c)), 0, 100, TimeUnit.MILLISECONDS);
             }
         }
     }
