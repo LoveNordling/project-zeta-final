@@ -64,13 +64,12 @@ public class ChaseBehaviour extends Behaviour {
      */
     public void act() {
         if (!chasedAnimal.isAlive()) {
-            System.out.println("Animal is dead");
             isChasing = false;
             chasedAnimal = null;
             return;
         } else if (chasedAnimal.getX() - host.getX() < 0.3 && chasedAnimal.getY() - host.getY() < 0.3) {
             host.eat(chasedAnimal);
-            System.out.println("Eaten!!");
+            System.out.println(chasedAnimal + " was killed by " + host);
             chasedAnimal = null;
             isChasing = false;
         } else {

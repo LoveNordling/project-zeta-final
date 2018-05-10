@@ -2,8 +2,8 @@ package org.primal.entity;
 
 import org.primal.map.Map;
 
-public abstract class Plant extends LivingEntity {
 
+public abstract class Plant extends LivingEntity {
     /**
      * Creates a plant object
      *

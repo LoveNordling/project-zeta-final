@@ -28,6 +28,7 @@ public abstract class Carnivore extends Animal {
 
     public void eat(LivingEntity food) {
         ((Herbivore) food).kill();
+        System.out.println(food.toString() + " was just eaten!!!");
         this.fullness = 100;
         this.health = 100;
     }
@@ -53,7 +54,7 @@ public abstract class Carnivore extends Animal {
 
     public void starve() {
         kill();
-        System.out.println("STARVED");
+        System.out.println(this + " just starved to death!");
     }
 
     /**

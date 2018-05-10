@@ -36,4 +36,9 @@ public class Zebra extends Herbivore {
         Tile t = map.getTile(this.getX(), this.getY());
         map.spawnZebra(t);
     }
+
+    @Override
+    public String toString() {
+        return "Zebra #" + getId() ;
+    }
 }

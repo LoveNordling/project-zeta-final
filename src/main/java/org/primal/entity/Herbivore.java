@@ -31,7 +31,6 @@ public abstract class Herbivore extends Animal {
 
     public void eat(LivingEntity food) {
         if (food.isPlant()) {
-            System.out.println("Ate tree");
             this.fullness = 100;
             this.health = 100;
         }
@@ -95,6 +94,6 @@ public abstract class Herbivore extends Animal {
      */
     public void starve() {
         kill();
-        System.out.println("Herbivore starved");
+        System.out.println(this + " was unable to find food and died.");
     }
 }

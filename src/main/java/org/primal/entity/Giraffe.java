@@ -32,6 +32,7 @@ public class Giraffe extends Herbivore {
         this.behaviours.add(searchBehaviour);
         this.behaviours.add(foodBehaviour);
         this.behaviours.add(breedBehaviour);
+
         starvationRate = 1;
         this.color = new java.awt.Color(255, 251, 0);
         this.shapeSize = Tile.getSize() / 2.5f;
@@ -45,4 +46,8 @@ public class Giraffe extends Herbivore {
         map.spawnGiraffe(t);
     }
 
+    @Override
+    public String toString() {
+        return "Giraffe #" + this.getId();
+    }
 }
