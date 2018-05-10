@@ -1,6 +1,7 @@
 package org.primal.entity;
 
 import org.primal.behaviour.Behaviour;
+import org.primal.behaviour.PackBehaviour;
 import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
 
@@ -23,8 +24,9 @@ public class Zebra extends Herbivore {
         super(x, y, map, 100, stamina, fullness);
 
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
-        this.behaviours = new LinkedList<Behaviour>();
+
         this.behaviours.add(foodBehaviour);
+        this.behaviours.add(new PackBehaviour(this, map));
         this.starvationRate = 1;
     }
 }

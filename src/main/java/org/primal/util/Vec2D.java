@@ -1,6 +1,7 @@
 package org.primal.util;
 
 import java.awt.geom.Point2D;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Vec2D extends Point2D.Double {
 
@@ -31,6 +32,18 @@ public class Vec2D extends Point2D.Double {
      */
     public double dot(Vec2D v){
         return this.getX() * v.getX() + this.getY() * v.getY();
+    }
+
+
+    public Vec2D times(double n){return new Vec2D(getX()*n, getY()*n); }
+
+
+    public Vec2D randomRadius(double r){
+        double angle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
+        double radius = ThreadLocalRandom.current().nextDouble(0, r);
+        double x = this.getX() + radius*Math.cos(angle);
+        double y = this.getY() + radius*Math.sin(angle);
+        return new Vec2D(x, y);
     }
 
 

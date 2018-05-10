@@ -24,7 +24,7 @@ public class Lion extends Carnivore {
     public Lion(float x, float y, Map map, float stamina, float fullness) {
         super(x, y, map, 100, stamina, fullness);
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
-        this.behaviours = new LinkedList<>();
+
         this.behaviours.add(foodBehaviour);
         this.behaviours.add(new ChaseBehaviour(this, map));
         this.starvationRate = 1;

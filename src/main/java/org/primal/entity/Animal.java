@@ -1,6 +1,7 @@
 package org.primal.entity;
 
 import org.primal.behaviour.Behaviour;
+import org.primal.behaviour.PackBehaviour;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
 import org.primal.util.Vec2D;
@@ -39,7 +40,7 @@ public abstract class Animal extends LivingEntity {
         super(x, y, map, health);
 
         this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
-
+        this.behaviours = new LinkedList<Behaviour>();
         this.stamina = stamina;
         this.fullness = fullness;
         energySatisfaction = 100;
