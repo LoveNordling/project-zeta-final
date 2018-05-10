@@ -4,7 +4,6 @@ import org.primal.SimObject;
 import org.primal.entity.LivingEntity;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
-import org.primal.tile.WaterTile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,7 +15,6 @@ public class Chunk extends SimObject {
     private int id;
     private boolean isFrozen = false;
     private BufferedImage image;
-
 
     public Chunk(float x, float y, Map map) {
         super(x, y, map);
@@ -64,18 +62,21 @@ public class Chunk extends SimObject {
         }
     }
 
-    /** freeze sets the chunk's status to be frozen, meaning animals on the chunk wont move
+    /**
+     * freeze sets the chunk's status to be frozen, meaning animals on the chunk wont move
      */
-    public void freeze(){
+    public void freeze() {
         isFrozen = true;
     }
 
-    /** unfreeze the chunk so animals on the chunk can be moved
+    /**
+     * unfreeze the chunk so animals on the chunk can be moved
      */
-    public void unfreeze(){
+    public void unfreeze() {
         isFrozen = false;
     }
-    public void printChunk(){
+
+    public void printChunk() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
@@ -92,7 +93,7 @@ public class Chunk extends SimObject {
         } catch (InterruptedException e) {
             System.out.println("Sleep failed");
         }*/
-        if(isFrozen){
+        if (isFrozen) {
             return;
         }
         for (int i = 0; i < size; i++) {
@@ -100,16 +101,6 @@ public class Chunk extends SimObject {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
 
                     entity.simulate();
-                }
-            }
-        }
-    }
-
-    public void changeToWaterTiles() {
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
-                if (tiles[x][y].shouldChangeToWaterTile()) {
-                    tiles[x][y] = new WaterTile(tiles[x][y].getX(), tiles[x][y].getY(), map);
                 }
             }
         }

@@ -4,11 +4,13 @@ import org.primal.entity.Animal;
 import org.primal.entity.Giraffe;
 import org.primal.entity.Hyena;
 import org.primal.entity.Lion;
-import org.primal.entity.Zebra;
 import org.primal.entity.Plant;
 import org.primal.entity.Tree;
+import org.primal.entity.Zebra;
 import org.primal.tile.LandTile;
+import org.primal.tile.SandTile;
 import org.primal.tile.Tile;
+import org.primal.tile.WaterTile;
 import org.primal.util.Vec2D;
 
 import java.util.ArrayList;
@@ -42,12 +44,18 @@ public class Map {
         chunkSize = 16;
         mapSize = width * chunkSize;
 
-        for (int i = 0; i < mapSize / 4; i++) {
+        for (int i = 0; i < mapSize / 20; i++) {
             addWaterTiles();
         }
+
+        for (int i = 0; i < mapSize / 10; i++) {
+            addSandTiles();
+        }
+
         for (int i = 0; i < mapSize / 2; i++) {
             addAnimals();
         }
+
         for (int i = 0; i < mapSize / 2; i++) {
             addPlants();
         }
@@ -111,7 +119,6 @@ public class Map {
         }
         return null;
     }
-   
 
     /**
      * Returns tile at position (x,y).
@@ -170,16 +177,40 @@ public class Map {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int waterWidth = generator.nextInt(2) + 1;
+        int waterWidth = generator.nextInt(30) + 10;
 
         ArrayList<Tile> tiles = getTiles(randX, randY, waterWidth);
         for (Tile tile : tiles) {
-            tile.changeToWaterTile();
+            if (tile instanceof LandTile) {
+                replaceTile(tile, new WaterTile(tile.getX(), tile.getY(), this));
+            }
         }
-        Chunk[][] chunks = getChunks();
+    }
+
+    private void addSandTiles() {
+        Random generator = new Random();
+        int randX = generator.nextInt(mapSize) + 1;
+        int randY = generator.nextInt(mapSize) + 1;
+        int sandWidth = generator.nextInt(10) + 5;
+
+        ArrayList<Tile> tiles = getTiles(randX, randY, sandWidth);
+        for (Tile tile : tiles) {
+            if (tile instanceof LandTile) {
+                replaceTile(tile, new SandTile(tile.getX(), tile.getY(), this));
+            }
+        }
+    }
+
+    private void replaceTile(Tile old, Tile replacer) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < width; y++) {
-                chunks[x][y].changeToWaterTiles();
+                for (int z = 0; z < 16; z++) {
+                    for (int w = 0; w < 16; w++) {
+                        if (chunks[x][y].getTiles()[z][w].equals(old)) {
+                            chunks[x][y].getTiles()[z][w] = replacer;
+                        }
+                    }
+                }
             }
         }
     }
@@ -194,7 +225,7 @@ public class Map {
         tile.addLivingEntity(lion);
     }
 
-     /**
+    /**
      * spawnZebra spawns a zebra on the tile tile
      *
      * @param tile the tile for the zebra to be spawned upon
@@ -320,7 +351,8 @@ public class Map {
     public int getSize() {
         return mapSize;
     }
-    public int getChunkSize(){
+
+    public int getChunkSize() {
         return chunkSize;
     }
 }
