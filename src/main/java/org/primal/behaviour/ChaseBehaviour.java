@@ -13,7 +13,7 @@ public class ChaseBehaviour extends Behaviour {
 
     protected Vec2D chaseDir;
     private boolean isChasing = false;
-    private volatile LivingEntity chasedAnimal;
+    private volatile Herbivore chasedAnimal;
 
     /**
      * Creates a chasing behaviour. The behaviour can be used to make an animal chase and eat other animals.
@@ -39,7 +39,7 @@ public class ChaseBehaviour extends Behaviour {
                 for (LivingEntity entity : tile.getLivingEntities()) {
                     if (entity instanceof Herbivore) {
                         this.isChasing = true;
-                        this.chasedAnimal = entity;
+                        this.chasedAnimal = (Herbivore) entity;
 
                         this.weight = Math.round(100 - host.getFullness());
                         this.chaseDir = new Vec2D(entity.getX() - host.getX(), entity.getY() - host.getY());
@@ -62,9 +62,10 @@ public class ChaseBehaviour extends Behaviour {
      * If the animal is close enough to its prey then it will eat it. Otherwise it will move towards it.
      */
     public void act() {
-        if (chasedAnimal == null) {
-            System.out.println("Anima e null");
+        if (!chasedAnimal.isAlive()) {
+            System.out.println("Animal is dead");
             isChasing = false;
+            chasedAnimal = null;
             return;
         } else if (chasedAnimal.getX() - host.getX() < 0.3 && chasedAnimal.getY() - host.getY() < 0.3) {
             host.eat(chasedAnimal);
