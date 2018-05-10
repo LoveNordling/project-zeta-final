@@ -106,7 +106,7 @@ public abstract class Animal extends LivingEntity {
             if (health <= 0) {
                 starve();
             }
-         } else {
+        } else {
             fullness -= starvationRate;
         }
     }
@@ -259,6 +259,6 @@ public abstract class Animal extends LivingEntity {
     public void setDirection(Vec2D p) {
         this.movementDirection = p;
     }
-  
+
     public abstract void starve();
 }
