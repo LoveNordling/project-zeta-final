@@ -11,18 +11,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D.Float;
 
 class Surface extends JPanel implements MouseListener, KeyListener {
 
     public static Graphics mainGraphics;
+    private double scaleFactor = 1;
     private Map map;
     private int mapWidth;
     private float conversionRate;
     private boolean commandSent = false;
     private boolean inputMode = false;
-    public enum Commands{ NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT, UNFREEZECHUNK }
+    private JScrollPane parentPanel;
 
+    public enum Commands {NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT, UNFREEZECHUNK, ZOOMIN, ZOOMOUT}
 
     private Commands command;
     private boolean first = true;
@@ -32,7 +35,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      *
      * @param map the map which will be drawn
      */
-    public Surface(Map map) {
+    public Surface(Map map, JScrollPane parentPanel) {
         super();
 
         mapWidth = map.width * 480;
@@ -40,6 +43,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         this.addKeyListener(this);
         this.addMouseListener(this);
         this.map = map;
+        this.parentPanel = parentPanel;
     }
 
     /**
@@ -47,9 +51,16 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      *
      * @param g the graphics being drawn upon
      */
-    private void doDrawing(Graphics g) {
+    private void doDrawing(Graphics g, double scaleFactor) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+
+        AffineTransform at = new AffineTransform();
+        at.setToScale(scaleFactor, scaleFactor);
+        g2d.transform(at);
+
+        // TODO: Fix so width and height of window is correct when zooming.
+        //setPreferredSize(new Dimension((int) (scaleFactor * map.width * 480), (int) (scaleFactor * map.width * 480)));
 
         for (Chunk[] chunks : map.getChunks()) {
             for (Chunk chunk : chunks) {
@@ -77,7 +88,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     public void paintComponent(Graphics g) {
         mainGraphics = g;
         super.paintComponent(g);
-        doDrawing(g);
+        doDrawing(g, scaleFactor);
     }
 
     /**
@@ -93,35 +104,35 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         return new Float(fX, fY);
     }
 
-
-    /** freeze freeze the tile at the position pos
+    /**
+     * freeze freeze the tile at the position pos
      *
      * @param pos the backend position that is somewhere within the tile we want to freeze
      */
-    private void freeze(Float pos){
+    private void freeze(Float pos) {
         int xInt = (int) pos.getX();
         int yInt = (int) pos.getY();
         int cSize = map.getChunkSize();
 
-
-        Chunk c = map.getChunk(xInt/cSize, yInt/cSize);
+        Chunk c = map.getChunk(xInt / cSize, yInt / cSize);
         c.freeze();
-        
+
     }
-    
-    /** unfreeze unfreeze the tile at the position pos
+
+    /**
+     * unfreeze unfreeze the tile at the position pos
      *
      * @param pos the backend position that is somewhere within the tile we want to unfreeze
      */
-    private void unfreeze(Float pos){
+    private void unfreeze(Float pos) {
         int xInt = (int) pos.getX();
         int yInt = (int) pos.getY();
         int cSize = map.getChunkSize();
 
-
-        Chunk c = map.getChunk(xInt/cSize, yInt/cSize);
+        Chunk c = map.getChunk(xInt / cSize, yInt / cSize);
         c.unfreeze();
     }
+
     /**
      * spawnEnvironment generates plants and trees
      * useful in case of unexpected nuke
@@ -129,7 +140,6 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private void spawnEnvironment() {
         map.addPlants();
     }
-
 
     /**
      * listCommands is a function used to send out the available commands to the terminal
@@ -231,22 +241,15 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 commandSent = true;
                 return;
 
-            }
-
-            else if(input.equals("freeze") || input.equals("freeze chunk")){
+            } else if (input.equals("freeze") || input.equals("freeze chunk")) {
                 command = Commands.FREEZECHUNK;
                 commandSent = true;
                 return;
-            }
-
-            
-            else if(input.equals("unfreeze") || input.equals("unfreeze chunk")){
+            } else if (input.equals("unfreeze") || input.equals("unfreeze chunk")) {
                 command = Commands.UNFREEZECHUNK;
                 commandSent = true;
                 return;
-            }
-            
-            else if(input.equals("giraffe") || input.equals("spawn giraffe")){
+            } else if (input.equals("giraffe") || input.equals("spawn giraffe")) {
                 command = Commands.SPAWNGIRAFFE;
                 commandSent = true;
                 return;
@@ -315,6 +318,15 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 break;
             case MASSHEAL:
                 massHeal();
+                break;
+            case ZOOMIN:
+                scaleFactor += 0.1;
+                break;
+            case ZOOMOUT:
+                scaleFactor -= 0.1;
+                if (scaleFactor < 0.1) {
+                    scaleFactor = 0.1;
+                }
                 break;
         }
     }
@@ -415,6 +427,10 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         } else if (key == KeyEvent.VK_D) {
             commandSent = true;
             command = Commands.HEAL;
+        } else if (key == KeyEvent.VK_Z) {
+            command = Commands.ZOOMIN;
+        } else if (key == KeyEvent.VK_X) {
+            command = Commands.ZOOMOUT;
         } else {
             System.out.println("Invalid command");
             command = Commands.NOTHING;
@@ -456,11 +472,17 @@ public class GUI extends JFrame {
      * @param map the map to be drawn/graphically shown
      */
     private void initUI(Map map) {
-        surface = new Surface(map);
-        surface.setPreferredSize(new Dimension(map.width * 480, map.width * 480));
+        JScrollPane scrollPane = new JScrollPane();
 
-        JScrollPane scrollPane = new JScrollPane(surface);
+        surface = new Surface(map, scrollPane);
+        surface.setPreferredSize(new Dimension(map.width * 480, map.width * 480));
+        surface.setFocusable(true);
+
+        scrollPane.setViewportView(surface);
         getContentPane().add(scrollPane);
+
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         setTitle("Primal");
         setExtendedState(MAXIMIZED_BOTH);
