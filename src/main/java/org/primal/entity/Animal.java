@@ -13,6 +13,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends LivingEntity {
 
+    protected float speed = 0.05f;
+    protected Vec2D movementDirection;
     float starvationRate = 0.01f;
     float stamina;
     float fullness;
@@ -21,8 +23,6 @@ public abstract class Animal extends LivingEntity {
     private int mapSize = 4 * 16;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
-    protected float speed = 0.05f;
-    protected Vec2D movementDirection;
 
     /**
      * Creates an Animal object.
@@ -214,15 +214,6 @@ public abstract class Animal extends LivingEntity {
     }
 
     /**
-     * Sets the direction of the animals movement
-     *
-     * @param p = the current position
-     */
-    public void setDirection(Vec2D p) {
-        this.movementDirection = p;
-    }
-
-    /**
      * Returns the fullness of the animal (hunger)
      *
      * @return float The hunger level of the animal
@@ -256,5 +247,14 @@ public abstract class Animal extends LivingEntity {
      */
     public Vec2D getDirection() {
         return this.movementDirection;
+    }
+
+    /**
+     * Sets the direction of the animals movement
+     *
+     * @param p = the current position
+     */
+    public void setDirection(Vec2D p) {
+        this.movementDirection = p;
     }
 }
