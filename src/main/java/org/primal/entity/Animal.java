@@ -262,4 +262,7 @@ public abstract class Animal extends LivingEntity {
     public Vec2D getDirection() {
         return this.movementDirection;
     }
+    /** breed is used by those who override it to generate an animal of the same race
+     */
+    public void breed(){}
 }

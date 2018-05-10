@@ -3,6 +3,7 @@ package org.primal.entity;
 import org.primal.behaviour.Behaviour;
 import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
+import org.primal.tile.Tile;
 
 import java.util.LinkedList;
 
@@ -26,5 +27,12 @@ public class Zebra extends Herbivore {
         this.behaviours = new LinkedList<Behaviour>();
         this.behaviours.add(foodBehaviour);
         this.starvationRate = 1;
+    }
+    public String getType (){
+        return "Zebra";
+    }
+    public void breed(){
+        Tile t = map.getTile(this.getX(), this.getY());
+        map.spawnZebra(t);
     }
 }

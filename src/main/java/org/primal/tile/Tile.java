@@ -67,6 +67,17 @@ public class Tile extends SimObject {
         }
     }
 
+    public boolean contains(String type, int amount){
+        for(LivingEntity entity : getLivingEntities()){
+            if(entity.getType().equals(type)){
+                amount--;
+            }
+        }
+        if(amount <1){
+            return true;
+        }
+        return false;
+    }
     public void slaughter() {
         livingEntities.clear();
     }
