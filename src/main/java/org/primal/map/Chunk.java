@@ -38,7 +38,7 @@ public class Chunk extends SimObject {
             for (int j = 0; j < size; j++) {
                 for (int k = 0; k < 30; k++) {
                     for (int l = 0; l < 30; l++) {
-                        Color color = tiles[i][j].getColors()[k][l];
+                        Color color = tiles[i][j].getColors()[k / 10][l / 10];
                         image.setRGB((i * 30) + k, (j * 30) + l, color.getRGB());
                     }
                 }

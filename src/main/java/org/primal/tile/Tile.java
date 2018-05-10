@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Tile extends SimObject {
 
-    Color[][] colors = new Color[30][30];
+    Color[][] colors = new Color[3][3];
     private static int size = 30;
     List<Pixel> pixels;
     private ConcurrentLinkedQueue<LivingEntity> livingEntities;

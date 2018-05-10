@@ -22,8 +22,8 @@ public class WaterTile extends Tile {
     }
 
     public void randomizePixels(float x, float y) {
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 colors[i][j] = new Color(2, ThreadLocalRandom.current().nextInt(157, 177), 219);
             }
         }
