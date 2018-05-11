@@ -29,28 +29,40 @@ public class Memory {
 	public Memory() {
 	}
 
+
 	/**
 	 * Adds a new {@code MemoryCell} to this {@code Memory}
 	 * Will return {@code False} if this {@code Memory} already contains the resulting {@code MemoryCell} as defined by {@code ArrayList.contains(Object o)}
 	 *
 	 * @param tile - The {@code Tile} to remember
 	 * @param type - A {@code Collection} of {@code MemoryType}s to associate with this {@code Memory}
-	 * @return {@code True} if a {@code MemoryCell} was added to this {@code Memory}
+	 *
 	 * @see org.primal.entity.MemoryCell#equals()
 	 * @see java.util.ArrayList#contains()
 	 */
-	public boolean remember(Tile tile, Collection<MemoryType> type) {
+	public void remember(Tile tile, Collection<MemoryType> type) {
 		//TODO Optimize?
 		MemoryCell toRemember = new MemoryCell(type,tile);
-		if(memoryCells.contains(toRemember)) {
-			return false;
-		} else {
-			return this.memoryCells.add(toRemember);
+		MemoryCell toRemove;
+
+		for(MemoryCell MC : memoryCells) {
+			if(MC.hashCode() = toRemember.hashCode()) {
+				toRemove = MC;
+			}
 		}
+
+		if(toRemove != null) {
+			memoryCells.remove(toRemove);
+		}
+
+		return this.memoryCells.add(toRemember);
 	}
 
 	/**
-	 * 
+	 * Returns the {@code Vec2D} position of a {@code MemoryCell} with type {@code type}
+	 *
+	 * @param type - A {@code MemoryType} to check for
+	 * @return       A {@code Vec2D} position of a {@code MemoryCell} with type {@code type} or {@code null} if none could be found
 	 */
 	public Vec2D recallPosition(MemoryType type){
 		//TODO Optimize?

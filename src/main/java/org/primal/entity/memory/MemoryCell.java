@@ -34,7 +34,7 @@ public class MemoryCell {
 
 
 	// hashCode() uses Lazy initialization
-	private int hashCode = 0;
+	private int hashCode;
 
 	/*
 	 * Uncomment the block below to enable mutation of this class
@@ -57,7 +57,7 @@ public class MemoryCell {
 	 *
 	 * @param types - Collection of types to be added to this {@code MemoryCell}
 	 * @param tile  - The {@code Tile} to be associated with this {@code MemoryCell}
-	 * @return A new {@code MemoryCell} associated with {@code tile} containing all the elements of {@code types}
+	 * @return        A new {@code MemoryCell} associated with {@code tile} containing all the elements of {@code types}
 	 */
 	public MemoryCell(Collection<MemoryType> types, Tile tile)  {
 		this.types = EnumSet.copyOf(types);
@@ -67,7 +67,7 @@ public class MemoryCell {
 	/**
 	 * Returns {@code True} if this {@code MemoryCell} contains the specified {@code MemoryType}
 	 *
-	 * @param type - a {@code MemoryType}
+	 * @param type -  A {@code MemoryType}
 	 * @return {@code True} if this {@code MemoryCell} contains the specified {@code MemoryType}
 	 */
 	public boolean contains(MemoryType type) {
@@ -134,12 +134,13 @@ public class MemoryCell {
 	@Override
 	public int hashCode() {
 		// Because this Object is immutable, we can cache the hashCode.
-		if (this.hashCode == 0){
+		if (this.hashCode == null){
 			int hash = 3;
 
-			for(MemoryType MT : types) {
-				hash = 53 * hash + MT.hashCode();
-			}
+			// Types are deliberately left out of the hash function.
+			// for(MemoryType MT : types) {
+			// 	hash = 53 * hash + MT.hashCode();
+			// }
 
 			hash = 53 * hash + Double.hashCode(this.tilePos.getX());
 			hash = 53 * hash + Double.hashCode(this.tilePos.getY());
