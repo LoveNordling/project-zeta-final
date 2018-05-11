@@ -64,7 +64,7 @@ public class Simulation {
         this.map = map;
 
         // One thread for every chunk for now
-        int chunkNumber = this.map.width;
+        int chunkNumber = this.map.width * this.map.width;
 
         this.simulationThreadPool = Executors.newScheduledThreadPool(chunkNumber);
 
