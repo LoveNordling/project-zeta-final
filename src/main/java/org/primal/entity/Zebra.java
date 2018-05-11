@@ -12,7 +12,7 @@ public class Zebra extends Herbivore {
 
     /**
      * Creates a Zebra object
-     * Creates a new carnivore object
+     * Creates a new herbivore object
      *
      * @param x        = x-coordinate
      * @param y        = y-coordinate
