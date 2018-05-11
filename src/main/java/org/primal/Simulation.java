@@ -84,7 +84,7 @@ public class Simulation {
             for (Chunk c : chunks) {
                 /*
                  * ThrowingTask is a wrapper around Worker to circumvent the fact that ScheduledThreadPools swallows all exceptions by default.
-                 * 16 Milliseconds is approximatly 1/60 seconds.
+                 * 16 Milliseconds is approximately 1/60 seconds.
                  */
                 simulationThreadPool.scheduleAtFixedRate(new ThrowingTask(new Worker(c)), 0, 100, TimeUnit.MILLISECONDS);
             }
@@ -105,11 +105,13 @@ public class Simulation {
 
         Worker(Chunk chunk) {
             myChunk = chunk;
+            myChunk.renderImage();
         }
 
         @Override
         public void run() {
             myChunk.updateChunk();
+
             try {
                 updateLoopSynchronizationBarrier.await();
 

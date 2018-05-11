@@ -29,11 +29,10 @@ public class Chunk extends SimObject {
                 tiles[i][j] = tile;
             }
         }
-
-        //renderImage();
     }
 
     public void renderImage() {
+        System.out.println("Chunk generated");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (int k = 0; k < 30; k++) {
