@@ -13,7 +13,7 @@ public class Giraffe extends Herbivore {
 
     /**
      * Creates a Giraffe object
-     * Creates a new carnivore object
+     * Creates a new herbivore object
      *
      * @param x        = x-coordinate
      * @param y        = y-coordinate
