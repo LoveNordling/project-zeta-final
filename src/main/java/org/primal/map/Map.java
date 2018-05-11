@@ -50,7 +50,7 @@ public class Map {
             addWaterTiles();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(2, 2); i++) {
+        for (int i = 0; i < mapSize / Math.pow(3, 2); i++) {
             addSandTiles();
         }
 
