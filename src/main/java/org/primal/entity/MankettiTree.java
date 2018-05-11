@@ -9,7 +9,7 @@ import java.awt.geom.Ellipse2D;
 public class MankettiTree extends Plant {
 
     /**
-     * Creates a Umbrella tree object.
+     * Creates a Manketti tree object.
      *
      * @param x    = the x-coordinate
      * @param y    = the y-coordinate
