@@ -8,7 +8,5 @@ package org.primal.entity.memory;
 public enum MemoryType {
 
 	FOOD,
-	WATER,
-	ENEMY,
-	PARTNER;
+	WATER;
 }

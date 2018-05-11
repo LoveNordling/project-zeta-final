@@ -92,4 +92,11 @@ public class MemoryCell {
 		return this.tilePos;
 	}
 
+	@Override
+	public boolean equals(Object toCompare) {
+		if(toCompare instanceof MemoryCell) {
+			return (this.tilePos.getX() == toCompare.getTilePos().getX() && this.tilePos.getY() == toCompare.getTilePos.getY())
+		}
+	}
+
 }
