@@ -59,7 +59,7 @@ public class MemoryCell {
 	 * @param tile  - The {@code Tile} to be associated with this {@code MemoryCell}
 	 * @return        A new {@code MemoryCell} associated with {@code tile} containing all the elements of {@code types}
 	 */
-	public MemoryCell(Collection<MemoryType> types, Tile tile)  {
+	public MemoryCell(Tile tile, Collection<MemoryType> types)  {
 		this.types = EnumSet.copyOf(types);
 		this.tilePos = tile.getPosition();
 	}
@@ -134,7 +134,7 @@ public class MemoryCell {
 	@Override
 	public int hashCode() {
 		// Because this Object is immutable, we can cache the hashCode.
-		if (this.hashCode == null){
+		if (this.hashCode == 0){
 			int hash = 3;
 
 			// Types are deliberately left out of the hash function.

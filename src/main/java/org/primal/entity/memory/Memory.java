@@ -32,21 +32,19 @@ public class Memory {
 
 	/**
 	 * Adds a new {@code MemoryCell} to this {@code Memory}
-	 * Will return {@code False} if this {@code Memory} already contains the resulting {@code MemoryCell} as defined by {@code ArrayList.contains(Object o)}
 	 *
 	 * @param tile - The {@code Tile} to remember
 	 * @param type - A {@code Collection} of {@code MemoryType}s to associate with this {@code Memory}
 	 *
 	 * @see org.primal.entity.MemoryCell#equals()
-	 * @see java.util.ArrayList#contains()
 	 */
 	public void remember(Tile tile, Collection<MemoryType> type) {
 		//TODO Optimize?
-		MemoryCell toRemember = new MemoryCell(type,tile);
-		MemoryCell toRemove;
+		MemoryCell toRemember = new MemoryCell(tile,type);
+		MemoryCell toRemove = new MemoryCell(tile,type);
 
 		for(MemoryCell MC : memoryCells) {
-			if(MC.hashCode() = toRemember.hashCode()) {
+			if(MC.hashCode() == toRemember.hashCode()) {
 				toRemove = MC;
 			}
 		}
@@ -55,7 +53,7 @@ public class Memory {
 			memoryCells.remove(toRemove);
 		}
 
-		return this.memoryCells.add(toRemember);
+		this.memoryCells.add(toRemember);
 	}
 
 	/**
@@ -72,6 +70,24 @@ public class Memory {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Returns the {@code Vec2D} position of a {@code MemoryCell} with the type {@code FOOD}
+	 *
+	 * @return the {@code Vec2D} position of a {@code MemoryCell} with the type {@code FOOD}
+	 */
+	public Vec2D recallPositionFood() {
+		return recallPosition(MemoryType.FOOD);
+	}
+
+	/**
+	 * Returns the {@code Vec2D} position of a {@code MemoryCell} with the type {@code WATER}
+	 *
+	 * @return the {@code Vec2D} position of a {@code MemoryCell} with the type {@code WATER}
+	 */
+	public Vec2D recallPositionWater() {
+		return recallPosition(MemoryType.WATER);
 	}
 
 }
