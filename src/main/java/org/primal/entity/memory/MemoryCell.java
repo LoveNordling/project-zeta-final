@@ -9,7 +9,7 @@ import java.util.EnumSet;
 import java.util.Collection;
 
 /**
- * A {@code MemoryCell} hold information about a specific {@code Tile} that an {@code Animal} remembers
+ * A {@code MemoryCell} hold information about a specific {@code Tile} that an {@code Animal} remembers.
  * This Object is Immutable.
  *
  * @see org.primal.tile.Tile
@@ -37,15 +37,15 @@ public class MemoryCell {
 	private int hashCode;
 
 	/*
-	 * Uncomment the block below to enable mutation of this class
+	 * Uncomment the block below to enable mutation of this class.
 	 * Remember that you can not cache the hashcode if you do, and that it needs to be recalculated on every call.
 	 */
 
 	// /**
-	//  * Creates a new {@code MemoryCell}
+	//  * Creates a new {@code MemoryCell}.
 	//  *
-	//  * @param tile - The {@code Tile} to be associated with this {@code MemoryCell}
-	//  * @return A new empty {@code MemoryCell} associated with {@code tile}
+	//  * @param tile - The {@code Tile} to be associated with this {@code MemoryCell}.
+	//  * @return A new empty {@code MemoryCell} associated with {@code tile}.
 	//  */
 	// public MemoryCell(Tile tile) {
 	// 	this.types = EnumSet.noneOf(MemoryType.class);
@@ -53,11 +53,11 @@ public class MemoryCell {
 	// }
 
 	/**
-	 * Creates a new {@code MemoryCell} containing all the elements in {@code types}
+	 * Creates a new {@code MemoryCell} containing all the elements in {@code types}.
 	 *
-	 * @param types - Collection of types to be added to this {@code MemoryCell}
-	 * @param tile  - The {@code Tile} to be associated with this {@code MemoryCell}
-	 * @return        A new {@code MemoryCell} associated with {@code tile} containing all the elements of {@code types}
+	 * @param types - Collection of types to be added to this {@code MemoryCell}.
+	 * @param tile  - The {@code Tile} to be associated with this {@code MemoryCell}.
+	 * @return        A new {@code MemoryCell} associated with {@code tile} containing all the elements of {@code types}.
 	 */
 	public MemoryCell(Tile tile, Collection<MemoryType> types)  {
 		this.types = EnumSet.copyOf(types);
@@ -65,44 +65,44 @@ public class MemoryCell {
 	}
 
 	/**
-	 * Returns {@code True} if this {@code MemoryCell} contains the specified {@code MemoryType}
+	 * Returns {@code True} if this {@code MemoryCell} contains the specified {@code MemoryType}.
 	 *
 	 * @param type -  A {@code MemoryType}
-	 * @return {@code True} if this {@code MemoryCell} contains the specified {@code MemoryType}
+	 * @return {@code True} if this {@code MemoryCell} contains the specified {@code MemoryType}.
 	 */
 	public boolean contains(MemoryType type) {
 		return this.types.contains(type);
 	}
 
 	/*
-	 * Uncomment the blocks below to enable mutation of this class
+	 * Uncomment the blocks below to enable mutation of this class.
 	 * Remember that you can not cache the hashcode if you do, and that it needs to be recalculated on every call.
 	 */
 
 	// /**
-	//  * Adds the specified {@code MemoryType} to this {@code MemoryCell} unless it already contains the specified {@code MemoryType}
+	//  * Adds the specified {@code MemoryType} to this {@code MemoryCell} unless it already contains the specified {@code MemoryType}.
 	//  *
-	//  * @param type - a {@code MemoryType}
-	//  * @return {@code True} if the specified {@code MemoryType} was added to this {@code MemoryCell}
+	//  * @param type - a {@code MemoryType}.
+	//  * @return {@code True} if the specified {@code MemoryType} was added to this {@code MemoryCell}.
 	//  */
 	// public boolean add(MemoryType type) {
 	// 	return this.types.add(type);
 	// }
 
 	// /**
-	//  * Removes the specified {@code MemoryType} to this {@code MemoryCell} unless it doesn't contain the specified {@code MemoryType}
+	//  * Removes the specified {@code MemoryType} to this {@code MemoryCell} unless it doesn't contain the specified {@code MemoryType}.
 	//  *
-	//  * @param type - a {@code MemoryType}
-	//  * @return {@code True} if the specified {@code MemoryType} was removed from this {@code MemoryCell}
+	//  * @param type - a {@code MemoryType}.
+	//  * @return {@code True} if the specified {@code MemoryType} was removed from this {@code MemoryCell}.
 	//  */
 	// public boolean remove(MemoryType type) {
 	// 	return this.types.remove(type);
 	// }
 
 	/**
-	 * Returns a copy of the {@code Vec2D} position of the {@code Tile} associated with this {@code MemoryCell}
+	 * Returns a copy of the {@code Vec2D} position of the {@code Tile} associated with this {@code MemoryCell}.
 	 *
-	 * @return a copy of the {@code Vec2D} position of the {@code Tile} associated with this {@code MemoryCell}
+	 * @return a copy of the {@code Vec2D} position of the {@code Tile} associated with this {@code MemoryCell}.
 	 */
 	public Vec2D getTilePos() {
 		// Defensive copying to ensure immutability

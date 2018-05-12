@@ -10,8 +10,8 @@ import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Defines a {@code Memory} based on {@code MemoryCells}
- * The {@code MemoryCells} are stored internally in a {@code Arraylist}
+ * Defines a {@code Memory} based on {@code MemoryCells}.
+ * The {@code MemoryCells} are stored internally in a {@code Arraylist}.
  *
  * @see org.primal.entity.memory.MemoryCell
  * @see org.primal.entity.memory.MemoryType
@@ -23,44 +23,41 @@ public class Memory {
 	private ArrayList<MemoryCell> memoryCells;
 
 	/**
-	 * Creates a new, empty {@code Memory}
+	 * Creates a new, empty {@code Memory}.
 	 *
 	 */
 	public Memory() {
+		memoryCells = new ArrayList<MemoryCell>();
 	}
 
 
 	/**
-	 * Adds a new {@code MemoryCell} to this {@code Memory}
+	 * Adds a new {@code MemoryCell} to this {@code Memory}.
 	 *
-	 * @param tile - The {@code Tile} to remember
-	 * @param type - A {@code Collection} of {@code MemoryType}s to associate with this {@code Memory}
+	 * @param tile - The {@code Tile} to remember.
+	 * @param type - A {@code Collection} of {@code MemoryType}s to associate with this {@code Memory}.
 	 *
 	 * @see org.primal.entity.MemoryCell#equals()
 	 */
 	public void remember(Tile tile, Collection<MemoryType> type) {
 		//TODO Optimize?
 		MemoryCell toRemember = new MemoryCell(tile,type);
-		MemoryCell toRemove = new MemoryCell(tile,type);
 
 		for(MemoryCell MC : memoryCells) {
 			if(MC.hashCode() == toRemember.hashCode()) {
-				toRemove = MC;
+				memoryCells.remove(MC);
+				break;
 			}
-		}
-
-		if(toRemove != null) {
-			memoryCells.remove(toRemove);
 		}
 
 		this.memoryCells.add(toRemember);
 	}
 
 	/**
-	 * Returns the {@code Vec2D} position of a {@code MemoryCell} with type {@code type}
+	 * Returns the {@code Vec2D} position of a {@code MemoryCell} with type {@code type}.
 	 *
-	 * @param type - A {@code MemoryType} to check for
-	 * @return       A {@code Vec2D} position of a {@code MemoryCell} with type {@code type} or {@code null} if none could be found
+	 * @param type - A {@code MemoryType} to check for.
+	 * @return       A {@code Vec2D} position of a {@code MemoryCell} with type {@code type} or {@code null} if none could be found.
 	 */
 	public Vec2D recallPosition(MemoryType type){
 		//TODO Optimize?
@@ -73,18 +70,18 @@ public class Memory {
 	}
 
 	/**
-	 * Returns the {@code Vec2D} position of a {@code MemoryCell} with the type {@code FOOD}
+	 * Returns the {@code Vec2D} position of a {@code MemoryCell} with the type {@code FOOD}.
 	 *
-	 * @return the {@code Vec2D} position of a {@code MemoryCell} with the type {@code FOOD}
+	 * @return the {@code Vec2D} position of a {@code MemoryCell} with the type {@code FOOD}.
 	 */
 	public Vec2D recallPositionFood() {
 		return recallPosition(MemoryType.FOOD);
 	}
 
 	/**
-	 * Returns the {@code Vec2D} position of a {@code MemoryCell} with the type {@code WATER}
+	 * Returns the {@code Vec2D} position of a {@code MemoryCell} with the type {@code WATER}.
 	 *
-	 * @return the {@code Vec2D} position of a {@code MemoryCell} with the type {@code WATER}
+	 * @return the {@code Vec2D} position of a {@code MemoryCell} with the type {@code WATER}.
 	 */
 	public Vec2D recallPositionWater() {
 		return recallPosition(MemoryType.WATER);

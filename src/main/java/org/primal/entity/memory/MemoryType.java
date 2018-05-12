@@ -7,6 +7,7 @@ package org.primal.entity.memory;
  */
 public enum MemoryType {
 
+	EMPTY,
 	FOOD,
 	WATER;
 }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class MemoryCellTest {
 	private Map map;
 	private Tile tile;
+	private Tile tile2;
 	private Set<MemoryType> enumSet;
 
 
@@ -26,6 +27,7 @@ public class MemoryCellTest {
 	public void init() {
 		map = new Map(1);
 		tile = map.getTile(0,0);
+		tile2 = map.getTile(1,11);
 		enumSet = EnumSet.noneOf(MemoryType.class);
 	}
 
@@ -33,6 +35,7 @@ public class MemoryCellTest {
 	public void destroy() {
 		map = null;
 		tile = null;
+		tile2 = null;
 		enumSet = null;
 	}
 
@@ -51,7 +54,7 @@ public class MemoryCellTest {
 	}
 
 	@Test
-	public void containsTestFail() {
+	public void containsTestFalse() {
 		enumSet.add(MemoryType.FOOD);
 		MemoryCell MC = new MemoryCell(tile,enumSet);
 
@@ -68,10 +71,20 @@ public class MemoryCellTest {
 	@Test
 	public void equalsTest() {
 		MemoryCell MC = new MemoryCell(tile,enumSet);
+		enumSet.add(MemoryType.FOOD);
 		MemoryCell MC2 = new MemoryCell(tile,enumSet);
 
 		assertTrue(MC.equals(MC2));
 		assertTrue(MC2.equals(MC));
+	}
+
+	@Test
+	public void equalsTestFalse() {
+		MemoryCell MC = new MemoryCell(tile,enumSet);
+		MemoryCell MC2 = new MemoryCell(tile2,enumSet);
+
+		assertFalse(MC.equals(MC2));
+		assertFalse(MC2.equals(MC));
 	}
 
 }
