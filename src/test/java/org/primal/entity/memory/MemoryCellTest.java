@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Set;
 import java.util.EnumSet;
-import java.util.ArrayList;
 
 public class MemoryCellTest {
 	private Map map;
