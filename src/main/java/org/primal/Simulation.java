@@ -43,14 +43,11 @@ public class Simulation {
         this.map = map;
 
         // One thread for every chunk for now
-        int chunkNumber = this.map.width;
+        int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
 
-        this.simulationThreadPool = Executors.newScheduledThreadPool(chunkNumber);
+        this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
 
-        Runnable synchronizationAction = () -> {
-        };
-
-        updateLoopSynchronizationBarrier = new CyclicBarrier(chunkNumber, synchronizationAction);
+        updateLoopSynchronizationBarrier = new CyclicBarrier(threadNumber);
     }
 
     /**
@@ -64,11 +61,11 @@ public class Simulation {
         this.map = map;
 
         // One thread for every chunk for now
-        int chunkNumber = this.map.width * this.map.width;
+        int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
 
-        this.simulationThreadPool = Executors.newScheduledThreadPool(chunkNumber);
+        this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
 
-        updateLoopSynchronizationBarrier = new CyclicBarrier(chunkNumber, action);
+        updateLoopSynchronizationBarrier = new CyclicBarrier(threadNumber, action);
     }
 
     /**

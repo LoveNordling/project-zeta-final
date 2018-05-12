@@ -55,8 +55,8 @@ public class MemoryCell {
 	/**
 	 * Creates a new {@code MemoryCell} containing all the elements in {@code types}.
 	 *
-	 * @param types - Collection of types to be added to this {@code MemoryCell}.
 	 * @param tile  - The {@code Tile} to be associated with this {@code MemoryCell}.
+	 * @param types - Collection of types to be added to this {@code MemoryCell}.
 	 * @return        A new {@code MemoryCell} associated with {@code tile} containing all the elements of {@code types}.
 	 */
 	public MemoryCell(Tile tile, Collection<MemoryType> types)  {
