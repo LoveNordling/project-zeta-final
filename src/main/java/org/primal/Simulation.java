@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A simulation running on multiple concurrent threads utilizing a scheduledExecutor.
  * The simulation also uses a CyclicBarrier for synchronization between worker threads.
- * The simulation currently strives to run at 60 cycles per second.
+ * The simulation currently strives to run at 10 cycle per second.
  * One 'cycle' is defined as the time it takes all the Chunks in a given map to complete their {@code updateChunks()} method.
  * Currently tightly coupled with the Primal project.
  *
@@ -42,7 +42,6 @@ public class Simulation {
     public Simulation(Map map) {
         this.map = map;
 
-        // One thread for every chunk for now
         int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
 
         this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
@@ -60,7 +59,6 @@ public class Simulation {
     public Simulation(Map map, Runnable action) {
         this.map = map;
 
-        // One thread for every chunk for now
         int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
 
         this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
