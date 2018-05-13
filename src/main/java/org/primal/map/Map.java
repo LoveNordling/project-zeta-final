@@ -1,12 +1,6 @@
 package org.primal.map;
 
-import org.primal.entity.Animal;
-import org.primal.entity.Giraffe;
-import org.primal.entity.Hyena;
-import org.primal.entity.Lion;
-import org.primal.entity.Plant;
-import org.primal.entity.Tree;
-import org.primal.entity.Zebra;
+import org.primal.entity.*;
 import org.primal.tile.LandTile;
 import org.primal.tile.SandTile;
 import org.primal.tile.Tile;
@@ -27,6 +21,8 @@ public class Map {
     private int mapSize;
     private int chunkSize;
     private Chunk[][] chunks;
+    private ArrayList<Vec2D> ULwaterCorners = new ArrayList<>();
+    private ArrayList<Vec2D> LRwaterCorners = new ArrayList<>();
 
     /**
      * Creates a map with width x width chunks and randomly adds water, plants and animals.
@@ -158,6 +154,20 @@ public class Map {
         }
     }
 
+    public Vec2D checkTileCollision(double x, double y) {
+        for (Vec2D ul : ULwaterCorners) {
+            for (Vec2D lr : LRwaterCorners) {
+                if (x >= ul.getX() && x <= lr.getX() && y >= ul.getY() && y <= lr.getY()) {
+                    System.out.println("Walk on water-------------------------------------------------------------");
+
+                    
+
+                }
+            }
+        }
+        return new Vec2D(0,0);
+    }
+
     /**
      * Checks if x and y are within map boundaries.
      *
@@ -178,6 +188,9 @@ public class Map {
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
         int waterWidth = generator.nextInt(30) + 10;
+
+        ULwaterCorners.add(new Vec2D(randX - waterWidth, randY - waterWidth));
+        LRwaterCorners.add(new Vec2D(randX + waterWidth, randY + waterWidth));
 
         ArrayList<Tile> tiles = getTiles(randX, randY, waterWidth);
         for (Tile tile : tiles) {
