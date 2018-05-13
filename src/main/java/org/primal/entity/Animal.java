@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class Animal extends LivingEntity {
 
     private static AtomicInteger counter = new AtomicInteger();
-    protected float speed = 0.05f;
+    protected float speed = 0.3f;
     protected Vec2D movementDirection;
     float starvationRate = 0.0001f;
     float stamina;
@@ -27,6 +27,7 @@ public abstract class Animal extends LivingEntity {
     private int mapSize = 4 * 16;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
+    private int onceMore = 0;
 
     /**
      * Creates an Animal object.
@@ -133,8 +134,7 @@ public abstract class Animal extends LivingEntity {
      */
     public void move() {
         Vec2D newPos = new Vec2D((this.position.getX() + movementDirection.getX() * speed), (this.position.getY() + movementDirection.getY() * speed));
-        Vec2D collisionPoint = map.checkCollision(newPos.getX(), newPos.getY());
-        map.checkTileCollision(newPos.getX(), newPos.getY());
+        Vec2D collisionPoint = map.checkCollision(newPos.getX(), newPos.getY(), newPos, movementDirection);
         if (collisionPoint.getX() == 0 && collisionPoint.getY() == 0) {
             this.position.setLocation(Math.max(newPos.getX(), 0), Math.max(newPos.getY(), 0));
         } else {
@@ -142,9 +142,12 @@ public abstract class Animal extends LivingEntity {
             float dotProduct = (float) (movementDirection.getX() * collisionPoint.getX() + movementDirection.getY() * collisionPoint.getY());
             movementDirection.setLocation(movementDirection.getX() - 2 * collisionPoint.getX() * dotProduct, movementDirection.getY() - 2 * collisionPoint.getY() * dotProduct);
 
-            move();
+            if (onceMore == 0) {
+                onceMore ++;
+                move();
+            }
         }
-
+        onceMore = 0;
         updateShape();
     }
 

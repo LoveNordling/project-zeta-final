@@ -26,7 +26,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        Map map = new Map(4);
+        Map map = new Map(8);
         GUI gui = new GUI(map);
 
         Runnable action = gui::repaint;
