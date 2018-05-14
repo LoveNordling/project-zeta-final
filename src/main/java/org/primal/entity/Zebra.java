@@ -21,8 +21,8 @@ public class Zebra extends Herbivore {
      * @param fullness = fullness points
      */
 
-    public Zebra(float x, float y, Map map, float stamina, float fullness) {
-        super(x, y, map, 100, stamina, fullness);
+    public Zebra(float x, float y, Map map, float stamina, float fullness, float thirst) {
+        super(x, y, map, 100, stamina, fullness, thirst);
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
         Behaviour breedBehaviour = new BreedingBehaviour(this, map);
         this.behaviours = new LinkedList<>();

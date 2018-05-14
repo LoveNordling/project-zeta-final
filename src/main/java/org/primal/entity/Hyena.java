@@ -21,8 +21,8 @@ public class Hyena extends Carnivore {
      * @param fullness = fullness points
      */
 
-    public Hyena(float x, float y, Map map, float stamina, float fullness) {
-        super(x, y, map, 100, stamina, fullness);
+    public Hyena(float x, float y, Map map, float stamina, float fullness, float thirst) {
+        super(x, y, map, 100, stamina, fullness, thirst);
         Behaviour foodBehaviour = new ChaseBehaviour(this, map);
         Behaviour searchBehaviour = new SearchFoodBehaviour(this, map);
 

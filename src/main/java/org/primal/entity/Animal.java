@@ -19,6 +19,7 @@ public abstract class Animal extends LivingEntity {
     protected float speed = 0.05f;
     protected Vec2D movementDirection;
     float starvationRate = 0.0001f;
+    float thirstRate = 0.001f;
     float stamina;
     float fullness;
     float thirst;
@@ -109,13 +110,15 @@ public abstract class Animal extends LivingEntity {
         if (stamina > 0 && fullness > 0) {
             stamina -= starvationRate;
             fullness -= starvationRate;
-        } else if (fullness <= 0) {
+            thirst -= thirstRate;
+        } else if (fullness <= 0 || thirst <= 0) {
             health -= starvationRate;
             if (health <= 0) {
                 starve();
             }
         } else {
             fullness -= starvationRate;
+            thirst -= thirstRate;
         }
     }
 

@@ -36,7 +36,7 @@ public class ThirstBehaviour extends Behaviour {
                     selectedTile = (WaterTile) tile;
                     this.waterDir = new Vec2D(selectedTile.getX() - host.getX(), selectedTile.getY() - host.getY());
 
-                    this.weight = Math.round(100 - host.getThrist()); //temp
+                    this.weight = Math.round(100 - host.getThirst()); //temp
                     break;
                 }
             }

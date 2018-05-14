@@ -21,8 +21,8 @@ public class Lion extends Carnivore {
      * @param fullness = fullness points
      */
 
-    public Lion(float x, float y, Map map, float stamina, float fullness) {
-        super(x, y, map, 100, stamina, fullness);
+    public Lion(float x, float y, Map map, float stamina, float fullness, float thirst) {
+        super(x, y, map, 100, stamina, fullness, thirst);
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
         this.behaviours = new LinkedList<>();
 
