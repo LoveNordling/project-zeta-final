@@ -351,6 +351,13 @@ public class Map {
             }
         }
     }
+    /**getClosest gets the animal livingEntity with the positions closest 
+     * to the point with the positions x, y 
+     *
+     * @param x the x position of the point
+     * @param y the y -||-  
+     * @return the livingEntity closest to the point
+     */
     public LivingEntity getClosest(double x, double y){
         ArrayList<Tile> tiles = getTiles((float) x,(float) y, 1);
         LivingEntity closest = null;

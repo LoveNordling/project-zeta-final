@@ -95,12 +95,22 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         super.paintComponent(g);
         doDrawing(g, scaleFactor);
     }
-
+    /**
+     *toGraphicTranslate translate a backend value to it's frontend representation
+     *
+     * @param x the backend version of the value
+     * @return the frontend version of the value
+     */
     private int toGraphicTranslate(double x){
         double convRate = 1/conversionRate;
         return (int) (x*convRate);
     }
-    
+    /**
+     *createInfoLabel creates a JLabel with the info of e at it's position
+     *and removes the last used JLabel
+     *
+     * @param e the entity who's info is to be displayed
+     */
     private void createInfoLabel(LivingEntity e){
         int x = toGraphicTranslate(e.getX());
         int y = toGraphicTranslate(e.getY());
