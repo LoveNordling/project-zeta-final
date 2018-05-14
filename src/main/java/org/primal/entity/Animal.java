@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class Animal extends LivingEntity {
 
@@ -48,7 +47,6 @@ public abstract class Animal extends LivingEntity {
         this.stamina = stamina;
         this.fullness = fullness;
         this.thirst = thirst;
-        energySatisfaction = 100;
         this.id = counter.getAndIncrement();
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
 
@@ -107,7 +105,7 @@ public abstract class Animal extends LivingEntity {
      * Updates the animal's stamina, fullness, health and energy.
      */
     private void updateStats() {
-        if (stamina > 0 && fullness > 0) {
+        if (stamina > 0 && fullness > 0 && thirst > 0) {
             stamina -= starvationRate;
             fullness -= starvationRate;
             thirst -= thirstRate;
