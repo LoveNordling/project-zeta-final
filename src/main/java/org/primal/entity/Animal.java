@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class Animal extends LivingEntity {
 
     private static AtomicInteger counter = new AtomicInteger();
-    protected float speed = 0.3f;
+    protected float speed = 0.05f;
     protected Vec2D movementDirection;
     float starvationRate = 0.0001f;
     float stamina;
