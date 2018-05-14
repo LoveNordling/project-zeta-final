@@ -12,11 +12,11 @@ public abstract class Herbivore extends Animal {
      * @param x        = x-coordinate
      * @param y        = y-coordinate
      * @param map      = current Map
+     * @param health = health points
      * @param stamina  = stamina points
      * @param fullness = fullness points
      * @param thirst = thirst level
      */
-
     public Herbivore(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
         super(x, y, map, health, stamina, fullness, thirst);
 
