@@ -34,6 +34,7 @@ public class Tile extends SimObject {
     public void update() {
     }
 
+
     public LivingEntity getClosest(double x, double y){
         LivingEntity closest = null;
         for (LivingEntity entity : getLivingEntities()) {
@@ -49,6 +50,9 @@ public class Tile extends SimObject {
         }
         
         return closest;
+    }
+    public boolean isLandTile() {
+        return true;
     }
 
     public List<Pixel> getPixels() {
