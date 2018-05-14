@@ -1,6 +1,5 @@
 package org.primal.map;
 
-import org.primal.entity.*;
 import org.primal.entity.Animal;
 import org.primal.entity.Giraffe;
 import org.primal.entity.Hyena;
@@ -19,6 +18,7 @@ import org.primal.util.Vec2D;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import static java.awt.geom.Line2D.linesIntersect;
 
 /**
@@ -169,11 +169,11 @@ public class Map {
      * If it is within water area directional points out of water area are returned.
      * Otherwise direction does not change and (0,0) is returned.
      *
-     * @param x Current x coordinate.
-     * @param y Current y coordinate.
-     * @param newPos New suggested position.
+     * @param x         Current x coordinate.
+     * @param y         Current y coordinate.
+     * @param newPos    New suggested position.
      * @param direction Movement direction of animal.
-     * @return (0,0) if not in water area, else points in opposite direction.
+     * @return (0, 0) if not in water area, else points in opposite direction.
      */
     public Vec2D checkWaterCollision(double x, double y, Vec2D newPos, Vec2D direction) {
         double newX = newPos.getX();
@@ -351,7 +351,7 @@ public class Map {
 
         ArrayList<Tile> tiles = getTiles(randX, randY, packWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 if (species == 0) {
                     animal = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
                 } else if (species == 1) {
