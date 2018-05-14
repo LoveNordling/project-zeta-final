@@ -5,7 +5,6 @@ import org.primal.behaviour.PackBehaviour;
 import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
 
-import java.awt.*;
 import java.util.LinkedList;
 
 public class Zebra extends Herbivore {
@@ -13,10 +12,11 @@ public class Zebra extends Herbivore {
     /**
      * Creates a Zebra object
      * Creates a new carnivore object
-     * @param x = x-coordinate
-     * @param y = y-coordinate
-     * @param map = current Map
-     * @param stamina = stamina points
+     *
+     * @param x        = x-coordinate
+     * @param y        = y-coordinate
+     * @param map      = current Map
+     * @param stamina  = stamina points
      * @param fullness = fullness points
      */
 

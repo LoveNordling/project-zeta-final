@@ -6,7 +6,6 @@ import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
 
-import java.awt.*;
 import java.util.LinkedList;
 
 public class Lion extends Carnivore {
@@ -14,10 +13,11 @@ public class Lion extends Carnivore {
     /**
      * Creates a Lion object
      * Creates a new carnivore object
-     * @param x = x-coordinate
-     * @param y = y-coordinate
-     * @param map = current Map
-     * @param stamina = stamina points
+     *
+     * @param x        = x-coordinate
+     * @param y        = y-coordinate
+     * @param map      = current Map
+     * @param stamina  = stamina points
      * @param fullness = fullness points
      */
 
@@ -28,8 +28,8 @@ public class Lion extends Carnivore {
         this.behaviours.add(foodBehaviour);
         this.behaviours.add(new ChaseBehaviour(this, map));
         this.starvationRate = 1;
-        this.color = new java.awt.Color(0, 0, 150);
-        this.shape = new Rectangle.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+        this.color = new java.awt.Color(183, 137, 47);
+        this.shapeSize = Tile.getSize() / 3;
     }
 
     @Override

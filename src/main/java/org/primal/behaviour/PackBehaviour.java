@@ -11,34 +11,45 @@ import java.util.ArrayList;
 
 public class PackBehaviour extends Behaviour {
 
-    Vec2D nextPos = new Vec2D(host.getX(), host.getY());
+    Vec2D nextPos;
     public PackBehaviour(Animal host, Map map){
         super(host, map);
     }
 
     public void decide() {
-        this.weight = 0;
-        ArrayList<Tile> tiles = map.getTiles(host.getX(), host.getY(), 3);
+        this.nextPos = new Vec2D(host.getX(), host.getY());
+        this.weight = 9;
+        ArrayList<Tile> tiles = map.getTiles(host.getX(), host.getY(), 2);
         int numNeightbours = 0;
+        int i = 0;
         for (Tile tile : tiles) {
             for (LivingEntity entity : tile.getLivingEntities()) {
-                System.out.println("Debugg");
-                if (this.getClass().equals(entity.getClass())) {
+
+                if (host.getClass().equals(entity.getClass())) {
+
                     numNeightbours += 1;
                     this.weight += (this.weight < 50) ? 10 : 0;
-                    Vec2D posChange = entity.getPosition().randomRadius(0.1);
+
+                    Vec2D posChange = entity.getPosition().randomRadius(2);
                     nextPos.plus(posChange);
                 }
+                i++;
             }
         }
-        nextPos.times(1/numNeightbours);
-        this.weight = 10;
+        this.nextPos = numNeightbours > 0 ? nextPos.times(((double)1)/numNeightbours) : nextPos;
 
     }
 
     public void act() {
-        host.setDirection(nextPos.minus(host.getPosition()));
+        Vec2D dir = nextPos.minus(host.getPosition());
+        System.out.println(nextPos);
+        System.out.println(host.getPosition());
+        System.out.println(dir);
+        dir = dir.normalize();
+        System.out.println(dir);
+        System.out.println(nextPos.getX() - host.getX() + " " + (nextPos.getY() - host.getY()) );
+        host.setDirection(dir);
+        host.move();
     }
-
 
 }
