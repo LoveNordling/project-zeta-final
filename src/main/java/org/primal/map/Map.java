@@ -319,12 +319,8 @@ public class Map {
      * @param tile the tile for the giraffe to be spawned upon
      */
     public void spawnGiraffe(Tile tile) {
-<<<<<<< HEAD
-        Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
-=======
         System.out.println("Y");
         Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
->>>>>>> 82bc11726470f7f7a7fc03a014dab0da063cee5b
         tile.addLivingEntity(giraffe);
         
     }
