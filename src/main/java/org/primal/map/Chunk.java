@@ -15,9 +15,10 @@ public class Chunk extends SimObject {
     private int id;
     private boolean isFrozen = false;
     private BufferedImage[] images;
+    private int amountImages = 3;
     private boolean isAnimated = false;
-    private int flip = 0;
     private int index = 0;
+    private int elapsed = 0;
 
     /**
      * Creates a chunk object
@@ -30,7 +31,9 @@ public class Chunk extends SimObject {
         super(x, y, map);
         tiles = new Tile[size][size];
 
-        for (int i = 0; i < 10; i++) {
+        images = new BufferedImage[amountImages];
+
+        for (int i = 0; i < amountImages; i++) {
             images[i] = new BufferedImage(size * 30, size * 30, BufferedImage.TYPE_INT_RGB);
         }
 
@@ -50,23 +53,13 @@ public class Chunk extends SimObject {
     public void renderImage() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                for (int k = 0; k < 30; k++) {
-                    for (int l = 0; l < 30; l++) {
-                        Color color = tiles[i][j].getColors()[k / 10][l / 10];
-                        images[0].setRGB((i * 30) + k, (j * 30) + l, color.getRGB());
-                    }
-                }
-            }
-        }
+                for (int b = 0; b < amountImages; b++) {
+                    tiles[i][j].animate();
 
-        if (isAnimated) {
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    for (int k = 0; k < 30; k++) {
-                        for (int l = 0; l < 30; l++) {
-                            tiles[i][j].animate();
-                            Color color = tiles[i][j].getColors()[k / 10][l / 10];
-                            images[1].setRGB((i * 30) + k, (j * 30) + l, color.getRGB());
+                    for (int m = 0; m < 30; m++) {
+                        for (int n = 0; n < 30; n++) {
+                            Color color = tiles[i][j].getColors()[m / 10][n / 10];
+                            images[b].setRGB((i * 30) + m, (j * 30) + n, color.getRGB());
                         }
                     }
                 }
@@ -155,18 +148,17 @@ public class Chunk extends SimObject {
     }
 
     public BufferedImage getImage() {
-        if (isAnimated && animationTick >= 10) {
-            animationTick = 0;
-            if (flip == 0) {
-                flip = 1;
-                return animate;
-            } else {
-                flip = 0;
-                return image;
+        if (isAnimated) {
+            if (elapsed >= 100) {
+                index++;
+                if (index >= amountImages) {
+                    index = 0;
+                }
+                elapsed = 0;
             }
+            elapsed++;
         }
-        animationTick++;
 
-        return image;
+        return images[index];
     }
 }
