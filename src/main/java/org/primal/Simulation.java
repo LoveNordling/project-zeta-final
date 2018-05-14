@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A simulation running on multiple concurrent threads utilizing a scheduledExecutor.
  * The simulation also uses a CyclicBarrier for synchronization between worker threads.
- * The simulation currently strives to run at 60 cycles per second.
+ * The simulation currently strives to run at 10 cycle per second.
  * One 'cycle' is defined as the time it takes all the Chunks in a given map to complete their {@code updateChunks()} method.
  * Currently tightly coupled with the Primal project.
  *
@@ -42,15 +42,11 @@ public class Simulation {
     public Simulation(Map map) {
         this.map = map;
 
-        // One thread for every chunk for now
-        int chunkNumber = this.map.width;
+        int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
 
-        this.simulationThreadPool = Executors.newScheduledThreadPool(chunkNumber);
+        this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
 
-        Runnable synchronizationAction = () -> {
-        };
-
-        updateLoopSynchronizationBarrier = new CyclicBarrier(chunkNumber, synchronizationAction);
+        updateLoopSynchronizationBarrier = new CyclicBarrier(threadNumber);
     }
 
     /**
@@ -63,12 +59,11 @@ public class Simulation {
     public Simulation(Map map, Runnable action) {
         this.map = map;
 
-        // One thread for every chunk for now
-        int chunkNumber = this.map.width;
+        int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
 
-        this.simulationThreadPool = Executors.newScheduledThreadPool(chunkNumber);
+        this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
 
-        updateLoopSynchronizationBarrier = new CyclicBarrier(chunkNumber, action);
+        updateLoopSynchronizationBarrier = new CyclicBarrier(threadNumber, action);
     }
 
     /**
@@ -84,9 +79,9 @@ public class Simulation {
             for (Chunk c : chunks) {
                 /*
                  * ThrowingTask is a wrapper around Worker to circumvent the fact that ScheduledThreadPools swallows all exceptions by default.
-                 * 16 Milliseconds is approximatly 1/60 seconds.
+                 * 16 Milliseconds is approximately 1/60 seconds.
                  */
-                simulationThreadPool.scheduleAtFixedRate(new ThrowingTask(new Worker(c)), 0, 100, TimeUnit.MILLISECONDS);
+                simulationThreadPool.scheduleAtFixedRate(new ThrowingTask(new Worker(c)), 0, 16, TimeUnit.MILLISECONDS);
             }
         }
     }
@@ -102,6 +97,7 @@ public class Simulation {
     private class Worker implements Runnable {
 
         Chunk myChunk;
+        private boolean init = true;
 
         Worker(Chunk chunk) {
             myChunk = chunk;
@@ -109,7 +105,13 @@ public class Simulation {
 
         @Override
         public void run() {
-            myChunk.updateChunk();
+            if (init) {
+                myChunk.renderImage();
+                init = false;
+            } else {
+                myChunk.updateChunk();
+            }
+
             try {
                 updateLoopSynchronizationBarrier.await();
 

@@ -37,3 +37,7 @@ mainClassName = "org.primal.Main"
 task wrapper(type: Wrapper) {
     gradleVersion = "4.6"
 }
+
+compileJava {
+    options.compilerArgs.addAll(['-Xlint:unchecked'])
+}
