@@ -16,6 +16,13 @@ public class Tile extends SimObject {
     List<Pixel> pixels;
     private ConcurrentLinkedQueue<LivingEntity> livingEntities;
 
+    /**
+     * Creates a new tile object
+     *
+     * @param x   = x-coordinate
+     * @param y   = y-coordinate
+     * @param map = current map
+     */
     public Tile(float x, float y, Map map) {
         super(x, y, map);
         this.livingEntities = new ConcurrentLinkedQueue<>();
@@ -66,10 +73,7 @@ public class Tile extends SimObject {
                 amount--;
             }
         }
-        if (amount < 1) {
-            return true;
-        }
-        return false;
+        return amount < 1;
     }
 
     public void slaughter() {
