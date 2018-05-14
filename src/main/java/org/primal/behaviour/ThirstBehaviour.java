@@ -31,7 +31,7 @@ public class ThirstBehaviour extends Behaviour {
         if (!decided) {
             ArrayList<Tile> tiles = map.getTiles(host.getX(), host.getY(), 3);
             for (Tile tile : tiles) {
-                if (tile instanceof WaterTile) {
+                if (!tile.isLandTile()) {
                     decided = true;
                     selectedTile = (WaterTile) tile;
                     this.waterDir = new Vec2D(selectedTile.getX() - host.getX(), selectedTile.getY() - host.getY());
