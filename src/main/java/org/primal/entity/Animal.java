@@ -298,4 +298,8 @@ public abstract class Animal extends LivingEntity {
      */
     public abstract void starve();
 
+    public String additionalInfo(){
+        return ("\nSpeed : " + speed + "\nStamina : " + stamina + "\nThirst : " + thirst + "\nFullness : " + fullness);
+    }
+
 }

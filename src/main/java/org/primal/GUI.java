@@ -113,7 +113,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      */
     private void createInfoLabel(LivingEntity e){
 
-        String labelText = "Entity : " + e.toString() + "\n" + "Last Action : " + e.getLastAction() + "\nHealth : " + e.getHealth();
+        String labelText = "Entity : " + e.toString() + "\n" + "Last Action : " + e.getLastAction() + "\nHealth : " + e.getHealth() + e.additionalInfo();
         JOptionPane.showMessageDialog(this, labelText, "Entity Info", JOptionPane.PLAIN_MESSAGE);
     }
     /**

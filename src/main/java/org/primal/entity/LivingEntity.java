@@ -113,4 +113,7 @@ public abstract class LivingEntity extends Entity {
     public float getHealth(){
         return health;
     }
+    public String additionalInfo(){
+        return "";
+    }
 }
