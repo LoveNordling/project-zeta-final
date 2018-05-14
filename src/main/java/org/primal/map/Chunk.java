@@ -14,8 +14,10 @@ public class Chunk extends SimObject {
     private int size = 16;
     private int id;
     private boolean isFrozen = false;
-    private BufferedImage image;
+    private BufferedImage image, animate;
     private boolean isAnimated = false;
+    private int flip = 0;
+    private int animationTick = 0;
 
     /**
      * Creates a chunk object
@@ -28,6 +30,7 @@ public class Chunk extends SimObject {
         super(x, y, map);
         tiles = new Tile[size][size];
         image = new BufferedImage(size * 30, size * 30, BufferedImage.TYPE_INT_RGB);
+        animate = new BufferedImage(size * 30, size * 30, BufferedImage.TYPE_INT_RGB);
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -53,6 +56,28 @@ public class Chunk extends SimObject {
                 }
             }
         }
+
+        if (isAnimated) {
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    for (int k = 0; k < 30; k++) {
+                        for (int l = 0; l < 30; l++) {
+                            tiles[i][j].animate();
+                            Color color = tiles[i][j].getColors()[k / 10][l / 10];
+                            animate.setRGB((i * 30) + k, (j * 30) + l, color.getRGB());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean isAnimated() {
+        return isAnimated;
+    }
+
+    public void setAnimated(boolean animated) {
+        isAnimated = animated;
     }
 
     public void decimate() {
@@ -83,25 +108,6 @@ public class Chunk extends SimObject {
      */
     public void unfreeze() {
         isFrozen = false;
-    }
-
-    public boolean isAnimated() {
-        return isAnimated;
-    }
-
-    public void setAnimated(boolean animated) {
-        isAnimated = animated;
-    }
-
-    public void animate() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (tiles[i][j].isAnimated()) {
-                    tiles[i][j].animate();
-                }
-            }
-        }
-        renderImage();
     }
 
     public void printChunk() {
@@ -147,6 +153,18 @@ public class Chunk extends SimObject {
     }
 
     public BufferedImage getImage() {
+        if (isAnimated && animationTick >= 10) {
+            animationTick = 0;
+            if (flip == 0) {
+                flip = 1;
+                return animate;
+            } else {
+                flip = 0;
+                return image;
+            }
+        }
+        animationTick++;
+
         return image;
     }
 }

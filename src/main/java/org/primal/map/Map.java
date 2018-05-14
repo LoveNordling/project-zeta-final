@@ -268,7 +268,8 @@ public class Map {
 
     private void replaceTile(Tile old, Tile replacer) {
         Chunk chunk = getChunk((int) old.getX() / chunkSize, (int) old.getY() / chunkSize);
-        if (!chunk.isAnimated() && replacer.isAnimated()) {
+
+        if (replacer.isAnimated()) {
             chunk.setAnimated(true);
         }
 
