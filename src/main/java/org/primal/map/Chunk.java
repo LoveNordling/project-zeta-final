@@ -16,6 +16,13 @@ public class Chunk extends SimObject {
     private boolean isFrozen = false;
     private BufferedImage image;
 
+    /**
+     * Creates a chunk object
+     *
+     * @param x   = x-coordinate
+     * @param y   = y-coordinate
+     * @param map = current map
+     */
     public Chunk(float x, float y, Map map) {
         super(x, y, map);
         tiles = new Tile[size][size];
@@ -31,6 +38,9 @@ public class Chunk extends SimObject {
         }
     }
 
+    /**
+     * Iterates over each pixel inside of a chunk and renders it to a BufferedImage.
+     */
     public void renderImage() {
         System.out.println("Chunk generated");
         for (int i = 0; i < size; i++) {
@@ -85,20 +95,16 @@ public class Chunk extends SimObject {
         }
     }
 
+    /**
+     * Called at a set worker interval and will update entities in the chunk.
+     */
     public void updateChunk() {
-        /*
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.out.println("Sleep failed");
-        }*/
         if (isFrozen) {
             return;
         }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
-
                     entity.simulate();
                 }
             }
