@@ -1,7 +1,7 @@
 package org.primal.map;
 
 
-import org.primal.entity.LivingEntity;
+import org.primal.entity.*;
 import org.primal.entity.Animal;
 import org.primal.entity.Giraffe;
 import org.primal.entity.Hyena;
