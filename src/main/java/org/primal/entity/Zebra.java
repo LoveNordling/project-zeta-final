@@ -13,12 +13,12 @@ public class Zebra extends Herbivore {
     /**
      * Creates a Zebra object
      * Creates a new herbivore object
-     *
      * @param x        = x-coordinate
      * @param y        = y-coordinate
      * @param map      = current Map
      * @param stamina  = stamina points
      * @param fullness = fullness points
+     * @param thirst = thirst level
      */
 
     public Zebra(float x, float y, Map map, float stamina, float fullness, float thirst) {

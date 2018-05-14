@@ -12,7 +12,6 @@ public abstract class LivingEntity extends Entity {
     protected Color color;
     protected float shapeSize;
     float health;
-    float energySatisfaction;
     private float maxHP;
 
     /**
