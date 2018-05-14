@@ -10,6 +10,7 @@ public abstract class Carnivore extends Animal {
      * @param x        = x-coordinate
      * @param y        = y-coordinate
      * @param map      = current Map
+     * @param health = health points
      * @param stamina  = stamina points
      * @param fullness = fullness points
      * @param thirst = thirst level
