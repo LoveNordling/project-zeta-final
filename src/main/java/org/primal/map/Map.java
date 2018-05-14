@@ -1,18 +1,8 @@
 package org.primal.map;
 
-import org.primal.entity.Animal;
-import org.primal.entity.Giraffe;
-import org.primal.entity.Hyena;
-import org.primal.entity.Lion;
-import org.primal.entity.MankettiTree;
-import org.primal.entity.Plant;
-import org.primal.entity.UmbrellaTree;
-import org.primal.entity.Zebra;
-import org.primal.tile.DirtTile;
-import org.primal.tile.LandTile;
-import org.primal.tile.SandTile;
-import org.primal.tile.Tile;
-import org.primal.tile.WaterTile;
+
+import org.primal.entity.*;
+import org.primal.tile.*;
 import org.primal.util.Vec2D;
 
 import java.util.ArrayList;
@@ -49,29 +39,41 @@ public class Map {
         chunkSize = 16;
         mapSize = width * chunkSize;
 
-        for (int i = 0; i < mapSize / Math.pow(5, 2); i++) {
+        for (int i = 0; i < spawnAmount(5); i++) {
             addWaterTiles();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(3, 2); i++) {
+        for (int i = 0; i < spawnAmount(3); i++) {
             addSandTiles();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(4, 2); i++) {
+        for (int i = 0; i < spawnAmount(4); i++) {
             addDirtTiles();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(2, 2); i++) {
+        for (int i = 0; i < spawnAmount(2); i++) {
             addAnimals();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(1, 2); i++) {
+        for (int i = 0; i < spawnAmount(1); i++) {
             addUmbrellaTrees();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(1, 2); i++) {
+        for (int i = 0; i < spawnAmount(1); i++) {
             addMankettiTrees();
         }
+    }
+
+
+    /**
+     * Returns a number to use when creating all SimObjects to get a dynamic amount of SimObjects,
+     * depending on the size of the map.
+     *
+     * @param n A number which the return value depends on. Small n = big return value. Big n = small return value.
+     * @return A dynamic number depending on n and mapSize.
+     */
+    private int spawnAmount(int n) {
+        return (int) (mapSize / Math.pow(n, 2)) + 1;
     }
 
     /**
@@ -221,7 +223,7 @@ public class Map {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int waterWidth = generator.nextInt(30) + 10;
+        int waterWidth = generator.nextInt(spawnAmount(4)) + width / 2;
 
         Vec2D[] cornerPairs = new Vec2D[2];
         // Upper left corner
@@ -232,107 +234,45 @@ public class Map {
 
         ArrayList<Tile> tiles = getTiles(randX, randY, waterWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 replaceTile(tile, new WaterTile(tile.getX(), tile.getY(), this));
             }
         }
     }
 
+    /**
+     * Randomly selects a group of tiles with a random radius,
+     * if selected tiles are land tiles they are replaced with sand tiles.
+     */
     private void addSandTiles() {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int sandWidth = generator.nextInt(10) + 5;
+        int sandWidth = generator.nextInt(spawnAmount(4)) +  width / 2;
 
         ArrayList<Tile> tiles = getTiles(randX, randY, sandWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 replaceTile(tile, new SandTile(tile.getX(), tile.getY(), this));
             }
         }
     }
 
+    /**
+     * Randomly selects a group of tiles with a random radius,
+     * if selected tiles are land tiles they are replaced with dirt tiles.
+     */
     private void addDirtTiles() {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int sandWidth = generator.nextInt(10) + 5;
+        int sandWidth = generator.nextInt(spawnAmount(4)) + width / 2;
 
         ArrayList<Tile> tiles = getTiles(randX, randY, sandWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 replaceTile(tile, new DirtTile(tile.getX(), tile.getY(), this));
             }
-        }
-    }
-
-    private void replaceTile(Tile old, Tile replacer) {
-        Chunk chunk = getChunk((int) old.getX() / chunkSize, (int) old.getY() / chunkSize);
-        Tile[][] tiles = chunk.getTiles();
-        for (int z = 0; z < 16; z++) {
-            for (int w = 0; w < 16; w++) {
-                if (tiles[z][w].equals(old)) {
-                    tiles[z][w] = replacer;
-                }
-            }
-        }
-    }
-
-    /**
-     * spawnLion spawns a lion on the tile tile
-     *
-     * @param tile the tile for the lion to be spawned upon
-     */
-    public void spawnLion(Tile tile) {
-        Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
-        tile.addLivingEntity(lion);
-    }
-
-    /**
-     * spawnZebra spawns a zebra on the tile tile
-     *
-     * @param tile the tile for the zebra to be spawned upon
-     */
-    public void spawnZebra(Tile tile) {
-        Zebra zebra = new Zebra(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
-        tile.addLivingEntity(zebra);
-    }
-
-    /**
-     * spawnLion spawns amount amount of lions on the tile tile
-     *
-     * @param tile   the tile for the lions to be spawned upon
-     * @param amount the amount of lions to be spawned
-     */
-    public void spawnLion(Tile tile, int amount) {
-        for (int i = 0; i < amount; i++) {
-            Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
-            tile.addLivingEntity(lion);
-        }
-    }
-
-    /**
-     * spawnGiraffe spawns a giraffe on the tile tile
-     *
-     * @param tile the tile for the giraffe to be spawned upon
-     */
-    public void spawnGiraffe(Tile tile) {
-        System.out.println("Y");
-        Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
-        tile.addLivingEntity(giraffe);
-        System.out.println("Z");
-    }
-
-    /**
-     * spawnLion spawns amount amount of giraffes on the tile tile
-     *
-     * @param tile   the tile for the giraffes to be spawned upon
-     * @param amount the amount of giraffes to be spawned
-     */
-    public void spawnGiraffe(Tile tile, int amount) {
-        for (int i = 0; i < amount; i++) {
-            Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
-            tile.addLivingEntity(giraffe);
         }
     }
 
@@ -347,19 +287,17 @@ public class Map {
         int randY = generator.nextInt(mapSize) + 1;
         int packWidth = generator.nextInt(3);
         int species = generator.nextInt(3);
-        Animal animal;
 
         ArrayList<Tile> tiles = getTiles(randX, randY, packWidth);
         for (Tile tile : tiles) {
             if (tile.isLandTile()) {
                 if (species == 0) {
-                    animal = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+                    spawnLion(tile);
                 } else if (species == 1) {
-                    animal = new Hyena(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+                    spawnHyena(tile);
                 } else {
-                    animal = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+                    spawnGiraffe(tile);
                 }
-                tile.addLivingEntity(animal);
             }
         }
     }
@@ -376,7 +314,7 @@ public class Map {
 
         ArrayList<Tile> tiles = getTiles(randX, randY, forestWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 float treeSize = generator.nextInt(2) + 1.5f;
                 Plant plant = new UmbrellaTree(tile.getX(), tile.getY(), this, treeSize);
                 tile.addLivingEntity(plant);
@@ -384,19 +322,153 @@ public class Map {
         }
     }
 
+    /**
+     * Spawns Manketti tree at random position.
+     */
     public void addMankettiTrees() {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int forestWidth = generator.nextInt(1);
 
-        ArrayList<Tile> tiles = getTiles(randX, randY, forestWidth);
+        ArrayList<Tile> tiles = getTiles(randX, randY, 0);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 float treeSize = generator.nextInt(1) + 0.5f;
                 Plant plant = new MankettiTree(tile.getX(), tile.getY(), this, treeSize);
                 tile.addLivingEntity(plant);
             }
+        }
+    }
+    /**getClosest gets the animal livingEntity with the positions closest 
+     * to the point with the positions x, y 
+     *
+     * @param x the x position of the point
+     * @param y the y -||-  
+     * @return the livingEntity closest to the point
+     */
+    public LivingEntity getClosest(double x, double y){
+        ArrayList<Tile> tiles = getTiles((float) x,(float) y, 5);
+        LivingEntity closest = null;
+        LivingEntity tmp;
+        for(Tile t : tiles){
+            tmp = t.getClosest(x, y);
+            if(closest == null){
+                closest = tmp;
+            }
+            else if(tmp == null){
+            }
+            else if (tmp.positionDifference(x, y) < closest.positionDifference(x, y)){
+                closest = tmp;                
+            }
+        }
+        return closest;
+    }
+
+    /**
+     * Replaces old tile with replacer.
+     *
+     * @param old Old tile to be replaced.
+     * @param replacer New tile to replace with.
+     */
+    private void replaceTile(Tile old, Tile replacer) {
+        Chunk chunk = getChunk((int) old.getX() / chunkSize, (int) old.getY() / chunkSize);
+        Tile[][] tiles = chunk.getTiles();
+        for (int z = 0; z < 16; z++) {
+            for (int w = 0; w < 16; w++) {
+                if (tiles[z][w].equals(old)) {
+                    tiles[z][w] = replacer;
+                }
+            }
+        }
+    }
+
+    /**
+     * Spawns a lion on the tile tile.
+     *
+     * @param tile The tile for the lion to be spawned upon.
+     */
+    public void spawnLion(Tile tile) {
+        Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
+        tile.addLivingEntity(lion);
+    }
+
+    /**
+     * Spawns amount of lions on the tile tile.
+     *
+     * @param tile   The tile for the lions to be spawned upon.
+     * @param amount The amount of lions to be spawned.
+     */
+    public void spawnLion(Tile tile, int amount) {
+        for (int i = 0; i < amount; i++) {
+            Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
+            tile.addLivingEntity(lion);
+        }
+    }
+
+    /**
+     * Spawns a hyena on the tile tile.
+     *
+     * @param tile The tile for the hyena to be spawned upon.
+     */
+    public void spawnHyena(Tile tile) {
+        Hyena hyena = new Hyena(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
+        tile.addLivingEntity(hyena);
+    }
+
+    /**
+     * Spawns amount hyenas on the tile tile.
+     *
+     * @param tile The tile for the hyenas to be spawned upon.
+     */
+    public void spawnHyena(Tile tile, int amount) {
+        for (int i = 0; i < amount; i++) {
+            Hyena hyena = new Hyena(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
+            tile.addLivingEntity(hyena);
+        }
+    }
+
+    /**
+     * Spawns a zebra on the tile tile.
+     *
+     * @param tile The tile for the zebra to be spawned upon.
+     */
+    public void spawnZebra(Tile tile) {
+        Zebra zebra = new Zebra(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
+        tile.addLivingEntity(zebra);
+    }
+
+    /**
+     * Spawns amount of zebras on the tile tile.
+     *
+     * @param tile The tile for the zebra to be spawned upon.
+     */
+    public void spawnZebra(Tile tile, int amount) {
+        for (int i = 0; i < amount; i++) {
+            Zebra zebra = new Zebra(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
+            tile.addLivingEntity(zebra);
+        }
+    }
+
+    /**
+     * Spawns a giraffe on the tile tile.
+     *
+     * @param tile The tile for the giraffe to be spawned upon.
+     */
+    public void spawnGiraffe(Tile tile) {
+        Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
+        tile.addLivingEntity(giraffe);
+    }
+
+    /**
+     * Spawns amount amount of giraffes on the tile tile.
+     *
+     * @param tile   The tile for the giraffes to be spawned upon.
+     * @param amount The amount of giraffes to be spawned.
+     */
+    public void spawnGiraffe(Tile tile, int amount) {
+        for (int i = 0; i < amount; i++) {
+            Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
+            tile.addLivingEntity(giraffe);
         }
     }
 

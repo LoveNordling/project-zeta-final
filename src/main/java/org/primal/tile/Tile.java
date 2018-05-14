@@ -34,6 +34,23 @@ public class Tile extends SimObject {
     public void update() {
     }
 
+
+    public LivingEntity getClosest(double x, double y){
+        LivingEntity closest = null;
+        for (LivingEntity entity : getLivingEntities()) {
+            System.out.println(entity);
+            if(closest == null){
+                closest = entity;
+            }
+            else if(entity == null){
+            }
+            else if(entity.positionDifference(x, y) < closest.positionDifference(x, y)){
+                closest = entity;
+            }
+        }
+        
+        return closest;
+    }
     public boolean isLandTile() {
         return true;
     }

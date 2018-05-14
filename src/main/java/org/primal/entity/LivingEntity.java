@@ -11,8 +11,8 @@ public abstract class LivingEntity extends Entity {
     protected Ellipse2D.Float shape;
     protected Color color;
     protected float shapeSize;
+    protected String lastAction = "Nothing";
     float health;
-    float energySatisfaction;
     private float maxHP;
     private boolean isAlive;
 
@@ -100,6 +100,7 @@ public abstract class LivingEntity extends Entity {
         return "";
     }
 
+
     /**
      * Returns whether this {@code LivingEntity} is alive or not.
      *
@@ -110,10 +111,27 @@ public abstract class LivingEntity extends Entity {
     }
 
     /**
-     * Sets this {@code LivingEntity} to death.
+     * Sets this {@code LivingEntity} to dead.
      *
      */
     public void die() {
         this.isAlive = false;
+    }
+
+    public double positionDifference(double x, double y){
+        double xDiff = x - this.getX();
+        double yDiff = y - this.getY();
+        xDiff = xDiff*xDiff;
+        yDiff = yDiff*yDiff;
+        return Math.sqrt(xDiff + yDiff);
+    }
+    public String getLastAction(){
+        return lastAction;
+    }
+    public void setLastAction(String s){
+        lastAction = s;
+    }
+    public float getHealth(){
+        return health;
     }
 }
