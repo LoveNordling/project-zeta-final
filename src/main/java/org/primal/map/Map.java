@@ -1,5 +1,6 @@
 package org.primal.map;
 
+import org.primal.entity.LivingEntity;
 import org.primal.entity.Animal;
 import org.primal.entity.Giraffe;
 import org.primal.entity.Hyena;
@@ -252,10 +253,9 @@ public class Map {
      * @param tile the tile for the giraffe to be spawned upon
      */
     public void spawnGiraffe(Tile tile) {
-        System.out.println("Y");
         Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
         tile.addLivingEntity(giraffe);
-        System.out.println("Z");
+        
     }
 
     /**
@@ -317,6 +317,23 @@ public class Map {
                 tile.addLivingEntity(plant);
             }
         }
+    }
+    public LivingEntity getClosest(double x, double y){
+        ArrayList<Tile> tiles = getTiles((float) x,(float) y, 1);
+        LivingEntity closest = null;
+        LivingEntity tmp;
+        for(Tile t : tiles){
+            tmp = t.getClosest(x, y);
+            if(closest == null){
+                closest = tmp;
+            }
+            else if(tmp == null){
+            }
+            else if (tmp.positionDifference(x, y) < closest.positionDifference(x, y)){
+                closest = tmp;                
+            }
+        }
+        return closest;
     }
 
     /**

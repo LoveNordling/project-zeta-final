@@ -69,7 +69,7 @@ public class ChaseBehaviour extends Behaviour {
             return;
         } else if (chasedAnimal.getX() - host.getX() < 0.3 && chasedAnimal.getY() - host.getY() < 0.3) {
             host.eat(chasedAnimal);
-            System.out.println(chasedAnimal + " was killed by " + host);
+            //System.out.println(chasedAnimal + " was killed by " + host);
             chasedAnimal = null;
             isChasing = false;
         } else {

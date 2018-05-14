@@ -62,7 +62,7 @@ public class FeedingBehaviour extends Behaviour {
     public void act() {
         if (selectedPlant.getX() - host.getX() < 0.3 && selectedPlant.getY() - host.getY() < 0.3) {
             host.eat(selectedPlant);
-            System.out.println(host + " ate some leaves from a " + selectedPlant);
+            //System.out.println(host + " ate some leaves from a " + selectedPlant);
             decided = false;
             selectedPlant = null;
         } else {

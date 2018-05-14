@@ -96,4 +96,11 @@ public abstract class LivingEntity extends Entity {
     public String getType(){
         return "";
     }
+    public double positionDifference(double x, double y){
+        double xDiff = x - this.getX();
+        double yDiff = y - this.getY();
+        xDiff = xDiff*xDiff;
+        yDiff = yDiff*yDiff;
+        return Math.sqrt(xDiff + yDiff);
+    }
 }

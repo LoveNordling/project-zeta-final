@@ -23,6 +23,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private float conversionRate;
     private boolean commandSent = false;
     private boolean inputMode = false;
+    private boolean tileMode = false;
+    private JLabel infoLabel;
     private JScrollPane parentPanel;
 
     public enum Commands {NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT, UNFREEZECHUNK, ZOOMIN, ZOOMOUT}
@@ -91,6 +93,25 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         doDrawing(g, scaleFactor);
     }
 
+    private int toGraphicTranslate(double x){
+        double convRate = 1/conversionRate;
+        return (int) (x*convRate);
+    }
+    
+    private void createInfoLabel(LivingEntity e){
+        int x = toGraphicTranslate(e.getX());
+        int y = toGraphicTranslate(e.getY());
+        int height = 20; //these will need to be changed when  mor info is added
+        int width = 70;
+
+
+        JLabel prevLabel = infoLabel;
+        infoLabel = new JLabel(e.toString());
+        infoLabel.setBounds(x, y, width, height);
+        //System.out.println("hi");
+        this.add(infoLabel);
+        this.remove(prevLabel);
+    }
     /**
      * translate translates the x and y coordinates of the graphical component to it's backend representation
      *
@@ -379,9 +400,13 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             System.out.println("hej");
             execCommands(coords);
             commandSent = false;
-        } else {
+        } else if(tileMode) {
             Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
             System.out.println(t);
+        } else {
+            LivingEntity e = map.getClosest(((float) coords.getX()), ((float) coords.getY()));
+            System.out.println(e);
+            createInfoLabel(e);
         }
 
         if (inputMode) {
