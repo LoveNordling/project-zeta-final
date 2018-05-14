@@ -221,7 +221,7 @@ public class Map {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int waterWidth = generator.nextInt(10) + 1;
+        int waterWidth = generator.nextInt(30) + 10;
 
         Vec2D[] cornerPairs = new Vec2D[2];
         // Upper left corner
