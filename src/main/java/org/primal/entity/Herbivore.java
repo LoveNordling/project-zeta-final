@@ -9,17 +9,16 @@ public abstract class Herbivore extends Animal {
 
     /**
      * Creates a herbivore object
-     *
      * @param x        = x-coordinate
      * @param y        = y-coordinate
      * @param map      = current Map
-     * @param health   = health points
+     * @param health = health points
      * @param stamina  = stamina points
      * @param fullness = fullness points
+     * @param thirst = thirst level
      */
-
-    public Herbivore(float x, float y, Map map, float health, float stamina, float fullness) {
-        super(x, y, map, health, stamina, fullness);
+    public Herbivore(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
+        super(x, y, map, health, stamina, fullness, thirst);
 
     }
 
@@ -32,7 +31,7 @@ public abstract class Herbivore extends Animal {
     public void eat(LivingEntity food) {
         if (food.isPlant()) {
             this.fullness = 100;
-            this.health = 100;
+            this.health =  100; //NEEDS TO BE TWEAKED SO CAN DIE FROM THIRST
         }
     }
 
@@ -94,6 +93,6 @@ public abstract class Herbivore extends Animal {
      */
     public void starve() {
         kill();
-        System.out.println(this + " was unable to find food and died.");
+        //System.out.println(this + " was unable to find food and died.");
     }
 }

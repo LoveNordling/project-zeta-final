@@ -24,6 +24,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private float conversionRate;
     private boolean commandSent = false;
     private boolean inputMode = false;
+    private boolean tileMode = false;
+    private JLabel infoLabel;
     private JScrollPane parentPanel;
 
     public enum Commands {NOTHING, SPAWNLIONS, PRINTALL, HEJ, KILL, KILLALL, KILLSOME, HEAL, RESPAWN, MASSHEAL, INPUT, LISTCOMMANDS, FREEZECHUNK, SPAWNANIMAL, SPAWNGIRAFFE, SPAWNZEBRA, SPAWNHYENA, SPAWNTREE, SPAWNENVIRONMENT, UNFREEZECHUNK, ZOOMIN, ZOOMOUT}
@@ -95,7 +97,27 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         super.paintComponent(g);
         doDrawing(g, scaleFactor);
     }
+    /**
+     *toGraphicTranslate translate a backend value to it's frontend representation
+     *
+     * @param x the backend version of the value
+     * @return the frontend version of the value
+     */
+    private int toGraphicTranslate(double x){
+        System.out.println(x);
+        return (int) (x/conversionRate);
+    }
+    /**
+     *createInfoLabel creates a JLabel with the info of e at it's position
+     *and removes the last used JLabel
+     *
+     * @param e the entity who's info is to be displayed
+     */
+    private void createInfoLabel(LivingEntity e){
 
+        String labelText = "Entity : " + e.toString() + "\n" + "Last Action : " + e.getLastAction() + "\nHealth : " + e.getHealth();
+        JOptionPane.showMessageDialog(this, labelText, "Entity Info", JOptionPane.PLAIN_MESSAGE);
+    }
     /**
      * translate translates the x and y coordinates of the graphical component to it's backend representation
      *
@@ -375,6 +397,14 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * @param click information generated from the mouse click
      */
     public void mouseClicked(MouseEvent click) {
+        //        System.out.println("map.width :" + map.width + " this.getWidth :" + this.getWidth());
+        //System.out.println("map.getSize : " + map.getSize());
+        //System.out.println("x: " + click.getX() + "y: " + click.getY());
+        //System.out.println("scalefactor : " + scaleFactor);
+        mapWidth = (int)(this.getWidth());
+        conversionRate = ((float) map.getSize()) / ((float) mapWidth);
+        conversionRate = (float)(conversionRate/scaleFactor); 
+
         this.requestFocusInWindow();
         int x = click.getX();
         int y = click.getY();
@@ -384,9 +414,14 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             System.out.println("hej");
             execCommands(coords);
             commandSent = false;
-        } else {
+        } else if(tileMode) {
             Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
             System.out.println(t);
+        } else {
+            //System.out.println("coords: " + coords.getX() + "    " + coords.getY());
+            LivingEntity e = map.getClosest(((float) coords.getX()), ((float) coords.getY()));
+            //System.out.println(e);
+            createInfoLabel(e);
         }
 
         if (inputMode) {

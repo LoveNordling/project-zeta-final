@@ -37,7 +37,19 @@ public class Tile extends SimObject {
     public void update() {
     }
 
-    public void animate() {
+    public LivingEntity getClosest(double x, double y) {
+        LivingEntity closest = null;
+        for (LivingEntity entity : getLivingEntities()) {
+            System.out.println(entity);
+            if (closest == null) {
+                closest = entity;
+            } else if (entity == null) {
+            } else if (entity.positionDifference(x, y) < closest.positionDifference(x, y)) {
+                closest = entity;
+            }
+        }
+
+        return closest;
     }
 
     public boolean isLandTile() {
@@ -56,7 +68,7 @@ public class Tile extends SimObject {
         if (this.livingEntities.contains(ent)) {
             this.livingEntities.remove(ent);
         } else {
-            System.out.println("remove livingEntity failed");
+            //System.out.println("remove livingEntity failed");
         }
     }
 
@@ -89,5 +101,8 @@ public class Tile extends SimObject {
 
     public String toString() {
         return "Tile(x: " + this.getX() + ", y: " + this.getY() + ") has " + this.livingEntities.size() + "animals" + "%n" + this.livingEntities.toString();
+    }
+
+    public void animate() {
     }
 }
