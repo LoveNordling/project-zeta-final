@@ -27,7 +27,6 @@ public abstract class Animal extends LivingEntity {
     private int mapSize = 4 * 16;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
-    private int onceMore = 0;
 
     /**
      * Creates an Animal object.
@@ -142,12 +141,8 @@ public abstract class Animal extends LivingEntity {
             float dotProduct = (float) (movementDirection.getX() * collisionPoint.getX() + movementDirection.getY() * collisionPoint.getY());
             movementDirection.setLocation(movementDirection.getX() - 2 * collisionPoint.getX() * dotProduct, movementDirection.getY() - 2 * collisionPoint.getY() * dotProduct);
 
-            if (onceMore == 0) {
-                onceMore ++;
-                move();
-            }
+            move();
         }
-        onceMore = 0;
         updateShape();
     }
 

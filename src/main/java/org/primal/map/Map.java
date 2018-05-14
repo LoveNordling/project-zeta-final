@@ -10,6 +10,7 @@ import org.primal.util.Vec2D;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import static java.awt.geom.Line2D.linesIntersect;
 
 /**
  * Map holds a 2d array of chunks and handles the logic for spawning entities in the different chunks.
@@ -21,8 +22,7 @@ public class Map {
     private int mapSize;
     private int chunkSize;
     private Chunk[][] chunks;
-    private ArrayList<Vec2D> ULwaterCorners = new ArrayList<>();
-    private ArrayList<Vec2D> LRwaterCorners = new ArrayList<>();
+    private ArrayList<Vec2D[]> waterCorners = new ArrayList<>();
 
     /**
      * Creates a map with width x width chunks and randomly adds water, plants and animals.
@@ -40,7 +40,7 @@ public class Map {
         chunkSize = 16;
         mapSize = width * chunkSize;
 
-        for (int i = 0; i < mapSize / 20; i++) {
+        for (int i = 0; i < 5; i++) {
             addWaterTiles();
         }
 
@@ -150,63 +150,45 @@ public class Map {
         } else if (y >= mapSize) {
             return new Vec2D(0, -1);
         } else {
-            return checkTileCollision(x, y, newPos, dir);
+            return checkWaterCollision(x, y, newPos, dir);
         }
     }
 
-    public Vec2D checkTileCollision(double x, double y, Vec2D newPos, Vec2D direction) {
-
+    /**
+     * Checks if new position is within a water area.
+     * If it is within water area directional points out of water area are returned.
+     * Otherwise direction does not change and (0,0) is returned.
+     *
+     * @param x Current x coordinate.
+     * @param y Current y coordinate.
+     * @param newPos New suggested position.
+     * @param direction Movement direction of animal.
+     * @return (0,0) if not in water area, else points in opposite direction.
+     */
+    public Vec2D checkWaterCollision(double x, double y, Vec2D newPos, Vec2D direction) {
         double newX = newPos.getX();
         double newY = newPos.getY();
 
-        double dir = Math.toDegrees(Math.acos(direction.getX()));
+        for (Vec2D[] cornerPairs : waterCorners) {
+            Vec2D ul = cornerPairs[0];
+            Vec2D lr = cornerPairs[1];
+            if (x >= ul.getX() && x <= lr.getX() && y >= ul.getY() && y <= lr.getY()) {
+                // A fix for if animal is already in the water area.
+                x -= direction.getX() * 10;
+                y -= direction.getY() * 10;
 
-        for (Vec2D ul : ULwaterCorners) {
-            for (Vec2D lr : LRwaterCorners) {
-                if (x >= ul.getX() && x <= lr.getX() && y >= ul.getY() && y <= lr.getY()) {
-
-                    x -= direction.getX()*10;
-                    y -= direction.getY()*10;
-
-                    if (intersects(ul.getX(), ul.getY(), ul.getX(), lr.getY(), x, y, newX, newY)) {
-                        System.out.println("LEFT");
-                        return new Vec2D(-1, 0);
-                    } else if (intersects(lr.getX(), ul.getY(), lr.getX(), lr.getY(), x, y, newX, newY)) {
-                        System.out.println("RIGHT");
-                        return new Vec2D(1, 0);
-                    } else if (intersects(ul.getX(), lr.getY(), lr.getX(), lr.getY(), x, y, newX, newY)) {
-                        System.out.println("LOWER");
-                        return new Vec2D(0, 1);
-                    } else if (intersects(ul.getX(), ul.getY(), lr.getX(), ul.getY(), x, y, newX, newY)) {
-                        System.out.println("UPPER");
-                        return new Vec2D(0, -1);
-                    }
+                if (linesIntersect(ul.getX(), ul.getY(), ul.getX(), lr.getY(), x, y, newX, newY)) {
+                    return new Vec2D(-1, 0);
+                } else if (linesIntersect(lr.getX(), ul.getY(), lr.getX(), lr.getY(), x, y, newX, newY)) {
+                    return new Vec2D(1, 0);
+                } else if (linesIntersect(ul.getX(), lr.getY(), lr.getX(), lr.getY(), x, y, newX, newY)) {
+                    return new Vec2D(0, 1);
+                } else if (linesIntersect(ul.getX(), ul.getY(), lr.getX(), ul.getY(), x, y, newX, newY)) {
+                    return new Vec2D(0, -1);
                 }
             }
         }
-        return new Vec2D(0,0);
-    }
-
-    public boolean intersects(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
-        double bx = x2 - x1;
-        double by = y2 - y1;
-        double dx = x4 - x3;
-        double dy = y4 - y3;
-        double b_dot_d_perp = bx * dy - by * dx;
-        if (b_dot_d_perp == 0) {
-            return false;
-        }
-        double cx = x3 - x1;
-        double cy = y3 - y1;
-        double t = (cx * dy - cy * dx) / b_dot_d_perp;
-        if (t < 0 || t > 1) {
-            return false;
-        }
-        double u = (cx * by - cy * bx) / b_dot_d_perp;
-        if (u < 0 || u > 1) {
-            return false;
-        }
-        return true;
+        return new Vec2D(0, 0);
     }
 
     /**
@@ -222,6 +204,7 @@ public class Map {
 
     /**
      * Randomly selects a group of tiles with a random radius between 1 and 2.
+     * Saves upper left and the lower right corner for collision detection.
      * Then iterates through the tiles and replaces the chosen ones with water tiles.
      */
     private void addWaterTiles() {
@@ -230,10 +213,12 @@ public class Map {
         int randY = generator.nextInt(mapSize) + 1;
         int waterWidth = generator.nextInt(10) + 1;
 
-        ULwaterCorners.add(new Vec2D(randX - waterWidth, randY - waterWidth));
-        LRwaterCorners.add(new Vec2D(randX + waterWidth + 1, randY + waterWidth + 1));
-
-        System.out.println(waterWidth + " " + randX + " " + (randX + waterWidth + 0.5));
+        Vec2D[] cornerPairs = new Vec2D[2];
+        // Upper left corner
+        cornerPairs[0] = new Vec2D(randX - waterWidth, randY - waterWidth);
+        // Lower right corner
+        cornerPairs[1] = new Vec2D(randX + waterWidth + 1, randY + waterWidth + 1);
+        waterCorners.add(cornerPairs);
 
         ArrayList<Tile> tiles = getTiles(randX, randY, waterWidth);
         for (Tile tile : tiles) {
