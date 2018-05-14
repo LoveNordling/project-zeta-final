@@ -102,15 +102,20 @@ public class Simulation {
     private class Worker implements Runnable {
 
         Chunk myChunk;
+        private boolean init = true;
 
         Worker(Chunk chunk) {
             myChunk = chunk;
-            myChunk.renderImage();
         }
 
         @Override
         public void run() {
-            myChunk.updateChunk();
+            if (init) {
+                myChunk.renderImage();
+                init = false;
+            } else {
+                myChunk.updateChunk();
+            }
 
             try {
                 updateLoopSynchronizationBarrier.await();
