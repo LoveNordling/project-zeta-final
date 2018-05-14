@@ -138,7 +138,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * useful in case of unexpected nuke
      */
     private void spawnEnvironment() {
-        map.addPlants();
+        //map.addPlants();
     }
 
     /**

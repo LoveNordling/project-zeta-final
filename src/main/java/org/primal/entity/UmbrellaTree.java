@@ -7,10 +7,10 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Tree extends Plant {
+public class UmbrellaTree extends Plant {
 
     /**
-     * Creates a tree object.
+     * Creates a Umbrella tree object.
      *
      * @param x    = the x-coordinate
      * @param y    = the y-coordinate
@@ -18,7 +18,7 @@ public class Tree extends Plant {
      * @param size = starting size of the Shape
      */
 
-    public Tree(float x, float y, Map map, float size) {
+    public UmbrellaTree(float x, float y, Map map, float size) {
         super(x, y, map);
         this.color = new Color(ThreadLocalRandom.current().nextInt(30, 100), 158, 9, 80);
         float visualSize = Tile.getSize() * size;
@@ -27,6 +27,6 @@ public class Tree extends Plant {
 
     @Override
     public String toString() {
-        return "Tree";
+        return "UmbrellaTree";
     }
 }
