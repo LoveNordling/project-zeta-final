@@ -1,6 +1,7 @@
 package org.primal.map;
 
-import org.primal.entity.LivingEntity;
+
+import org.primal.entity.*;
 import org.primal.entity.Animal;
 import org.primal.entity.Giraffe;
 import org.primal.entity.Hyena;
@@ -19,6 +20,7 @@ import org.primal.util.Vec2D;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import static java.awt.geom.Line2D.linesIntersect;
 
 /**
  * Map holds a 2d array of chunks and handles the logic for spawning entities in the different chunks.
@@ -30,6 +32,7 @@ public class Map {
     private int mapSize;
     private int chunkSize;
     private Chunk[][] chunks;
+    private ArrayList<Vec2D[]> waterCorners = new ArrayList<>();
 
     /**
      * Creates a map with width x width chunks and randomly adds water, plants and animals.
@@ -148,7 +151,7 @@ public class Map {
      * @return X and y points in direction to move.
      * (0,0) if within bounds, else points in opposite direction of initial x and y.
      */
-    public Vec2D checkCollision(double x, double y) {
+    public Vec2D checkCollision(double x, double y, Vec2D newPos, Vec2D dir) {
         if (x <= 0) {
             return new Vec2D(1, 0);
         } else if (y <= 0) {
@@ -158,8 +161,45 @@ public class Map {
         } else if (y >= mapSize) {
             return new Vec2D(0, -1);
         } else {
-            return new Vec2D(0, 0);
+            return checkWaterCollision(x, y, newPos, dir);
         }
+    }
+
+    /**
+     * Checks if new position is within a water area.
+     * If it is within water area directional points out of water area are returned.
+     * Otherwise direction does not change and (0,0) is returned.
+     *
+     * @param x Current x coordinate.
+     * @param y Current y coordinate.
+     * @param newPos New suggested position.
+     * @param direction Movement direction of animal.
+     * @return (0,0) if not in water area, else points in opposite direction.
+     */
+    public Vec2D checkWaterCollision(double x, double y, Vec2D newPos, Vec2D direction) {
+        double newX = newPos.getX();
+        double newY = newPos.getY();
+
+        for (Vec2D[] cornerPairs : waterCorners) {
+            Vec2D ul = cornerPairs[0];
+            Vec2D lr = cornerPairs[1];
+            if (x >= ul.getX() && x <= lr.getX() && y >= ul.getY() && y <= lr.getY()) {
+                // A fix for if animal is already in the water area.
+                x -= direction.getX() * 10;
+                y -= direction.getY() * 10;
+
+                if (linesIntersect(ul.getX(), ul.getY(), ul.getX(), lr.getY(), x, y, newX, newY)) {
+                    return new Vec2D(-1, 0);
+                } else if (linesIntersect(lr.getX(), ul.getY(), lr.getX(), lr.getY(), x, y, newX, newY)) {
+                    return new Vec2D(1, 0);
+                } else if (linesIntersect(ul.getX(), lr.getY(), lr.getX(), lr.getY(), x, y, newX, newY)) {
+                    return new Vec2D(0, 1);
+                } else if (linesIntersect(ul.getX(), ul.getY(), lr.getX(), ul.getY(), x, y, newX, newY)) {
+                    return new Vec2D(0, -1);
+                }
+            }
+        }
+        return new Vec2D(0, 0);
     }
 
     /**
@@ -175,6 +215,7 @@ public class Map {
 
     /**
      * Randomly selects a group of tiles with a random radius between 1 and 2.
+     * Saves upper left and the lower right corner for collision detection.
      * Then iterates through the tiles and replaces the chosen ones with water tiles.
      */
     private void addWaterTiles() {
@@ -182,6 +223,13 @@ public class Map {
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
         int waterWidth = generator.nextInt(30) + 10;
+
+        Vec2D[] cornerPairs = new Vec2D[2];
+        // Upper left corner
+        cornerPairs[0] = new Vec2D(randX - waterWidth, randY - waterWidth);
+        // Lower right corner
+        cornerPairs[1] = new Vec2D(randX + waterWidth + 1, randY + waterWidth + 1);
+        waterCorners.add(cornerPairs);
 
         ArrayList<Tile> tiles = getTiles(randX, randY, waterWidth);
         for (Tile tile : tiles) {
