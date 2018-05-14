@@ -284,7 +284,7 @@ public class Map {
      * @param tile the tile for the lion to be spawned upon
      */
     public void spawnLion(Tile tile) {
-        Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+        Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
         tile.addLivingEntity(lion);
     }
 
@@ -294,7 +294,7 @@ public class Map {
      * @param tile the tile for the zebra to be spawned upon
      */
     public void spawnZebra(Tile tile) {
-        Zebra zebra = new Zebra(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+        Zebra zebra = new Zebra(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
         tile.addLivingEntity(zebra);
     }
 
@@ -306,7 +306,7 @@ public class Map {
      */
     public void spawnLion(Tile tile, int amount) {
         for (int i = 0; i < amount; i++) {
-            Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+            Lion lion = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
             tile.addLivingEntity(lion);
         }
     }
@@ -318,7 +318,7 @@ public class Map {
      */
     public void spawnGiraffe(Tile tile) {
         System.out.println("Y");
-        Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+        Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
         tile.addLivingEntity(giraffe);
         System.out.println("Z");
     }
@@ -331,7 +331,7 @@ public class Map {
      */
     public void spawnGiraffe(Tile tile, int amount) {
         for (int i = 0; i < amount; i++) {
-            Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+            Giraffe giraffe = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
             tile.addLivingEntity(giraffe);
         }
     }
@@ -353,11 +353,11 @@ public class Map {
         for (Tile tile : tiles) {
             if (tile.isLandTile()) {
                 if (species == 0) {
-                    animal = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+                    animal = new Lion(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
                 } else if (species == 1) {
-                    animal = new Hyena(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+                    animal = new Hyena(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
                 } else {
-                    animal = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f);
+                    animal = new Giraffe(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
                 }
                 tile.addLivingEntity(animal);
             }
