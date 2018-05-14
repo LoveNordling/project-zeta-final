@@ -1,18 +1,7 @@
 package org.primal.map;
 
-import org.primal.entity.Animal;
-import org.primal.entity.Giraffe;
-import org.primal.entity.Hyena;
-import org.primal.entity.Lion;
-import org.primal.entity.MankettiTree;
-import org.primal.entity.Plant;
-import org.primal.entity.UmbrellaTree;
-import org.primal.entity.Zebra;
-import org.primal.tile.DirtTile;
-import org.primal.tile.LandTile;
-import org.primal.tile.SandTile;
-import org.primal.tile.Tile;
-import org.primal.tile.WaterTile;
+import org.primal.entity.*;
+import org.primal.tile.*;
 import org.primal.util.Vec2D;
 
 import java.util.ArrayList;
@@ -49,29 +38,41 @@ public class Map {
         chunkSize = 16;
         mapSize = width * chunkSize;
 
-        for (int i = 0; i < mapSize / Math.pow(5, 2); i++) {
+        for (int i = 0; i < spawnAmount(5); i++) {
             addWaterTiles();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(3, 2); i++) {
+        for (int i = 0; i < spawnAmount(3); i++) {
             addSandTiles();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(4, 2); i++) {
+        for (int i = 0; i < spawnAmount(4); i++) {
             addDirtTiles();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(2, 2); i++) {
+        for (int i = 0; i < spawnAmount(2); i++) {
             addAnimals();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(1, 2); i++) {
+        for (int i = 0; i < spawnAmount(1); i++) {
             addUmbrellaTrees();
         }
 
-        for (int i = 0; i < mapSize / Math.pow(1, 2); i++) {
+        for (int i = 0; i < spawnAmount(1); i++) {
             addMankettiTrees();
         }
+    }
+
+
+    /**
+     * Returns a number to use when creating all SimObjects to get a dynamic amount of SimObjects,
+     * depending on the size of the map.
+     *
+     * @param n A number which the return value depends on. Small n = big return value. Big n = small return value.
+     * @return A dynamic number depending on n and mapSize.
+     */
+    private int spawnAmount(int n) {
+        return (int) (mapSize / Math.pow(n, 2)) + 1;
     }
 
     /**
@@ -221,7 +222,7 @@ public class Map {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int waterWidth = generator.nextInt(30) + 10;
+        int waterWidth = generator.nextInt(spawnAmount(4)) + width / 2;
 
         Vec2D[] cornerPairs = new Vec2D[2];
         // Upper left corner
@@ -232,7 +233,7 @@ public class Map {
 
         ArrayList<Tile> tiles = getTiles(randX, randY, waterWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 replaceTile(tile, new WaterTile(tile.getX(), tile.getY(), this));
             }
         }
@@ -242,11 +243,11 @@ public class Map {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int sandWidth = generator.nextInt(10) + 5;
+        int sandWidth = generator.nextInt(spawnAmount(4)) +  width / 2;
 
         ArrayList<Tile> tiles = getTiles(randX, randY, sandWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 replaceTile(tile, new SandTile(tile.getX(), tile.getY(), this));
             }
         }
@@ -256,11 +257,11 @@ public class Map {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int sandWidth = generator.nextInt(10) + 5;
+        int sandWidth = generator.nextInt(spawnAmount(4)) + width / 2;
 
         ArrayList<Tile> tiles = getTiles(randX, randY, sandWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 replaceTile(tile, new DirtTile(tile.getX(), tile.getY(), this));
             }
         }
@@ -376,7 +377,7 @@ public class Map {
 
         ArrayList<Tile> tiles = getTiles(randX, randY, forestWidth);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 float treeSize = generator.nextInt(2) + 1.5f;
                 Plant plant = new UmbrellaTree(tile.getX(), tile.getY(), this, treeSize);
                 tile.addLivingEntity(plant);
@@ -388,11 +389,10 @@ public class Map {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int forestWidth = generator.nextInt(1);
 
-        ArrayList<Tile> tiles = getTiles(randX, randY, forestWidth);
+        ArrayList<Tile> tiles = getTiles(randX, randY, 0);
         for (Tile tile : tiles) {
-            if (tile instanceof LandTile) {
+            if (tile.isLandTile()) {
                 float treeSize = generator.nextInt(1) + 0.5f;
                 Plant plant = new MankettiTree(tile.getX(), tile.getY(), this, treeSize);
                 tile.addLivingEntity(plant);
