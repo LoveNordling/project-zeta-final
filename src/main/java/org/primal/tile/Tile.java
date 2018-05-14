@@ -34,6 +34,10 @@ public class Tile extends SimObject {
     public void update() {
     }
 
+    public boolean isLandTile() {
+        return true;
+    }
+
     public List<Pixel> getPixels() {
         return this.pixels;
     }

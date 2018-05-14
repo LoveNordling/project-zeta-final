@@ -37,4 +37,8 @@ public class WaterTile extends Tile {
         }
         updateCount++;
     }
+
+    public boolean isLandTile() {
+        return false;
+    }
 }
