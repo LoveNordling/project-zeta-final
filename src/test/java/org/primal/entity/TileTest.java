@@ -18,8 +18,8 @@ public class TileTest {
     @BeforeEach
     private void init() {
         tile = new LandTile(0f, 0f, map);
-        hyena = new Hyena(0, 0, map, 0, 0);
-        zebra = new Zebra(0,0,map,0,0);
+        hyena = new Hyena(0, 0, map, 0, 0, 0);
+        zebra = new Zebra(0,0,map,0,0, 0);
 
     }
 

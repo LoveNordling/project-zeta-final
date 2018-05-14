@@ -13,7 +13,6 @@ public abstract class LivingEntity extends Entity {
     protected float shapeSize;
     protected String lastAction = "Nothing";
     float health;
-    float energySatisfaction;
     private float maxHP;
     
 

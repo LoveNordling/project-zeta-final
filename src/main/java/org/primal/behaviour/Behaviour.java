@@ -12,14 +12,30 @@ public class Behaviour {
     Map map;
     Animal host;
 
+    /**
+     * Creates a behaviour. A behaviour is a function where the weight of the behaviour is dependant on different parameters.
+     * The most heavily weighted behaviour will be acted upon. This is used to create behaviours where animals chase each other
+     * or look for food for example.
+     * @param host = the animal who has this behaviour.
+     * @param map = the current Map.
+     */
+
     public Behaviour(Animal host, Map map) {
         this.map = map;
         this.host = host;
     }
 
+    /**
+     * The decide method sets the weight of the behaviour.
+     */
+
     public void decide() {
         this.weight = 10;
     }
+
+    /**
+     * The act method acts upon the decided behaviour, carrying out the desired function.
+     */
 
     public void act() {
         Vec2D position = host.getPosition();
@@ -39,6 +55,10 @@ public class Behaviour {
         host.setLastAction("Move");
     }
 
+    /**
+     * Returns the weight of the behaviour.
+     * @return int The weight of the behaviour.
+     */
     public int getWeight() {
         return weight;
     }
