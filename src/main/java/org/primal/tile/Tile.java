@@ -5,15 +5,12 @@ import org.primal.entity.LivingEntity;
 import org.primal.map.Map;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Tile extends SimObject {
 
     Color[][] colors = new Color[3][3];
     private static int size = 30;
-    List<Pixel> pixels;
     private ConcurrentLinkedQueue<LivingEntity> livingEntities;
 
     /**
@@ -26,7 +23,6 @@ public class Tile extends SimObject {
     public Tile(float x, float y, Map map) {
         super(x, y, map);
         this.livingEntities = new ConcurrentLinkedQueue<>();
-        this.pixels = new ArrayList<>();
     }
 
     public Tile(float x, float y, Map map, ConcurrentLinkedQueue<LivingEntity> livingEntities) {
@@ -41,12 +37,15 @@ public class Tile extends SimObject {
     public void update() {
     }
 
+    public void animate() {
+    }
+
     public boolean isLandTile() {
         return true;
     }
 
-    public List<Pixel> getPixels() {
-        return this.pixels;
+    public boolean isAnimated() {
+        return false;
     }
 
     public void addLivingEntity(LivingEntity ent) {

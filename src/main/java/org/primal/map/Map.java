@@ -268,6 +268,10 @@ public class Map {
 
     private void replaceTile(Tile old, Tile replacer) {
         Chunk chunk = getChunk((int) old.getX() / chunkSize, (int) old.getY() / chunkSize);
+        if (!chunk.isAnimated() && replacer.isAnimated()) {
+            chunk.setAnimated(true);
+        }
+
         Tile[][] tiles = chunk.getTiles();
         for (int z = 0; z < 16; z++) {
             for (int w = 0; w < 16; w++) {

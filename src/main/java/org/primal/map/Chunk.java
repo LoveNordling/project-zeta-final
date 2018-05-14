@@ -15,6 +15,7 @@ public class Chunk extends SimObject {
     private int id;
     private boolean isFrozen = false;
     private BufferedImage image;
+    private boolean isAnimated = false;
 
     /**
      * Creates a chunk object
@@ -42,7 +43,6 @@ public class Chunk extends SimObject {
      * Iterates over each pixel inside of a chunk and renders it to a BufferedImage.
      */
     public void renderImage() {
-        System.out.println("Chunk generated");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (int k = 0; k < 30; k++) {
@@ -83,6 +83,25 @@ public class Chunk extends SimObject {
      */
     public void unfreeze() {
         isFrozen = false;
+    }
+
+    public boolean isAnimated() {
+        return isAnimated;
+    }
+
+    public void setAnimated(boolean animated) {
+        isAnimated = animated;
+    }
+
+    public void animate() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (tiles[i][j].isAnimated()) {
+                    tiles[i][j].animate();
+                }
+            }
+        }
+        renderImage();
     }
 
     public void printChunk() {
