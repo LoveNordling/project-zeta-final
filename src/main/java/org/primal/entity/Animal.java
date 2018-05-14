@@ -37,6 +37,7 @@ public abstract class Animal extends LivingEntity {
      * @param health   = starting health-points
      * @param stamina  = starting stamina-points
      * @param fullness = starting fullness points
+     * @param thirst = starting thirst points
      */
     public Animal(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
         // TODO: remove static x y below.

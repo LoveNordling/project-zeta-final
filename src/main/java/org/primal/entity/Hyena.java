@@ -14,12 +14,12 @@ public class Hyena extends Carnivore {
     /**
      * Creates a Hyena object
      * Creates a new carnivore object
-     *
      * @param x        = x-coordinate
      * @param y        = y-coordinate
      * @param map      = current Map
      * @param stamina  = stamina points
      * @param fullness = fullness points
+     * @param thirst = thirst level
      */
 
     public Hyena(float x, float y, Map map, float stamina, float fullness, float thirst) {
