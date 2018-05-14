@@ -1,9 +1,6 @@
 package org.primal.entity;
 
-import org.primal.behaviour.Behaviour;
-import org.primal.behaviour.BreedingBehaviour;
-import org.primal.behaviour.FeedingBehaviour;
-import org.primal.behaviour.SearchFoodBehaviour;
+import org.primal.behaviour.*;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
 
@@ -22,16 +19,19 @@ public class Giraffe extends Herbivore {
      * @param fullness = fullness points
      */
 
-    public Giraffe(float x, float y, Map map, float stamina, float fullness) {
-        super(x, y, map, 100, stamina, fullness);
+    public Giraffe(float x, float y, Map map, float stamina, float fullness, float thirst) {
+        super(x, y, map, 100, stamina, fullness, thirst);
         Behaviour breedBehaviour = new BreedingBehaviour(this, map);
         Behaviour searchBehaviour = new SearchFoodBehaviour(this, map);
         Behaviour foodBehaviour = new FeedingBehaviour(this, map);
+        Behaviour thirstBehaviour = new ThirstBehaviour(this, map);
+
         this.behaviours = new LinkedList<>();
 
         this.behaviours.add(searchBehaviour);
         this.behaviours.add(foodBehaviour);
         this.behaviours.add(breedBehaviour);
+        this.behaviours.add(thirstBehaviour);
 
         starvationRate = 1;
         this.color = new java.awt.Color(255, 251, 0);

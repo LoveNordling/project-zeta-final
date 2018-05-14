@@ -13,7 +13,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-
 public abstract class Animal extends LivingEntity {
 
     private static AtomicInteger counter = new AtomicInteger();
@@ -22,6 +21,7 @@ public abstract class Animal extends LivingEntity {
     float starvationRate = 0.0001f;
     float stamina;
     float fullness;
+    float thirst;
     LinkedList<Behaviour> behaviours;
     private int id;
     private int mapSize = 4 * 16;
@@ -38,7 +38,7 @@ public abstract class Animal extends LivingEntity {
      * @param stamina  = starting stamina-points
      * @param fullness = starting fullness points
      */
-    public Animal(float x, float y, Map map, float health, float stamina, float fullness) {
+    public Animal(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
         // TODO: remove static x y below.
         super(x, y, map, health);
 
@@ -46,6 +46,7 @@ public abstract class Animal extends LivingEntity {
 
         this.stamina = stamina;
         this.fullness = fullness;
+        this.thirst = thirst;
         energySatisfaction = 100;
         this.id = counter.getAndIncrement();
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
@@ -63,7 +64,7 @@ public abstract class Animal extends LivingEntity {
      * @param map = the current Map
      */
     public Animal(float x, float y, Map map) {
-        this(x, y, map, 100, 100, 100);
+        this(x, y, map, 100, 100, 100, 100);
     }
 
     /**
@@ -215,6 +216,14 @@ public abstract class Animal extends LivingEntity {
 
 
     /**
+     * Function for drinking water (100 = not thirsty at all)
+     */
+    public void drink() {
+        this.thirst = 100;
+    }
+
+
+    /**
      * Updates the position of an animal.
      *
      * @param p = the current position
@@ -239,6 +248,15 @@ public abstract class Animal extends LivingEntity {
      */
     public float getStamina() {
         return this.stamina;
+    }
+
+
+    /**
+     * Returns the thirst level of the animal
+     * @return float The thirst level of the animal (0 - 100)
+     */
+    public float getThirst() {
+        return this.thirst;
     }
 
 
@@ -274,5 +292,9 @@ public abstract class Animal extends LivingEntity {
         this.movementDirection = p;
     }
 
+    /**
+     * Function for starving (killing the animal and removing it from the map). Used when health <= 0.
+     */
     public abstract void starve();
+
 }

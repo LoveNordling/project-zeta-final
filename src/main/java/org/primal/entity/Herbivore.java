@@ -18,8 +18,8 @@ public abstract class Herbivore extends Animal {
      * @param fullness = fullness points
      */
 
-    public Herbivore(float x, float y, Map map, float health, float stamina, float fullness) {
-        super(x, y, map, health, stamina, fullness);
+    public Herbivore(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
+        super(x, y, map, health, stamina, fullness, thirst);
 
     }
 

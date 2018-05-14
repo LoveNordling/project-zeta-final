@@ -20,7 +20,7 @@ public class EatTest {
         this.map = new Map(1);
         this.lion1 = new Lion(0, 0, map, 50, 50 );
         this.lion2 = new Lion(0, 0, map, 50, 50);
-        this.giraffe = new Giraffe(0, 0, map, 100, 50);
+        this.giraffe = new Giraffe(0, 0, map, 100, 50, 100);
 
     }
 

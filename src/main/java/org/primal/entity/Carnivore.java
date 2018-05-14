@@ -16,8 +16,8 @@ public abstract class Carnivore extends Animal {
      * @param fullness = fullness points
      */
 
-    public Carnivore(float x, float y, Map map, float health, float stamina, float fullness) {
-        super(x, y, map, health, fullness, stamina);
+    public Carnivore(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
+        super(x, y, map, health, fullness, stamina, thirst);
     }
 
     /**
