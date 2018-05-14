@@ -133,7 +133,7 @@ public abstract class Animal extends LivingEntity {
      */
     public void move() {
         Vec2D newPos = new Vec2D((this.position.getX() + movementDirection.getX() * speed), (this.position.getY() + movementDirection.getY() * speed));
-        Vec2D collisionPoint = map.checkCollision(newPos.getX(), newPos.getY());
+        Vec2D collisionPoint = map.checkCollision(newPos.getX(), newPos.getY(), newPos, movementDirection);
         if (collisionPoint.getX() == 0 && collisionPoint.getY() == 0) {
             this.position.setLocation(Math.max(newPos.getX(), 0), Math.max(newPos.getY(), 0));
         } else {
@@ -143,7 +143,6 @@ public abstract class Animal extends LivingEntity {
 
             move();
         }
-
         updateShape();
     }
 
