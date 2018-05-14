@@ -19,8 +19,10 @@ public class BreedingBehaviour extends Behaviour {
         else{
             weight = 0;
         }
+
     }
     public void act(){
         host.breed();
+        host.setLastAction("Experienced the miracle of child birth");
     }
 }

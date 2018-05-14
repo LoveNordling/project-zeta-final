@@ -408,7 +408,7 @@ public class Map {
      * @return the livingEntity closest to the point
      */
     public LivingEntity getClosest(double x, double y){
-        ArrayList<Tile> tiles = getTiles((float) x,(float) y, 1);
+        ArrayList<Tile> tiles = getTiles((float) x,(float) y, 5);
         LivingEntity closest = null;
         LivingEntity tmp;
         for(Tile t : tiles){

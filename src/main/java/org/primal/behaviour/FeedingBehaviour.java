@@ -71,6 +71,7 @@ public class FeedingBehaviour extends Behaviour {
             host.setDirection(this.chaseDir);
             host.move();
         }
+        host.setLastAction("ate some leaves from a " + selectedPlant);
 
     }
 

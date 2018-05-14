@@ -76,5 +76,6 @@ public class ChaseBehaviour extends Behaviour {
             host.setDirection(this.chaseDir);
             host.move();
         }
+        host.setLastAction("Chasing " + chasedAnimal);
     }
 }

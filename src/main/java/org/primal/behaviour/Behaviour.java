@@ -36,6 +36,7 @@ public class Behaviour {
         newDir = new Vec2D(newDirX, newDirY);
         host.setDirection(newDir);
         host.move();
+        host.setLastAction("Move");
     }
 
     public int getWeight() {

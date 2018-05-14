@@ -102,8 +102,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * @return the frontend version of the value
      */
     private int toGraphicTranslate(double x){
-        double convRate = 1/conversionRate;
-        return (int) (x*convRate);
+        System.out.println(x);
+        return (int) (x/conversionRate);
     }
     /**
      *createInfoLabel creates a JLabel with the info of e at it's position
@@ -112,18 +112,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * @param e the entity who's info is to be displayed
      */
     private void createInfoLabel(LivingEntity e){
-        int x = toGraphicTranslate(e.getX());
-        int y = toGraphicTranslate(e.getY());
-        int height = 20; //these will need to be changed when  mor info is added
-        int width = 70;
 
-
-        JLabel prevLabel = infoLabel;
-        infoLabel = new JLabel(e.toString());
-        infoLabel.setBounds(x, y, width, height);
-        //System.out.println("hi");
-        this.add(infoLabel);
-        this.remove(prevLabel);
+        String labelText = "Entity : " + e.toString() + "\n" + "Last Action : " + e.getLastAction() + "\nHealth : " + e.getHealth();
+        JOptionPane.showMessageDialog(this, labelText, "Entity Info", JOptionPane.PLAIN_MESSAGE);
     }
     /**
      * translate translates the x and y coordinates of the graphical component to it's backend representation
@@ -404,6 +395,14 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * @param click information generated from the mouse click
      */
     public void mouseClicked(MouseEvent click) {
+        //        System.out.println("map.width :" + map.width + " this.getWidth :" + this.getWidth());
+        //System.out.println("map.getSize : " + map.getSize());
+        //System.out.println("x: " + click.getX() + "y: " + click.getY());
+        //System.out.println("scalefactor : " + scaleFactor);
+        mapWidth = (int)(this.getWidth());
+        conversionRate = ((float) map.getSize()) / ((float) mapWidth);
+        conversionRate = (float)(conversionRate/scaleFactor); 
+
         this.requestFocusInWindow();
         int x = click.getX();
         int y = click.getY();
@@ -417,8 +416,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
             Tile t = map.getTile(((float) coords.getX()), ((float) coords.getY()));
             System.out.println(t);
         } else {
+            //System.out.println("coords: " + coords.getX() + "    " + coords.getY());
             LivingEntity e = map.getClosest(((float) coords.getX()), ((float) coords.getY()));
-            System.out.println(e);
+            //System.out.println(e);
             createInfoLabel(e);
         }
 
