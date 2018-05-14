@@ -6,6 +6,7 @@ import org.primal.entity.UmbrellaTree;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
 import org.primal.util.Vec2D;
+import org.primal.entity.Plant;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class FeedingBehaviour extends Behaviour {
 
     protected Vec2D chaseDir;
     private boolean decided = false;
-    private UmbrellaTree selectedPlant;
+    private Plant selectedPlant;
 
     /**
      * Behaviour used for herbivores to search for food. It will check surrounding tiles and see if there is tree nearby. If
@@ -42,7 +43,7 @@ public class FeedingBehaviour extends Behaviour {
                         this.chaseDir = new Vec2D(entity.getX() - host.getX(), entity.getY() - host.getY());
                         chaseDir = chaseDir.normalize();
 
-                        selectedPlant = (UmbrellaTree) entity;
+                        selectedPlant = (Plant) entity;
                         decided = true;
                         return;
                     }
