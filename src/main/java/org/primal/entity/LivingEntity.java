@@ -11,8 +11,10 @@ public abstract class LivingEntity extends Entity {
     protected Ellipse2D.Float shape;
     protected Color color;
     protected float shapeSize;
+    protected String lastAction = "Nothing";
     float health;
     private float maxHP;
+    
 
     /**
      * Creates a living entity. Classes such as Animals extends this class.
@@ -94,5 +96,21 @@ public abstract class LivingEntity extends Entity {
      */
     public String getType(){
         return "";
+    }
+    public double positionDifference(double x, double y){
+        double xDiff = x - this.getX();
+        double yDiff = y - this.getY();
+        xDiff = xDiff*xDiff;
+        yDiff = yDiff*yDiff;
+        return Math.sqrt(xDiff + yDiff);
+    }
+    public String getLastAction(){
+        return lastAction;
+    }
+    public void setLastAction(String s){
+        lastAction = s;
+    }
+    public float getHealth(){
+        return health;
     }
 }

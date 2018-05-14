@@ -93,6 +93,6 @@ public abstract class Herbivore extends Animal {
      */
     public void starve() {
         kill();
-        System.out.println(this + " was unable to find food and died.");
+        //System.out.println(this + " was unable to find food and died.");
     }
 }

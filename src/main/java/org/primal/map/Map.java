@@ -1,5 +1,6 @@
 package org.primal.map;
 
+
 import org.primal.entity.*;
 import org.primal.tile.*;
 import org.primal.util.Vec2D;
@@ -337,6 +338,30 @@ public class Map {
                 tile.addLivingEntity(plant);
             }
         }
+    }
+    /**getClosest gets the animal livingEntity with the positions closest 
+     * to the point with the positions x, y 
+     *
+     * @param x the x position of the point
+     * @param y the y -||-  
+     * @return the livingEntity closest to the point
+     */
+    public LivingEntity getClosest(double x, double y){
+        ArrayList<Tile> tiles = getTiles((float) x,(float) y, 5);
+        LivingEntity closest = null;
+        LivingEntity tmp;
+        for(Tile t : tiles){
+            tmp = t.getClosest(x, y);
+            if(closest == null){
+                closest = tmp;
+            }
+            else if(tmp == null){
+            }
+            else if (tmp.positionDifference(x, y) < closest.positionDifference(x, y)){
+                closest = tmp;                
+            }
+        }
+        return closest;
     }
 
     /**

@@ -29,6 +29,7 @@ public class BreedingBehaviour extends Behaviour {
         else{
             weight = 0;
         }
+
     }
 
     /**
@@ -36,5 +37,6 @@ public class BreedingBehaviour extends Behaviour {
      */
     public void act(){
         host.breed();
+        host.setLastAction("Experienced the miracle of child birth");
     }
 }
