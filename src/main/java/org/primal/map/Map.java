@@ -1,6 +1,15 @@
 package org.primal.map;
 
 import org.primal.entity.*;
+import org.primal.entity.Animal;
+import org.primal.entity.Giraffe;
+import org.primal.entity.Hyena;
+import org.primal.entity.Lion;
+import org.primal.entity.MankettiTree;
+import org.primal.entity.Plant;
+import org.primal.entity.UmbrellaTree;
+import org.primal.entity.Zebra;
+import org.primal.tile.DirtTile;
 import org.primal.tile.LandTile;
 import org.primal.tile.SandTile;
 import org.primal.tile.Tile;
@@ -40,27 +49,28 @@ public class Map {
         chunkSize = 16;
         mapSize = width * chunkSize;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < mapSize / Math.pow(5, 2); i++) {
             addWaterTiles();
         }
 
-        for (int i = 0; i < mapSize / 10; i++) {
+        for (int i = 0; i < mapSize / Math.pow(3, 2); i++) {
             addSandTiles();
         }
 
-        for (int i = 0; i < mapSize / 2; i++) {
+        for (int i = 0; i < mapSize / Math.pow(4, 2); i++) {
+            addDirtTiles();
+        }
+
+        for (int i = 0; i < mapSize / Math.pow(2, 2); i++) {
             addAnimals();
         }
 
-        for (int i = 0; i < mapSize / 2; i++) {
-            addPlants();
+        for (int i = 0; i < mapSize / Math.pow(1, 2); i++) {
+            addUmbrellaTrees();
         }
 
-        Chunk[][] chunks = getChunks();
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < width; y++) {
-                chunks[x][y].renderImage();
-            }
+        for (int i = 0; i < mapSize / Math.pow(1, 2); i++) {
+            addMankettiTrees();
         }
     }
 
@@ -242,6 +252,20 @@ public class Map {
         }
     }
 
+    private void addDirtTiles() {
+        Random generator = new Random();
+        int randX = generator.nextInt(mapSize) + 1;
+        int randY = generator.nextInt(mapSize) + 1;
+        int sandWidth = generator.nextInt(10) + 5;
+
+        ArrayList<Tile> tiles = getTiles(randX, randY, sandWidth);
+        for (Tile tile : tiles) {
+            if (tile instanceof LandTile) {
+                replaceTile(tile, new DirtTile(tile.getX(), tile.getY(), this));
+            }
+        }
+    }
+
     private void replaceTile(Tile old, Tile replacer) {
         Chunk chunk = getChunk((int) old.getX() / chunkSize, (int) old.getY() / chunkSize);
         Tile[][] tiles = chunk.getTiles();
@@ -342,9 +366,9 @@ public class Map {
 
     /**
      * Randomly selects a group of tiles with a random radius between 0 and 2.
-     * On each of the selected tiles one tree is spawned.
+     * On each of the selected tiles one Umbella tree is spawned.
      */
-    public void addPlants() {
+    public void addUmbrellaTrees() {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
@@ -354,7 +378,23 @@ public class Map {
         for (Tile tile : tiles) {
             if (tile instanceof LandTile) {
                 float treeSize = generator.nextInt(2) + 1.5f;
-                Plant plant = new Tree(tile.getX(), tile.getY(), this, treeSize);
+                Plant plant = new UmbrellaTree(tile.getX(), tile.getY(), this, treeSize);
+                tile.addLivingEntity(plant);
+            }
+        }
+    }
+
+    public void addMankettiTrees() {
+        Random generator = new Random();
+        int randX = generator.nextInt(mapSize) + 1;
+        int randY = generator.nextInt(mapSize) + 1;
+        int forestWidth = generator.nextInt(1);
+
+        ArrayList<Tile> tiles = getTiles(randX, randY, forestWidth);
+        for (Tile tile : tiles) {
+            if (tile instanceof LandTile) {
+                float treeSize = generator.nextInt(1) + 0.5f;
+                Plant plant = new MankettiTree(tile.getX(), tile.getY(), this, treeSize);
                 tile.addLivingEntity(plant);
             }
         }

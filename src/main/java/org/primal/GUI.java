@@ -65,6 +65,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         for (Chunk[] chunks : map.getChunks()) {
             for (Chunk chunk : chunks) {
                 g2d.drawImage(chunk.getImage(), null, (int) chunk.getX() * 480, (int) chunk.getY() * 480);
+
+                g2d.setColor(new Color(0, 0, 0, 70));
+                g2d.drawRect((int) chunk.getX() * 480, (int) chunk.getY() * 480, chunk.getImage().getWidth(), chunk.getImage().getHeight());
             }
         }
 
@@ -138,7 +141,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * useful in case of unexpected nuke
      */
     private void spawnEnvironment() {
-        map.addPlants();
+        //map.addPlants();
     }
 
     /**
