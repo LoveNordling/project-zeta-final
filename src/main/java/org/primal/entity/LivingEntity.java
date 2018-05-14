@@ -14,6 +14,7 @@ public abstract class LivingEntity extends Entity {
     float health;
     float energySatisfaction;
     private float maxHP;
+    private boolean isAlive;
 
     /**
      * Creates a living entity. Classes such as Animals extends this class.
@@ -28,6 +29,7 @@ public abstract class LivingEntity extends Entity {
         this.color = new Color(0, 0, 0);
         this.health = health;
         this.maxHP = health;
+        this.isAlive = true;
     }
 
     /**
@@ -89,11 +91,29 @@ public abstract class LivingEntity extends Entity {
     public Color getColor() {
         return color;
     }
+
     /** getType the type of the living entity used to check if 2 living entities is the same type
      *  
      * @return it's type which is an empty string unless overriden
      */
     public String getType(){
         return "";
+    }
+
+    /**
+     * Returns whether this {@code LivingEntity} is alive or not.
+     *
+     * @return {@code True} if this {@code LivingEntity} is alive, otherwise {@code false}.
+     */
+    public boolean isAlive() {
+        return this.isAlive;
+    }
+
+    /**
+     * Sets this {@code LivingEntity} to death.
+     *
+     */
+    public void die() {
+        this.isAlive = false;
     }
 }

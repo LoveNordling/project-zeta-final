@@ -49,6 +49,7 @@ public abstract class Carnivore extends Animal {
      * Kills the animal, removing it from the map.
      */
     public void kill() {
+        this.die();
         map.getTile(getX(), getY()).removeLivingEntity(this);
     }
 

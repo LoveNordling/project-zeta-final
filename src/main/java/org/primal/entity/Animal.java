@@ -73,16 +73,20 @@ public abstract class Animal extends LivingEntity {
     public void simulate() {
         super.simulate();
 
-        mapSize = map.getSize(); //temp solution
+        // mapSize = map.getSize(); //temp solution
         Tile currentTile = map.getTile(getX(), getY());
-        Behaviour best = getBestBehaviour();
-        best.act();
 
         updateStats();
 
-        Tile newTile = map.getTile(getX(), getY());
-        if (currentTile != newTile) {
-            moveTile(currentTile, newTile);
+        if(this.isAlive()) {
+            Behaviour best = getBestBehaviour();
+            best.act();
+
+
+            Tile newTile = map.getTile(getX(), getY());
+            if (currentTile != newTile) {
+                moveTile(currentTile, newTile);
+            }
         }
 
     }
