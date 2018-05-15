@@ -4,6 +4,9 @@ import org.primal.entity.LivingEntity;
 import org.primal.map.Chunk;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
+import org.primal.Main;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +19,6 @@ import java.awt.geom.Point2D.Float;
 
 class Surface extends JPanel implements MouseListener, KeyListener {
 
-    public static Graphics mainGraphics;
     private double scaleFactor = 1;
     private int animationRate = 0;
     private Map map;
@@ -93,7 +95,6 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
     @Override
     public void paintComponent(Graphics g) {
-        mainGraphics = g;
         super.paintComponent(g);
         doDrawing(g, scaleFactor);
     }

@@ -68,7 +68,8 @@ public class Tile extends SimObject {
         if (this.livingEntities.contains(ent)) {
             this.livingEntities.remove(ent);
         } else {
-            //System.out.println("remove livingEntity failed");
+            System.out.println("remove livingEntity failed");
+            System.out.println(ent);
         }
     }
 

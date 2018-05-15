@@ -10,8 +10,9 @@ public class Main {
 
     public int windowWidth = 600;
     public int windowHeight = 600;
+    //public static GUI gui;
     private Map map;
-    private Simulation simulation;
+    public static Simulation simulation;
 
     public static void main(String[] args) {
         File dir = new File("output/");
@@ -26,14 +27,18 @@ public class Main {
             e.printStackTrace();
         }
 
-        Map map = new Map(16);
+        Map map = new Map(4);
         GUI gui = new GUI(map);
 
-        Runnable action = gui::repaint;
-        Simulation simulation = new Simulation(map, action);
+        Runnable action = () -> {
+            //System.out.println("In synchAction");
+            gui.repaint();
+        };
+        simulation = new Simulation(map, action);
 
         gui.setVisible(true);
 
         simulation.start();
+
     }
 }

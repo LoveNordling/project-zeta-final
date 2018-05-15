@@ -5,7 +5,6 @@ import org.primal.map.Map;
 public abstract class Herbivore extends Animal {
 
     boolean chasedStatus = false;
-    boolean isAlive = true;
 
     /**
      * Creates a herbivore object
@@ -76,7 +75,7 @@ public abstract class Herbivore extends Animal {
      * @return true if animal is alive, false if dead
      */
     public boolean isAlive() {
-        return isAlive;
+        return super.isAlive();
     }
 
     /**
@@ -84,7 +83,7 @@ public abstract class Herbivore extends Animal {
      */
 
     public void kill() {
-        isAlive = false;
+        super.die();
         map.getTile(this.getX(), this.getY()).removeLivingEntity(this);
     }
 
