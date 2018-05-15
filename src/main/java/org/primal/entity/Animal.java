@@ -281,7 +281,7 @@ public abstract class Animal extends LivingEntity {
 
     /** breed is used by those who override it to generate an animal of the same race
      */
-    public void breed(){}
+    public abstract void breed();
 
 
     /**
