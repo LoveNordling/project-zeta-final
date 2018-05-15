@@ -17,7 +17,7 @@ public abstract class Animal extends LivingEntity {
     private static AtomicInteger counter = new AtomicInteger();
     protected double speed = 0.03;
     protected Vec2D movementDirection;
-    protected double starvationRate = 0.01;
+    protected double starvationRate = 0.03;
     protected double thirstRate = 0.05;
     protected double stamina;
     protected double fullness;
@@ -52,8 +52,6 @@ public abstract class Animal extends LivingEntity {
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
 
         this.movementDirection = new Vec2D((float) Math.cos(startAngle), (float) Math.sin(startAngle));
-
-
     }
 
     /**
@@ -78,8 +76,6 @@ public abstract class Animal extends LivingEntity {
         Tile currentTile = map.getTile(getX(), getY());
 
         updateStats();
-
-        System.out.println(health + "  " + stamina + "  " + fullness + "  " + thirst);
 
         if(this.isAlive()) {
             Behaviour best = getBestBehaviour();
@@ -112,18 +108,15 @@ public abstract class Animal extends LivingEntity {
      * Updates the animal's stamina, fullness, health and energy.
      */
     private void updateStats() {
-        if (stamina > 0 && fullness > 0 && thirst > 0) {
-            stamina -= starvationRate;
-            fullness -= starvationRate;
-            thirst -= thirstRate;
-        } else if (fullness <= 0 || thirst <= 0) {
+        if (thirst > 0) thirst -= thirstRate;
+        if (fullness > 0) fullness -= starvationRate;
+        if (stamina > 0) stamina -= starvationRate;
+
+        if (fullness <= 0 || thirst <= 0) {
             health -= starvationRate;
             if (health <= 0) {
                 starve();
             }
-        } else {
-            fullness -= starvationRate;
-            thirst -= thirstRate;
         }
     }
 
@@ -226,7 +219,9 @@ public abstract class Animal extends LivingEntity {
      * Function for drinking water (100 = not thirsty at all)
      */
     public void drink() {
-        this.thirst = 100;
+        if (this.thirst < 100) {
+            this.thirst += 10;
+        }
     }
 
 

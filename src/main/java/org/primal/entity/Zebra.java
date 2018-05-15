@@ -1,8 +1,6 @@
 package org.primal.entity;
 
-import org.primal.behaviour.Behaviour;
-import org.primal.behaviour.BreedingBehaviour;
-import org.primal.behaviour.SearchFoodBehaviour;
+import org.primal.behaviour.*;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
 
@@ -24,11 +22,17 @@ public class Zebra extends Herbivore {
 
     public Zebra(float x, float y, Map map, double stamina, double fullness, double thirst) {
         super(x, y, map, 100, stamina, fullness, thirst);
-        Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
         Behaviour breedBehaviour = new BreedingBehaviour(this, map);
+        Behaviour searchBehaviour = new SearchFoodBehaviour(this, map);
+        Behaviour foodBehaviour = new FeedingBehaviour(this, map);
+        Behaviour thirstBehaviour = new ThirstBehaviour(this, map);
+
         this.behaviours = new LinkedList<>();
+
+        this.behaviours.add(searchBehaviour);
         this.behaviours.add(foodBehaviour);
         this.behaviours.add(breedBehaviour);
+        this.behaviours.add(thirstBehaviour);
 
         this.color = new java.awt.Color(248, 248, 248);
         this.shapeSize = Tile.getSize() / 3;

@@ -313,11 +313,11 @@ public class Map {
         int packWidth;
         int species = generator.nextInt(4);
 
-        // Makes bigger packs of herbivores more likely
+        // Makes big packs of herbivores more likely
         if (species == 0 || species == 1) {
              packWidth = generator.nextInt(3);
         } else {
-            packWidth = generator.nextInt(4);
+            packWidth = generator.nextInt(3) + 1;
         }
 
         ArrayList<Tile> tiles = getTiles(randX, randY, packWidth);

@@ -29,8 +29,8 @@ public abstract class Herbivore extends Animal {
 
     public void eat(LivingEntity food) {
         if (food.isPlant()) {
-            this.fullness += 10;
-            this.health += 10;
+            if (this.fullness < 100) this.fullness += 10;
+            if (this.health < 100) this.health += 20;
         }
     }
 
