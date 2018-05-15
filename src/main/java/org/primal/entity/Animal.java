@@ -285,7 +285,7 @@ public abstract class Animal extends LivingEntity {
 
     /** breed is used by those who override it to generate an animal of the same race
      */
-    public void breed(){}
+    public abstract void breed();
 
 
     /**
@@ -301,5 +301,9 @@ public abstract class Animal extends LivingEntity {
      * Function for starving (killing the animal and removing it from the map). Used when health <= 0.
      */
     public abstract void starve();
+
+    public String additionalInfo(){
+        return ("\nSpeed : " + speed + "\nThirst : " + thirst + "\nFullness : " + fullness);
+    }
 
 }
