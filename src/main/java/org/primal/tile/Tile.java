@@ -88,6 +88,19 @@ public class Tile extends SimObject {
         }
         return false;
     }
+    public int size(){
+        
+        return livingEntities.size();
+    }
+    public int amount(String type) {
+        int amount = 0;
+        for (LivingEntity entity : getLivingEntities()) {
+            if (entity.getType().equals(type)) {
+                amount++;
+            }
+        }
+        return amount;
+    }
 
     public void slaughter() {
         livingEntities.clear();

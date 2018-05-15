@@ -1,12 +1,13 @@
 package org.primal.entity;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 class LionTest {
 
     private Lion lion;
@@ -16,8 +17,27 @@ class LionTest {
     private void spawnLion() {
         map = new Map(4);
         lion = new Lion(0, 0, map, 100.0f, 100.0f, 100.0f);
+        Tile t = map.getTile(lion.getX(), lion.getY());
+        t.addLivingEntity(lion);
+        
+    }
+    @AfterEach
+    private void destroy() {
+        this.map = null;
+        this.lion = null;
     }
 
+    @Test
+    public void breedTest(){
+        Lion lion2 = new Lion(0, 0, map, 100.0f, 100.0f, 100.0f);
+        Tile t = map.getTile(lion.getX(), lion.getY());
+        t.addLivingEntity(lion2);
+        int amount  = t.amount(lion.getType());
+        assertEquals(amount, 2);
+        lion.breed();
+        assertEquals(t.amount(lion.getType()), 3);
+    }
+    
     @Test
     public void newLion() {
         assertNotNull(lion);
@@ -27,6 +47,7 @@ class LionTest {
     public void eat() {
     }
 
+    
     public void printError() {
         System.out.println("ERROR");
         System.out.println("ERROR");
@@ -63,16 +84,19 @@ class LionTest {
             }
         }
     }
-
+    //outdated test
+    /*
     @Test
+    
     public void move() {
         for (int i = 0; i < 1000; i++) {
             Tile oldTile = map.getTile(lion.getX(), lion.getY());
             lion.move1Unit();
             Tile newTile = map.getTile(lion.getX(), lion.getY());
-            if (newTile.getLivingEntities().size() != 1) {
+            if (newTile.size() != 1) {
                 //TODO add assert
-                printError();
+                System.out.println("animal amount :" + newTile.size());
+                    //printError();
             }
             //System.out.println(newTile.getLivingEntities().size());
             //if(newTile == oldTile && lion.atEdge(map) != false){
@@ -80,6 +104,6 @@ class LionTest {
             //  assertNotNull(null);
             //}
         }
-    }
+        }*/
 
 }
