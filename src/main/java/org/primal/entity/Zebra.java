@@ -13,12 +13,13 @@ public class Zebra extends Herbivore {
     /**
      * Creates a Zebra object
      * Creates a new herbivore object
+     *
      * @param x        = x-coordinate
      * @param y        = y-coordinate
      * @param map      = current Map
      * @param stamina  = stamina points
      * @param fullness = fullness points
-     * @param thirst = thirst level
+     * @param thirst   = thirst level
      */
 
     public Zebra(float x, float y, Map map, double stamina, double fullness, double thirst) {
@@ -28,17 +29,22 @@ public class Zebra extends Herbivore {
         this.behaviours = new LinkedList<>();
         this.behaviours.add(foodBehaviour);
         this.behaviours.add(breedBehaviour);
+
+        this.color = new java.awt.Color(248, 248, 248);
+        this.shapeSize = Tile.getSize() / 3;
     }
-    public String getType (){
+
+    public String getType() {
         return "Zebra";
     }
-    public void breed(){
+
+    public void breed() {
         Tile t = map.getTile(this.getX(), this.getY());
         map.spawnZebra(t);
     }
 
     @Override
     public String toString() {
-        return "Zebra #" + getId() ;
+        return "Zebra #" + getId();
     }
 }

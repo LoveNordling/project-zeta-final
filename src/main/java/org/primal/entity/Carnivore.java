@@ -32,7 +32,7 @@ public abstract class Carnivore extends Animal {
                 ((Herbivore) food).kill();
                 //System.out.println(food.toString() + " was just eaten!!!");
                 this.fullness = 100;
-                this.health = 100;
+                this.health += 10;
             }
         }
     }

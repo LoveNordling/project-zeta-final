@@ -15,10 +15,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class Animal extends LivingEntity {
 
     private static AtomicInteger counter = new AtomicInteger();
-    protected double speed = 0.07;
+    protected double speed = 0.03;
     protected Vec2D movementDirection;
-    protected double starvationRate = 0.001;
-    protected double thirstRate = 0.01;
+    protected double starvationRate = 0.01;
+    protected double thirstRate = 0.05;
     protected double stamina;
     protected double fullness;
     protected double thirst;
@@ -79,7 +79,7 @@ public abstract class Animal extends LivingEntity {
 
         updateStats();
 
-        System.out.println(health + "  " + stamina + "  " + fullness);
+        System.out.println(health + "  " + stamina + "  " + fullness + "  " + thirst);
 
         if(this.isAlive()) {
             Behaviour best = getBestBehaviour();
