@@ -60,7 +60,7 @@ public class Map {
             addDirtTiles();
         }
 
-        for (int i = 0; i < spawnAmount(2); i++) {
+        for (int i = 0; i < spawnAmount(1); i++) {
             addAnimals();
         }
 

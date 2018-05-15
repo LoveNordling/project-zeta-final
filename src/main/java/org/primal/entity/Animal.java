@@ -17,11 +17,11 @@ public abstract class Animal extends LivingEntity {
     private static AtomicInteger counter = new AtomicInteger();
     protected float speed = 0.05f;
     protected Vec2D movementDirection;
-    float starvationRate = 0.0001f;
-    float thirstRate = 0.001f;
-    float stamina;
-    float fullness;
-    float thirst;
+    double starvationRate = Math.pow(10,-4);
+    double thirstRate = Math.pow(10,-3);
+    double stamina;
+    double fullness;
+    double thirst;
     LinkedList<Behaviour> behaviours;
     private int id;
     private int mapSize = 4 * 16;
@@ -78,6 +78,10 @@ public abstract class Animal extends LivingEntity {
         Tile currentTile = map.getTile(getX(), getY());
 
         updateStats();
+
+        System.out.println(stamina + "   " + fullness + "   " + thirst);
+
+
 
         if(this.isAlive()) {
             Behaviour best = getBestBehaviour();
@@ -243,7 +247,7 @@ public abstract class Animal extends LivingEntity {
      * @return float The hunger level of the animal
      */
     public float getFullness() {
-        return this.fullness;
+        return (float)this.fullness;
     }
 
     /**
@@ -252,7 +256,7 @@ public abstract class Animal extends LivingEntity {
      * @return float The stamina level
      */
     public float getStamina() {
-        return this.stamina;
+        return (float)this.stamina;
     }
 
 
@@ -261,7 +265,7 @@ public abstract class Animal extends LivingEntity {
      * @return float The thirst level of the animal (0 - 100)
      */
     public float getThirst() {
-        return this.thirst;
+        return (float)this.thirst;
     }
 
 
