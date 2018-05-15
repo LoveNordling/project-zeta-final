@@ -34,6 +34,8 @@ apply plugin: 'application'
 
 mainClassName = "org.primal.Main"
 
+applicationDefaultJvmArgs = ["-agentpath:C:/visualvm_141/profiler/lib/deployed/jdk16/windows-amd64/profilerinterface.dll=C:\\visualvm_141\\profiler\\lib,5140"]
+
 task wrapper(type: Wrapper) {
     gradleVersion = "4.6"
 }

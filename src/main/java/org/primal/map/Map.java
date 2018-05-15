@@ -125,15 +125,7 @@ public class Map {
      * @return Chunk at position (x,y) if x and y is valid, else null.
      */
     public Chunk getChunk(double x, double y) {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < width; j++) {
-                Vec2D chunkPosition = chunks[i][j].getPosition();
-                if (x == chunkPosition.getX() && y == chunkPosition.getY()) {
-                    return chunks[i][j];
-                }
-            }
-        }
-        return null;
+        return chunks[(int )x][(int) y];
     }
 
     /**
