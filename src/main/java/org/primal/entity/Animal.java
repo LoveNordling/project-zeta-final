@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class Animal extends LivingEntity {
 
     private static AtomicInteger counter = new AtomicInteger();
-    protected double speed = 0.03;
+    protected double speed = 0.04;
     protected Vec2D movementDirection;
     protected double starvationRate = 0.03;
     protected double thirstRate = 0.05;
@@ -282,7 +282,7 @@ public abstract class Animal extends LivingEntity {
 
     /** breed is used by those who override it to generate an animal of the same race
      */
-    public void breed(){}
+    public abstract void breed();
 
 
     /**
@@ -298,5 +298,9 @@ public abstract class Animal extends LivingEntity {
      * Function for starving (killing the animal and removing it from the map). Used when health <= 0.
      */
     public abstract void starve();
+
+    public String additionalInfo(){
+        return ("\nSpeed : " + speed + "\nThirst : " + thirst + "\nFullness : " + fullness);
+    }
 
 }

@@ -37,9 +37,18 @@ public class Giraffe extends Herbivore {
         this.shapeSize = Tile.getSize() / 2.5f;
     }
     
+    /**
+     *getType gets the type of the animal
+     *
+     * @return a string representing the type of the animal 
+     */
     public String getType (){
         return "Giraffe";
     }
+    
+    /**
+     *breed creates a new hyena at this hyena's tile
+     */
     public void breed(){
         Tile t = map.getTile(this.getX(), this.getY());
         map.spawnGiraffe(t);

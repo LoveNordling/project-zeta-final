@@ -116,7 +116,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      */
     private void createInfoLabel(LivingEntity e){
 
-        String labelText = "Entity : " + e.toString() + "\n" + "Last Action : " + e.getLastAction() + "\nHealth : " + e.getHealth();
+        String labelText = "Entity : " + e.toString() + "\n" + "Last Action : " + e.getLastAction() + "\nHealth : " + e.getHealth() + e.additionalInfo();
         JOptionPane.showMessageDialog(this, labelText, "Entity Info", JOptionPane.PLAIN_MESSAGE);
     }
     /**
@@ -133,9 +133,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     }
 
     /**
-     * freeze freeze the tile at the position pos
+     * freeze freeze the chunk at the position pos
      *
-     * @param pos the backend position that is somewhere within the tile we want to freeze
+     * @param pos the backend position that is somewhere within the chunk we want to freeze
      */
     private void freeze(Float pos) {
         int xInt = (int) pos.getX();
@@ -166,6 +166,10 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * useful in case of unexpected nuke
      */
     private void spawnEnvironment() {
+        map.addUmbrellaTrees();
+        map.addUmbrellaTrees();
+        map.addMankettiTrees();
+        map.addMankettiTrees();
         //map.addPlants();
     }
 
@@ -232,16 +236,27 @@ class Surface extends JPanel implements MouseListener, KeyListener {
      * spawn respawn a new set of beings, generally used in conjunction with the inevitable destruction of all things living
      */
     private void spawn() {
-        map.addAnimals();
-        System.out.println("Due to reasons this function is not implemented");
+        int spawnRate = 5; 
+        for(int i = 0; i<spawnRate; i++){
+            map.addAnimals();
+        }
     }
-
+    /**
+     * spawnLion spawns a lion in the tile at the position pos
+     *
+     * @param pos the position of the tile for the lion to be spawned in
+     */
     private void spawnLions(Float pos) {
         System.out.println("Lions has arrived");
         Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
         map.spawnLion(t);
     }
-
+    
+    /**
+     * spawnGiraffe spawns a giraffe in the tile at the position pos
+     *
+     * @param pos the position of the tile for the giraffe to be spawned in
+     */
     private void spawnGiraffe(Float pos) {
         System.out.println("Giraffe has arrived");
         Tile t = map.getTile(((float) pos.getX()), ((float) pos.getY()));
@@ -257,9 +272,9 @@ class Surface extends JPanel implements MouseListener, KeyListener {
         inputMode = true;
         while (!exit) {
             String input = JOptionPane.showInputDialog(this, "Enter Command", "Input Box", JOptionPane.PLAIN_MESSAGE);
-            System.out.println(input);
+            
 
-            if (input.equals("q") || input.equals("quit") || input.equals("exit")) {
+            if (input == null || input.equals("q") || input.equals("quit") || input.equals("exit")) {
                 exit = true;
                 command = Commands.NOTHING;
             } else if (input.equals("n") || input.equals("nuke") || input.equals("kill all")) {

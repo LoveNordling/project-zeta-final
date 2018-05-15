@@ -134,4 +134,7 @@ public abstract class LivingEntity extends Entity {
     public double getHealth(){
         return health;
     }
+    public String additionalInfo(){
+        return "";
+    }
 }

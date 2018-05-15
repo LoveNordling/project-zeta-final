@@ -1,6 +1,7 @@
 package org.primal.entity;
 
 import org.primal.behaviour.Behaviour;
+import org.primal.behaviour.BreedingBehaviour;
 import org.primal.behaviour.ChaseBehaviour;
 import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.behaviour.ThirstBehaviour;
@@ -24,17 +25,36 @@ public class Lion extends Carnivore {
 
     public Lion(float x, float y, Map map, double stamina, double fullness, double thirst) {
         super(x, y, map, 100, stamina, fullness, thirst);
+        Behaviour breedBehaviour = new BreedingBehaviour(this, map);
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
         Behaviour thirstBehaviour = new ThirstBehaviour(this, map);
+        
         this.behaviours = new LinkedList<>();
 
         this.behaviours.add(foodBehaviour);
         this.behaviours.add(thirstBehaviour);
+        this.behaviours.add(breedBehaviour);
         this.behaviours.add(new ChaseBehaviour(this, map));
+
         this.color = new java.awt.Color(183, 137, 47);
         this.shapeSize = Tile.getSize() / 3;
     }
-
+    /**
+     *getType gets the type of the animal
+     *
+     * @return a string representing the type of the animal 
+     */
+    public String getType(){
+        return "Lion";
+    }
+    /**
+     *breed creates a new lion at this lion's tile
+     */
+    public void breed(){
+        Tile t = map.getTile(this.getX(), this.getY());
+        map.spawnLion(t);
+    }
+    
     @Override
     public String toString() {
         return "Lion #" + getId();

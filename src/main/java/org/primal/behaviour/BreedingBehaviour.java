@@ -24,7 +24,8 @@ public class BreedingBehaviour extends Behaviour {
     public void decide(){
         Tile t = map.getTile(host.getX(), host.getY());
         if(t.contains(host.getType(), 2)){
-            weight = (int) ThreadLocalRandom.current().nextDouble(-1000, 12); // change this if you want the giraffes to take over the world
+            weight = (int) ThreadLocalRandom.current().nextDouble(-1000, 0); // change this if you want the giraffes to take over the world
+            
         }
         else{
             weight = 0;
