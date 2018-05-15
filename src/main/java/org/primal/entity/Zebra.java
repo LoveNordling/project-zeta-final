@@ -21,7 +21,7 @@ public class Zebra extends Herbivore {
      * @param thirst = thirst level
      */
 
-    public Zebra(float x, float y, Map map, float stamina, float fullness, float thirst) {
+    public Zebra(float x, float y, Map map, double stamina, double fullness, double thirst) {
         super(x, y, map, 100, stamina, fullness, thirst);
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
         Behaviour breedBehaviour = new BreedingBehaviour(this, map);

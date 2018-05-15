@@ -15,13 +15,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class Animal extends LivingEntity {
 
     private static AtomicInteger counter = new AtomicInteger();
-    protected float speed = 0.05f;
+    protected double speed = 0.07;
     protected Vec2D movementDirection;
-    double starvationRate = Math.pow(10,-4);
-    double thirstRate = Math.pow(10,-3);
-    double stamina;
-    double fullness;
-    double thirst;
+    protected double starvationRate = 0.001;
+    protected double thirstRate = 0.01;
+    protected double stamina;
+    protected double fullness;
+    protected double thirst;
     LinkedList<Behaviour> behaviours;
     private int id;
     private int mapSize = 4 * 16;
@@ -39,7 +39,7 @@ public abstract class Animal extends LivingEntity {
      * @param fullness = starting fullness points
      * @param thirst = starting thirst points
      */
-    public Animal(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
+    public Animal(float x, float y, Map map, double health, double stamina, double fullness, double thirst) {
         // TODO: remove static x y below.
         super(x, y, map, health);
 
@@ -79,9 +79,7 @@ public abstract class Animal extends LivingEntity {
 
         updateStats();
 
-        System.out.println(stamina + "   " + fullness + "   " + thirst);
-
-
+        System.out.println(health + "  " + stamina + "  " + fullness);
 
         if(this.isAlive()) {
             Behaviour best = getBestBehaviour();
@@ -275,7 +273,7 @@ public abstract class Animal extends LivingEntity {
      * @return float The current speed.
      */
     public float getSpeed() {
-        return this.speed;
+        return (float)this.speed;
     }
 
     /**

@@ -16,7 +16,7 @@ public abstract class Carnivore extends Animal {
      * @param thirst = thirst level
      */
 
-    public Carnivore(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
+    public Carnivore(float x, float y, Map map, double health, double stamina, double fullness, double thirst) {
         super(x, y, map, health, fullness, stamina, thirst);
     }
 
