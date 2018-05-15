@@ -27,9 +27,14 @@ public abstract class Carnivore extends Animal {
      */
 
     public void eat(LivingEntity food) {
-        Tile tile = map.getTile(food.getX(), food.getY());
-        tile.removeLivingEntity(food);
-        this.fullness = 100;
+        if (food instanceof Herbivore) {
+            if (((Herbivore) food).isAlive()) {
+                ((Herbivore) food).kill();
+                System.out.println(food.toString() + " was just eaten!!!");
+                this.fullness = 100;
+                this.health = 100;
+            }
+        }
     }
 
     /**
@@ -38,6 +43,31 @@ public abstract class Carnivore extends Animal {
     public void simulate() {
         super.simulate();
         //move();
+    }
+
+    /**
+     * Kills the animal, removing it from the map.
+     */
+    public void kill() {
+        map.getTile(getX(), getY()).removeLivingEntity(this);
+    }
+
+    /**
+     * Starves the animal (used when health reaches 0)
+     */
+
+    public void starve() {
+        kill();
+        System.out.println(this + " just starved to death!");
+    }
+
+    /**
+     * Method to see if the animal is a Carnivore
+     *
+     * @return true
+     */
+    public boolean isCarnivore() {
+        return true;
     }
 }
 

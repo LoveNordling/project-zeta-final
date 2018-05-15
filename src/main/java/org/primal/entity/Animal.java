@@ -11,10 +11,16 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+
 
 public abstract class Animal extends LivingEntity {
 
-    float starvationRate = 0.01f;
+    private static AtomicInteger counter = new AtomicInteger();
+    protected float speed = 0.05f;
+    protected Vec2D movementDirection;
+    float starvationRate = 0.00000f;
     float stamina;
     float fullness;
     LinkedList<Behaviour> behaviours;
@@ -22,8 +28,6 @@ public abstract class Animal extends LivingEntity {
     private int mapSize = 4 * 16;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
-    protected float speed = 0.05f;
-    protected Vec2D movementDirection;
 
     /**
      * Creates an Animal object.
@@ -46,8 +50,11 @@ public abstract class Animal extends LivingEntity {
         this.stamina = stamina;
         this.fullness = fullness;
         energySatisfaction = 100;
+        this.id = counter.getAndIncrement();
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
+
         this.movementDirection = new Vec2D((float) Math.cos(startAngle), (float) Math.sin(startAngle));
+
 
     }
 
@@ -101,15 +108,19 @@ public abstract class Animal extends LivingEntity {
      * Updates the animal's stamina, fullness, health and energy.
      */
     private void updateStats() {
+        /*
         if (stamina > 0 && fullness > 0) {
             stamina -= starvationRate;
             fullness -= starvationRate;
-        } else if (energySatisfaction > 0) {
-            energySatisfaction -= starvationRate;
+        } else if (fullness <= 0) {
+            health -= starvationRate;
+            if (health <= 0) {
+                starve();
+            }
+        } else {
+            fullness -= starvationRate;
         }
-        if (energySatisfaction < 50 && health <= 0) {
-            health -= starvationRate * 10;
-        }
+        */
     }
 
     /**
@@ -207,6 +218,7 @@ public abstract class Animal extends LivingEntity {
      */
     public abstract void eat(LivingEntity food);
 
+
     /**
      * Updates the position of an animal.
      *
@@ -214,15 +226,6 @@ public abstract class Animal extends LivingEntity {
      */
     public void setPosition(Vec2D p) {
         this.position = p;
-    }
-
-    /**
-     * Sets the direction of the animals movement
-     *
-     * @param p = the current position
-     */
-    public void setDirection(Vec2D p) {
-        this.movementDirection = p;
     }
 
     /**
@@ -243,6 +246,7 @@ public abstract class Animal extends LivingEntity {
         return this.stamina;
     }
 
+
     /**
      * Returns the speed of the animal. Decides how far the animal travels per tick.
      *
@@ -260,4 +264,20 @@ public abstract class Animal extends LivingEntity {
     public Vec2D getDirection() {
         return this.movementDirection;
     }
+
+    /** breed is used by those who override it to generate an animal of the same race
+     */
+    public void breed(){}
+
+
+    /**
+     * Sets the direction of the animals movement
+     *
+     * @param p = the current position
+     */
+    public void setDirection(Vec2D p) {
+        this.movementDirection = p;
+    }
+
+    public abstract void starve();
 }

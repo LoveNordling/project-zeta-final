@@ -5,6 +5,7 @@ import org.primal.util.Vec2D;
 
 import java.awt.*;
 
+
 public abstract class SimObject {
 
     protected Vec2D position;

@@ -1,7 +1,11 @@
 package org.primal.entity;
 
 import org.primal.behaviour.Behaviour;
+
 import org.primal.behaviour.PackBehaviour;
+
+import org.primal.behaviour.BreedingBehaviour;
+import org.primal.behaviour.FeedingBehaviour;
 import org.primal.behaviour.SearchFoodBehaviour;
 import org.primal.map.Map;
 import org.primal.tile.Tile;
@@ -12,7 +16,7 @@ public class Giraffe extends Herbivore {
 
     /**
      * Creates a Giraffe object
-     * Creates a new carnivore object
+     * Creates a new herbivore object
      *
      * @param x        = x-coordinate
      * @param y        = y-coordinate
@@ -23,13 +27,33 @@ public class Giraffe extends Herbivore {
 
     public Giraffe(float x, float y, Map map, float stamina, float fullness) {
         super(x, y, map, 100, stamina, fullness);
-        Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
+
+
+        Behaviour breedBehaviour = new BreedingBehaviour(this, map);
+        Behaviour searchBehaviour = new SearchFoodBehaviour(this, map);
+        Behaviour foodBehaviour = new FeedingBehaviour(this, map);
+
+
+        this.behaviours.add(searchBehaviour);
         this.behaviours.add(foodBehaviour);
+        this.behaviours.add(breedBehaviour);
         this.behaviours.add(new PackBehaviour(this, map));
 
         starvationRate = 1;
         this.color = new java.awt.Color(255, 251, 0);
         this.shapeSize = Tile.getSize() / 2.5f;
     }
+    
+    public String getType (){
+        return "Giraffe";
+    }
+    public void breed(){
+        Tile t = map.getTile(this.getX(), this.getY());
+        map.spawnGiraffe(t);
+    }
 
+    @Override
+    public String toString() {
+        return "Giraffe #" + this.getId();
+    }
 }

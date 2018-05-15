@@ -8,4 +8,8 @@ public class SearchFoodBehaviour extends Behaviour {
     public SearchFoodBehaviour(Animal host, Map map) {
         super(host, map);
     }
+
+    public void decide() {
+        this.weight = 10; //TEMP VALUE
+    }
 }

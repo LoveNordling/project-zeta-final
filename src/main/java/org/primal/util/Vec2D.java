@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Vec2D extends Point2D.Double {
 
+
     public Vec2D(double x, double y) {
         super(x, y);
     }
@@ -44,10 +45,14 @@ public class Vec2D extends Point2D.Double {
 
 
     public Vec2D randomRadius(double r){
+        /*
         double angle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
-        double radius = ThreadLocalRandom.current().nextDouble(0, r);
+        double radius = r==0 ? 0 : ThreadLocalRandom.current().nextDouble(0, r);
         double x = this.getX() + radius*Math.cos(angle);
         double y = this.getY() + radius*Math.sin(angle);
+        */
+        double x = this.getX() + ThreadLocalRandom.current().nextDouble(-r, r);
+        double y = this.getY() + ThreadLocalRandom.current().nextDouble(-r, r);
         return new Vec2D(x, y);
     }
 
@@ -68,6 +73,19 @@ public class Vec2D extends Point2D.Double {
      */
     public Vec2D normalize() {
         double l = this.length();
+        l =  l == 0 ? 1 : l;
         return new Vec2D(this.getX() / l, this.getY() / l);
     }
+    public Vec2D project(Vec2D v){
+        Vec2D normalizedV =v.normalize();
+        double projectiveDir = Math.signum(this.dot(v)/this.length());
+        return normalizedV.times(projectiveDir);
+    }
+
+    public Vec2D mean(Vec2D v){
+        Vec2D addition = this.plus(v);
+        return addition.times((double)1/2);
+    }
+
 }
+

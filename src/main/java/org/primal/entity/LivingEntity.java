@@ -2,6 +2,7 @@ package org.primal.entity;
 
 import org.primal.map.Map;
 import org.primal.tile.Tile;
+import org.primal.util.Vec2D;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -12,8 +13,8 @@ public abstract class LivingEntity extends Entity {
     protected Color color;
     protected float shapeSize;
     float health;
-    private float maxHP;
     float energySatisfaction;
+    private float maxHP;
 
     /**
      * Creates a living entity. Classes such as Animals extends this class.
@@ -89,4 +90,13 @@ public abstract class LivingEntity extends Entity {
     public Color getColor() {
         return color;
     }
+    /** getType the type of the living entity used to check if 2 living entities is the same type
+     *  
+     * @return it's type which is an empty string unless overriden
+     */
+    public String getType(){
+        return "";
+    }
+
+    public Vec2D getDirection(){ return new Vec2D(0, 0); }
 }

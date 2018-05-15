@@ -25,6 +25,7 @@ public class Lion extends Carnivore {
         super(x, y, map, 100, stamina, fullness);
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
 
+        this.behaviours = new LinkedList<>();
         this.behaviours.add(foodBehaviour);
         this.behaviours.add(new ChaseBehaviour(this, map));
         this.starvationRate = 1;
@@ -34,6 +35,6 @@ public class Lion extends Carnivore {
 
     @Override
     public String toString() {
-        return "Lion";
+        return "Lion #" + getId();
     }
 }

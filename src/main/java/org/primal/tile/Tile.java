@@ -11,17 +11,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Tile extends SimObject {
 
+    Color[][] colors = new Color[3][3];
     private static int size = 30;
-    private ConcurrentLinkedQueue<LivingEntity> livingEntities;
-
-    private boolean changeToWaterTile = false;
-
     List<Pixel> pixels;
+    private ConcurrentLinkedQueue<LivingEntity> livingEntities;
 
     public Tile(float x, float y, Map map) {
         super(x, y, map);
         this.livingEntities = new ConcurrentLinkedQueue<>();
-        this.shape = new Rectangle((int) x * size, (int) y * size, size, size);
         this.pixels = new ArrayList<>();
     }
 
@@ -30,19 +27,11 @@ public class Tile extends SimObject {
         this.livingEntities = livingEntities;
     }
 
-    public void update() {
-    }
-
     public static int getSize() {
         return size;
     }
 
-    public boolean shouldChangeToWaterTile() {
-        return changeToWaterTile;
-    }
-
-    public void changeToWaterTile() {
-        changeToWaterTile = true;
+    public void update() {
     }
 
     public List<Pixel> getPixels() {
@@ -67,12 +56,28 @@ public class Tile extends SimObject {
         }
     }
 
+    public boolean contains(String type, int amount) {
+        for (LivingEntity entity : getLivingEntities()) {
+            if (entity.getType().equals(type)) {
+                amount--;
+            }
+        }
+        if (amount < 1) {
+            return true;
+        }
+        return false;
+    }
+
     public void slaughter() {
         livingEntities.clear();
     }
 
     public ConcurrentLinkedQueue<LivingEntity> getLivingEntities() {
         return livingEntities;
+    }
+
+    public Color[][] getColors() {
+        return colors;
     }
 
     public String toString() {
