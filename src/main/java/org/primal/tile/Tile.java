@@ -5,21 +5,24 @@ import org.primal.entity.LivingEntity;
 import org.primal.map.Map;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Tile extends SimObject {
 
     Color[][] colors = new Color[3][3];
     private static int size = 30;
-    List<Pixel> pixels;
     private ConcurrentLinkedQueue<LivingEntity> livingEntities;
 
+    /**
+     * Creates a new tile object
+     *
+     * @param x   = x-coordinate
+     * @param y   = y-coordinate
+     * @param map = current map
+     */
     public Tile(float x, float y, Map map) {
         super(x, y, map);
         this.livingEntities = new ConcurrentLinkedQueue<>();
-        this.pixels = new ArrayList<>();
     }
 
     public Tile(float x, float y, Map map, ConcurrentLinkedQueue<LivingEntity> livingEntities) {
@@ -34,29 +37,27 @@ public class Tile extends SimObject {
     public void update() {
     }
 
-
-    public LivingEntity getClosest(double x, double y){
+    public LivingEntity getClosest(double x, double y) {
         LivingEntity closest = null;
         for (LivingEntity entity : getLivingEntities()) {
             System.out.println(entity);
-            if(closest == null){
+            if (closest == null) {
                 closest = entity;
-            }
-            else if(entity == null){
-            }
-            else if(entity.positionDifference(x, y) < closest.positionDifference(x, y)){
+            } else if (entity == null) {
+            } else if (entity.positionDifference(x, y) < closest.positionDifference(x, y)) {
                 closest = entity;
             }
         }
-        
+
         return closest;
     }
+
     public boolean isLandTile() {
         return true;
     }
 
-    public List<Pixel> getPixels() {
-        return this.pixels;
+    public boolean isAnimated() {
+        return false;
     }
 
     public void addLivingEntity(LivingEntity ent) {
@@ -83,10 +84,7 @@ public class Tile extends SimObject {
                 amount--;
             }
         }
-        if (amount < 1) {
-            return true;
-        }
-        return false;
+        return amount < 1;
     }
 
     public void slaughter() {
@@ -103,5 +101,8 @@ public class Tile extends SimObject {
 
     public String toString() {
         return "Tile(x: " + this.getX() + ", y: " + this.getY() + ") has " + this.livingEntities.size() + "animals" + "%n" + this.livingEntities.toString();
+    }
+
+    public void animate() {
     }
 }

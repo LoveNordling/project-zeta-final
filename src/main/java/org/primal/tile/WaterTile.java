@@ -29,16 +29,15 @@ public class WaterTile extends Tile {
         }
     }
 
-    public void update() {
-        if (updateCount >= 8) {
-            pixels.clear();
-            randomizePixels(getX(), getY());
-            updateCount = 0;
-        }
-        updateCount++;
+    public void animate() {
+        randomizePixels(getX(), getY());
     }
 
     public boolean isLandTile() {
         return false;
+    }
+
+    public boolean isAnimated() {
+        return true;
     }
 }

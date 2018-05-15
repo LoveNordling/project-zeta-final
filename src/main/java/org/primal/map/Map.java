@@ -1,8 +1,17 @@
 package org.primal.map;
 
-
-import org.primal.entity.*;
-import org.primal.tile.*;
+import org.primal.entity.Giraffe;
+import org.primal.entity.Hyena;
+import org.primal.entity.Lion;
+import org.primal.entity.LivingEntity;
+import org.primal.entity.MankettiTree;
+import org.primal.entity.Plant;
+import org.primal.entity.UmbrellaTree;
+import org.primal.entity.Zebra;
+import org.primal.tile.DirtTile;
+import org.primal.tile.SandTile;
+import org.primal.tile.Tile;
+import org.primal.tile.WaterTile;
 import org.primal.util.Vec2D;
 
 import java.util.ArrayList;
@@ -63,7 +72,6 @@ public class Map {
             addMankettiTrees();
         }
     }
-
 
     /**
      * Returns a number to use when creating all SimObjects to get a dynamic amount of SimObjects,
@@ -248,7 +256,7 @@ public class Map {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int sandWidth = generator.nextInt(spawnAmount(4)) +  width / 2;
+        int sandWidth = generator.nextInt(spawnAmount(4)) + width / 2;
 
         ArrayList<Tile> tiles = getTiles(randX, randY, sandWidth);
         for (Tile tile : tiles) {
@@ -272,6 +280,23 @@ public class Map {
         for (Tile tile : tiles) {
             if (tile.isLandTile()) {
                 replaceTile(tile, new DirtTile(tile.getX(), tile.getY(), this));
+            }
+        }
+    }
+
+    private void replaceTile(Tile old, Tile replacer) {
+        Chunk chunk = getChunk((int) old.getX() / chunkSize, (int) old.getY() / chunkSize);
+
+        if (replacer.isAnimated()) {
+            chunk.setAnimated(true);
+        }
+
+        Tile[][] tiles = chunk.getTiles();
+        for (int z = 0; z < 16; z++) {
+            for (int w = 0; w < 16; w++) {
+                if (tiles[z][w].equals(old)) {
+                    tiles[z][w] = replacer;
+                }
             }
         }
     }
@@ -339,47 +364,29 @@ public class Map {
             }
         }
     }
-    /**getClosest gets the animal livingEntity with the positions closest 
-     * to the point with the positions x, y 
+
+    /**
+     * getClosest gets the animal livingEntity with the positions closest
+     * to the point with the positions x, y
      *
      * @param x the x position of the point
-     * @param y the y -||-  
+     * @param y the y -||-
      * @return the livingEntity closest to the point
      */
-    public LivingEntity getClosest(double x, double y){
-        ArrayList<Tile> tiles = getTiles((float) x,(float) y, 5);
+    public LivingEntity getClosest(double x, double y) {
+        ArrayList<Tile> tiles = getTiles((float) x, (float) y, 5);
         LivingEntity closest = null;
         LivingEntity tmp;
-        for(Tile t : tiles){
+        for (Tile t : tiles) {
             tmp = t.getClosest(x, y);
-            if(closest == null){
+            if (closest == null) {
                 closest = tmp;
-            }
-            else if(tmp == null){
-            }
-            else if (tmp.positionDifference(x, y) < closest.positionDifference(x, y)){
-                closest = tmp;                
+            } else if (tmp == null) {
+            } else if (tmp.positionDifference(x, y) < closest.positionDifference(x, y)) {
+                closest = tmp;
             }
         }
         return closest;
-    }
-
-    /**
-     * Replaces old tile with replacer.
-     *
-     * @param old Old tile to be replaced.
-     * @param replacer New tile to replace with.
-     */
-    private void replaceTile(Tile old, Tile replacer) {
-        Chunk chunk = getChunk((int) old.getX() / chunkSize, (int) old.getY() / chunkSize);
-        Tile[][] tiles = chunk.getTiles();
-        for (int z = 0; z < 16; z++) {
-            for (int w = 0; w < 16; w++) {
-                if (tiles[z][w].equals(old)) {
-                    tiles[z][w] = replacer;
-                }
-            }
-        }
     }
 
     /**

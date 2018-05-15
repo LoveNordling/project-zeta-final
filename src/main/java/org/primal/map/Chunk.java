@@ -14,12 +14,28 @@ public class Chunk extends SimObject {
     private int size = 16;
     private int id;
     private boolean isFrozen = false;
-    private BufferedImage image;
+    private BufferedImage[] images;
+    private int amountImages = 3;
+    private boolean isAnimated = false;
+    private int index = 0;
+    private int elapsed = 0;
 
+    /**
+     * Creates a chunk object
+     *
+     * @param x   = x-coordinate
+     * @param y   = y-coordinate
+     * @param map = current map
+     */
     public Chunk(float x, float y, Map map) {
         super(x, y, map);
         tiles = new Tile[size][size];
-        image = new BufferedImage(size * 30, size * 30, BufferedImage.TYPE_INT_RGB);
+
+        images = new BufferedImage[amountImages];
+
+        for (int i = 0; i < amountImages; i++) {
+            images[i] = new BufferedImage(size * 30, size * 30, BufferedImage.TYPE_INT_RGB);
+        }
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -31,18 +47,32 @@ public class Chunk extends SimObject {
         }
     }
 
+    /**
+     * Iterates over each pixel inside of a chunk and renders it to a BufferedImage.
+     */
     public void renderImage() {
-        System.out.println("Chunk generated");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                for (int k = 0; k < 30; k++) {
-                    for (int l = 0; l < 30; l++) {
-                        Color color = tiles[i][j].getColors()[k / 10][l / 10];
-                        image.setRGB((i * 30) + k, (j * 30) + l, color.getRGB());
+                for (int b = 0; b < amountImages; b++) {
+                    tiles[i][j].animate();
+
+                    for (int m = 0; m < 30; m++) {
+                        for (int n = 0; n < 30; n++) {
+                            Color color = tiles[i][j].getColors()[m / 10][n / 10];
+                            images[b].setRGB((i * 30) + m, (j * 30) + n, color.getRGB());
+                        }
                     }
                 }
             }
         }
+    }
+
+    public boolean isAnimated() {
+        return isAnimated;
+    }
+
+    public void setAnimated(boolean animated) {
+        isAnimated = animated;
     }
 
     public void decimate() {
@@ -85,20 +115,16 @@ public class Chunk extends SimObject {
         }
     }
 
+    /**
+     * Called at a set worker interval and will update entities in the chunk.
+     */
     public void updateChunk() {
-        /*
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.out.println("Sleep failed");
-        }*/
         if (isFrozen) {
             return;
         }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
-
                     entity.simulate();
                 }
             }
@@ -122,6 +148,17 @@ public class Chunk extends SimObject {
     }
 
     public BufferedImage getImage() {
-        return image;
+        if (isAnimated) {
+            if (elapsed >= 100) {
+                index++;
+                if (index >= amountImages) {
+                    index = 0;
+                }
+                elapsed = 0;
+            }
+            elapsed++;
+        }
+
+        return images[index];
     }
 }

@@ -18,6 +18,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
     public static Graphics mainGraphics;
     private double scaleFactor = 1;
+    private int animationRate = 0;
     private Map map;
     private int mapWidth;
     private float conversionRate;
@@ -86,7 +87,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
                 }
             }
         }
-        //repaint();
+
+        animationRate++;
     }
 
     @Override
