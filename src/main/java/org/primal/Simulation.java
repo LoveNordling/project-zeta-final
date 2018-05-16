@@ -48,6 +48,9 @@ public class Simulation {
     // The threadpool used to manage worker threads.
     private ScheduledThreadPoolExecutor simulationExecutor;
 
+    // Timer Thread used for rate limiting.
+    private ScheduledThreadPoolExecutor timer;
+
     // The rate at which this simulation strives to run.
     private long rate = 16l;
 
@@ -69,6 +72,7 @@ public class Simulation {
      */
     public Simulation(int corePoolSize) {
         this.simulationExecutor = new ScheduledThreadPoolExecutor(corePoolSize);
+        this.timer = new ScheduledThreadPoolExecutor(1);
         updateLoopSynchronizationBarrier = new CyclicBarrier(corePoolSize);
 
         taskList = new ArrayList<ScheduledFuture>();
@@ -84,6 +88,7 @@ public class Simulation {
      */
     public Simulation(int corePoolSize, Runnable action) {
         this.simulationExecutor = new ScheduledThreadPoolExecutor(corePoolSize);
+        this.timer = new ScheduledThreadPoolExecutor(1);
         updateLoopSynchronizationBarrier = new CyclicBarrier(corePoolSize, action);
 
         taskList = new ArrayList<ScheduledFuture>();
@@ -128,6 +133,8 @@ public class Simulation {
         this.changeRate(rate, timeUnit);
 
     }
+
+    private class 
 
     /**
      * schedules all objects in {@code tasks} to be run in the simulation.
