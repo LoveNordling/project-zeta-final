@@ -8,6 +8,7 @@ import org.primal.entity.MankettiTree;
 import org.primal.entity.Plant;
 import org.primal.entity.UmbrellaTree;
 import org.primal.entity.Zebra;
+import org.primal.map.Chunk;
 import org.primal.tile.DirtTile;
 import org.primal.tile.SandTile;
 import org.primal.tile.Tile;
@@ -25,11 +26,10 @@ import static java.awt.geom.Line2D.linesIntersect;
  */
 public class Map {
 
-    public int width;
+    public final int width;
     public AtomicInteger entityId = new AtomicInteger(0);
-    private int mapSize;
-    private int chunkSize;
-    private Chunk[][] chunks;
+    private final int mapSize;
+    private final Chunk[][] chunks;
     private ArrayList<Vec2D[]> waterCorners = new ArrayList<>();
 
     /**
@@ -45,8 +45,7 @@ public class Map {
                 chunks[x][y] = (new Chunk(x, y, this));
             }
         }
-        chunkSize = 16;
-        mapSize = width * chunkSize;
+        mapSize = width * Chunk.CHUNK_SIZE;
 
         for (int i = 0; i < spawnAmount(5); i++) {
             addWaterTiles();
@@ -138,8 +137,8 @@ public class Map {
     public Tile getTile(float x, float y) {
         int xInt = (int) x;
         int yInt = (int) y;
-        Chunk ch = this.getChunk(xInt / chunkSize, yInt / chunkSize);
-        return ch.getTile(xInt % chunkSize, yInt % chunkSize);
+        Chunk ch = this.getChunk(xInt / Chunk.CHUNK_SIZE, yInt / Chunk.CHUNK_SIZE);
+        return ch.getTile(xInt % Chunk.CHUNK_SIZE, yInt % Chunk.CHUNK_SIZE);
     }
 
     /**
@@ -277,15 +276,15 @@ public class Map {
     }
 
     private void replaceTile(Tile old, Tile replacer) {
-        Chunk chunk = getChunk((int) old.getX() / chunkSize, (int) old.getY() / chunkSize);
+        Chunk chunk = getChunk((int) old.getX() / Chunk.CHUNK_SIZE, (int) old.getY() / Chunk.CHUNK_SIZE);
 
         if (replacer.isAnimated()) {
             chunk.setAnimated(true);
         }
 
         Tile[][] tiles = chunk.getTiles();
-        for (int z = 0; z < 16; z++) {
-            for (int w = 0; w < 16; w++) {
+        for (int z = 0; z < Chunk.CHUNK_SIZE; z++) {
+            for (int w = 0; w < Chunk.CHUNK_SIZE; w++) {
                 if (tiles[z][w].equals(old)) {
                     tiles[z][w] = replacer;
                 }
@@ -503,6 +502,6 @@ public class Map {
     }
 
     public int getChunkSize() {
-        return chunkSize;
+        return Chunk.CHUNK_SIZE;
     }
 }

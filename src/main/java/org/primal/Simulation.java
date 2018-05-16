@@ -1,28 +1,43 @@
 package org.primal;
 
-import org.primal.map.Chunk;
 import org.primal.map.Map;
+import org.primal.map.Chunk;
 import org.primal.util.ThrowingTask;
+import org.primal.simulation.Simulatable;
 
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executors;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
- * A simulation running on multiple concurrent threads utilizing a scheduledExecutor.
- * The simulation also uses a CyclicBarrier for synchronization between worker threads.
- * The simulation currently strives to run at 10 cycle per second.
- * One 'cycle' is defined as the time it takes all the Chunks in a given map to complete their {@code updateChunks()} method.
- * Currently tightly coupled with the Primal project.
+ * A simulation running on multiple concurrent threads utilizing a {@link ScheduledThreadPoolExecutor} and
+ * a {@link CyclicBarrier} for internal synchronization of Threads.
  *
- * @see java.util.concurrent.ScheduledExecutorService
+ * <p><b> NOTE: </b> Since this simulation uses a {@link CyclicBarrier} to synchronize its Threads
+ * scheduling more Objects than Threads can lead to Objects becoming de-synchronized from each other.
+ *
+ * <p>This simulation operates on 'cycles', a cycle starts when the first scheduled Object
+ * starts its {@code simulate()} function  and ends when all Objects have finished their
+ * respective function.
+ *
+ * <p>The simulation simulates Objects by calling their {@code simulate()} function and
+ * supports any type of Object that implements {@link Simulatable}.
+ *
+ * <p>By default the simulation schedules at a rate of 16 {@code simulate()}s per millisecond.
+ *
+ *
+ * @see java.util.concurrent.ScheduledThreadPoolExecutor
  * @see java.util.concurrent.CyclicBarrier
- * @see org.primal.map.Chunk#updateChunk()
+ * @see org.primal.simulation.Simulate
  */
 
 public class Simulation {
@@ -30,23 +45,120 @@ public class Simulation {
     // The barrier used to synchronize the worker threads.
     private final CyclicBarrier updateLoopSynchronizationBarrier;
 
-    // The map the simulation is running on.
-    private Map map;
-
     // The threadpool used to manage worker threads.
-    private ScheduledExecutorService simulationThreadPool;
+    private ScheduledThreadPoolExecutor simulationExecutor;
 
     // The rate at which this simulation strives to run.
-    private long rate;
+    private long rate = 16l;
 
     // TimeUnit used for scheduling.
-    private TimeUnit timeUnit;
+    private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
 
     // Holds all the currently running tasks.
     private ArrayList<ScheduledFuture> taskList;
 
     // This holds our Worker objects so we don't need to recreate them if we have to reschedule the simulation.
     private ArrayList<ThrowingTask> workerCache;
+
+    private boolean running = false;
+
+    /**
+     * Creates a new Simulation with {@code corePoolSize} Threads.
+     *
+     * @param corePoolSize - The number of Threads this Simulation should use.
+     */
+    public Simulation(int corePoolSize) {
+        this.simulationExecutor = new ScheduledThreadPoolExecutor(corePoolSize);
+        updateLoopSynchronizationBarrier = new CyclicBarrier(corePoolSize);
+
+        taskList = new ArrayList<ScheduledFuture>();
+        workerCache = new ArrayList<ThrowingTask>();
+    }
+
+    /**
+     * Creates a new Simulation with {@code corePoolSize} Threads.
+     *
+     * @param corePoolSize - The number of Threads this Simulation should use.
+     * @param action       - A {@link Runnable} that will be executed after each cycle finishes but before the
+     *        next cycle starts.
+     */
+    public Simulation(int corePoolSize, Runnable action) {
+        this.simulationExecutor = new ScheduledThreadPoolExecutor(corePoolSize);
+        updateLoopSynchronizationBarrier = new CyclicBarrier(corePoolSize, action);
+
+        taskList = new ArrayList<ScheduledFuture>();
+        workerCache = new ArrayList<ThrowingTask>();
+    }
+
+    /**
+     * Creates a new Simulation with {@code corePoolSize} Threads.
+     * <pre> Equivalent to {@code 
+     *           Simulation simulation = Simulation(corePoolSize);
+     *           simulation.schedule(tasks);}
+     * </pre>
+     *
+     * @param corePoolSize - The number of Threads this Simulation should use.
+     * @param tasks        - A Collection of tasks to be scheduled to this Simulation.
+     */
+    public Simulation(int corePoolSize, Collection<? extends Simulatable> tasks) {
+        this(corePoolSize);
+
+        this.schedule(tasks);
+    }
+
+    /**
+     * Creates a new Simulation with {@code corePoolSize} Threads.
+     * <pre> Equivalent to {@code 
+     *           Simulation simulation = Simulation(corePoolSize);
+     *           simulation.schedule(tasks);
+     *           simulation.changeRate(rate,timeUnit);}
+     * </pre>
+     *
+     * @param corePoolSize - The number of Threads this Simulation should use.
+     * @param tasks        - A Collection of tasks to be scheduled to this Simulation.
+     * @param action       - A {@link Runnable}that will be executed after each cycle finishes but before the
+     *        next cycle starts.
+     * @param rate         - The rate that this Simulation should run at.
+     * @param timeUnit     - The {@link TimeUnit} this Simulation should run at.
+     */
+    public Simulation(int corePoolSize,Collection<? extends Simulatable> tasks, Runnable action, long rate, TimeUnit timeUnit) {
+        this(corePoolSize, action);
+
+        this.schedule(tasks);
+        this.changeRate(rate, timeUnit);
+
+    }
+
+    /**
+     * schedules all objects in {@code tasks} to be run in the simulation.
+     *
+     * @param tasks - A {@code Collection} of objects to simulate.
+     */
+    public void schedule(Collection<? extends Simulatable> tasks) {
+        scheduleHelper(tasks);
+    }
+
+    private <T extends Simulatable> void scheduleHelper(Collection<T> tasks) {
+        for (T task : tasks) {
+            workerCache.add(new ThrowingTask(new Worker(task)));
+        }
+    }
+
+    /**
+     * Changes the rate at which this simulation runs.
+     *
+     * @param rate - The rate at which this simulation should run.
+     * @param timeUnit - the {@link TimeUnit} this simulation should run.
+     */
+    public void changeRate(long rate, TimeUnit timeUnit) {
+        this.rate = rate;
+        this.timeUnit = timeUnit;
+    }
+
+    public void restart() {
+        this.stop(false);
+        this.start();
+    }
 
     /**
      * Initializes a simulation with a given map.
@@ -59,7 +171,7 @@ public class Simulation {
 
         int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
 
-        this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
+        this.simulationExecutor = new ScheduledThreadPoolExecutor(threadNumber);
 
         updateLoopSynchronizationBarrier = new CyclicBarrier(threadNumber);
 
@@ -69,7 +181,7 @@ public class Simulation {
         taskList = new ArrayList<ScheduledFuture>();
         workerCache = new ArrayList<ThrowingTask>();
 
-        preStart();
+        // preStart();
     }
 
     /**
@@ -84,7 +196,7 @@ public class Simulation {
 
         int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
 
-        this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
+        this.simulationExecutor = new ScheduledThreadPoolExecutor(threadNumber);
 
         updateLoopSynchronizationBarrier = new CyclicBarrier(threadNumber, action);
 
@@ -94,7 +206,7 @@ public class Simulation {
         taskList = new ArrayList<ScheduledFuture>();
         workerCache = new ArrayList<ThrowingTask>();
 
-        preStart();
+        // preStart();
     }
 
     /**
@@ -118,7 +230,7 @@ public class Simulation {
         //     }
         // }
         for (ThrowingTask worker : this.workerCache) {
-            taskList.add(simulationThreadPool.scheduleAtFixedRate(worker, 0, rate, timeUnit));
+            taskList.add(simulationExecutor.scheduleAtFixedRate(worker, 0, rate, timeUnit));
         }
     }
 
@@ -200,14 +312,31 @@ public class Simulation {
     /**
      * This performes some operations that only needs to be done once per simulation, before any other operations should begin.
      */
-    private void preStart() {
+    // private void preStart() {
 
-        for (Chunk[] chunks : this.map.getChunks()) {
-            for (Chunk c : chunks) {
-                workerCache.add(new ThrowingTask(new Worker(c)));
-            }
-        }
+    //     for (Chunk[] chunks : this.map.getChunks()) {
+    //         for (Chunk c : chunks) {
+    //             workerCache.add(new ThrowingTask(new Worker(c)));
+    //         }
+    //     }
+    // }
+
+    public void execute(Runnable command) {
+        simulationExecutor.execute(command);
     }
+
+    public Future<?> submit(Runnable task) {
+        return simulationExecutor.submit(task);
+    }
+
+    public <T> Future<T> submit(Runnable task, T result) {
+        return simulationExecutor.submit(task, result);
+    }
+
+    public <T> Future<T> submit(Callable<T> task) {
+        return simulationExecutor.submit(task);
+    }
+
 
 
 
@@ -221,23 +350,25 @@ public class Simulation {
      * @see java.util.concurrent.CyclicBarrier
      * @see org.primal.map.Chunk
      */
-    private class Worker implements Runnable {
+    private class Worker<T extends Simulatable> implements Runnable {
 
-        Chunk myChunk;
-        private boolean init = true;
+        private T myObject;
+        // private boolean init = true;
 
-        Worker(Chunk chunk) {
-            myChunk = chunk;
+        Worker(T object) {
+            myObject = object;
         }
 
         @Override
         public void run() {
-            if (init) {
-                myChunk.renderImage();
-                init = false;
-            } else {
-                myChunk.updateChunk();
-            }
+            // if (init) {
+            //     myChunk.renderImage();
+            //     init = false;
+            // } else {
+            //     myChunk.updateChunk();
+            // }
+
+            myObject.simulate();
 
             try {
                 updateLoopSynchronizationBarrier.await();

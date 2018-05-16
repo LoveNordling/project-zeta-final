@@ -11,46 +11,40 @@ public class Main {
 
     public int windowWidth = 600;
     public int windowHeight = 600;
-    //public static GUI gui;
     private Map map;
     public static Simulation simulation;
 
     public static void main(String[] args) {
-        // File dir = new File("output/");
-        // dir.mkdir();
+        File dir = new File("output/");
+        dir.mkdir();
 
-        // // Set custom error log
-        // try {
-        //     @SuppressWarnings("resource")
-        //     PrintStream stream = new PrintStream("output/error.log");
-        //     System.setErr(stream);
-        // } catch (FileNotFoundException e) {
-        //     e.printStackTrace();
-        // }
-        //Map map = new Map(32);
-        // perfTest1();
-        // perfTest4();
-        // perfTest8();
-        // perfTest16();
-        // Map testMap = perfTest16();
-        // burnTest(testMap);
-        // GUI gui = new GUI(map);
+        // Set custom error log
+        try {
+            @SuppressWarnings("resource")
+            PrintStream stream = new PrintStream("output/error.log");
+            System.setErr(stream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Map map = new Map(16);
 
-        // Runnable action = () -> {
-        //     //System.out.println("In synchAction");
-        //     gui.repaint();
-        // };
-        // simulation = new Simulation(map, action);
+        GUI gui = new GUI(map);
 
-        // gui.setVisible(true);
+        Runnable action = () -> {
+            //System.out.println("In synchAction");
+            gui.repaint();
+        };
+        simulation = new Simulation(map, action);
 
-        // simulation.start();
+        gui.setVisible(true);
 
-        PerformanceTester PFTester = new PerformanceTester();
+        simulation.start();
 
-        PFTester.makeNewMap(16);
+        // PerformanceTester PFTester = new PerformanceTester();
 
-        PFTester.burnTestChunks();
+        // PFTester.makeNewMap(16);
+
+        // // PFTester.burnTestChunks();
 
     }
 }

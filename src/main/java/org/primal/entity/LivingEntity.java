@@ -38,7 +38,7 @@ public abstract class LivingEntity extends Entity {
     public void updateShape() {
         if (this.isAnimal()) {
             float size = this.shapeSize;
-            this.shape.setFrame(getX() * Tile.getSize() - size / 2, getY() * Tile.getSize() - size / 2, size, size);
+            this.shape.setFrame(getX() * Tile.TILE_SIZE - size / 2, getY() * Tile.TILE_SIZE - size / 2, size, size);
         }
     }
 

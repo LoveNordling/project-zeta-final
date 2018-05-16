@@ -10,12 +10,13 @@ import java.awt.image.BufferedImage;
 
 public class Chunk extends SimObject {
 
+    public static final int CHUNK_SIZE = 16;
+
+    private static final int AMOUNT_IMAGES = 3;
+
     private Tile[][] tiles;
-    private int size = 16;
-    private int id;
     private boolean isFrozen = false;
     private BufferedImage[] images;
-    private int amountImages = 3;
     private boolean isAnimated = false;
     private int index = 0;
     private int elapsed = 0;
@@ -29,18 +30,18 @@ public class Chunk extends SimObject {
      */
     public Chunk(float x, float y, Map map) {
         super(x, y, map);
-        tiles = new Tile[size][size];
+        tiles = new Tile[CHUNK_SIZE][CHUNK_SIZE];
 
-        images = new BufferedImage[amountImages];
+        images = new BufferedImage[AMOUNT_IMAGES];
 
-        for (int i = 0; i < amountImages; i++) {
-            images[i] = new BufferedImage(size * 30, size * 30, BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < AMOUNT_IMAGES; i++) {
+            images[i] = new BufferedImage(CHUNK_SIZE * 30, CHUNK_SIZE * 30, BufferedImage.TYPE_INT_RGB);
         }
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                float xPos = i + getX() * this.size;
-                float yPos = j + getY() * this.size;
+        for (int i = 0; i < CHUNK_SIZE; i++) {
+            for (int j = 0; j < CHUNK_SIZE; j++) {
+                float xPos = i + getX() * CHUNK_SIZE;
+                float yPos = j + getY() * CHUNK_SIZE;
                 Tile tile = new LandTile(xPos, yPos, map);
                 tiles[i][j] = tile;
             }
@@ -51,9 +52,9 @@ public class Chunk extends SimObject {
      * Iterates over each pixel inside of a chunk and renders it to a BufferedImage.
      */
     public void renderImage() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                for (int b = 0; b < amountImages; b++) {
+        for (int i = 0; i < CHUNK_SIZE; i++) {
+            for (int j = 0; j < CHUNK_SIZE; j++) {
+                for (int b = 0; b < AMOUNT_IMAGES; b++) {
                     tiles[i][j].animate();
 
                     for (int m = 0; m < 30; m++) {
@@ -76,16 +77,16 @@ public class Chunk extends SimObject {
     }
 
     public void decimate() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < CHUNK_SIZE; i++) {
+            for (int j = 0; j < CHUNK_SIZE; j++) {
                 getTile(i, j).slaughter();
             }
         }
     }
 
     public void antiDecimate() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < CHUNK_SIZE; i++) {
+            for (int j = 0; j < CHUNK_SIZE; j++) {
                 getTile(i, j).antiSlaughter();
             }
         }
@@ -106,8 +107,8 @@ public class Chunk extends SimObject {
     }
 
     public void printChunk() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < CHUNK_SIZE; i++) {
+            for (int j = 0; j < CHUNK_SIZE; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
                     System.out.println(entity);
                 }
@@ -122,8 +123,8 @@ public class Chunk extends SimObject {
         if (isFrozen) {
             return;
         }
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < CHUNK_SIZE; i++) {
+            for (int j = 0; j < CHUNK_SIZE; j++) {
                 for (LivingEntity entity : getTile(i, j).getLivingEntities()) {
                     entity.simulate();
                 }
@@ -135,14 +136,6 @@ public class Chunk extends SimObject {
         return tiles;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
     public Tile getTile(int x, int y) {
         return tiles[x][y];
     }
@@ -151,7 +144,7 @@ public class Chunk extends SimObject {
         if (isAnimated) {
             if (elapsed >= 100) {
                 index++;
-                if (index >= amountImages) {
+                if (index >= AMOUNT_IMAGES) {
                     index = 0;
                 }
                 elapsed = 0;

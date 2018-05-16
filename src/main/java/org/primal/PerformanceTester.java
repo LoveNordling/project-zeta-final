@@ -1,6 +1,7 @@
 package org.primal;
 
 import org.primal.map.Map;
+import org.primal.map.Chunk;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,7 +17,7 @@ public class PerformanceTester {
 		this.map = new Map(width);
 	}
 
-	public void burnTestChunks() {
+	public void burnTestGetChunk() {
 		double randX;
 		double randY;
 		for (int x = 0; x < 100000 ; x++ ) {

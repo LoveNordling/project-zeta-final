@@ -78,8 +78,8 @@ class Surface extends JPanel implements MouseListener, KeyListener {
 
         for (Chunk[] chunks : map.getChunks()) {
             for (Chunk chunk : chunks) {
-                for (int x = 0; x < chunk.getSize(); x++) {
-                    for (int y = 0; y < chunk.getSize(); y++) {
+                for (int x = 0; x < Chunk.CHUNK_SIZE; x++) {
+                    for (int y = 0; y < Chunk.CHUNK_SIZE; y++) {
                         Tile tile = chunk.getTile(x, y);
                         for (LivingEntity entity : tile.getLivingEntities()) {
                             g2d.setPaint(entity.getColor());
@@ -140,7 +140,7 @@ class Surface extends JPanel implements MouseListener, KeyListener {
     private void freeze(Float pos) {
         int xInt = (int) pos.getX();
         int yInt = (int) pos.getY();
-        int cSize = map.getChunkSize();
+        int cSize = Chunk.CHUNK_SIZE;
 
         Chunk c = map.getChunk(xInt / cSize, yInt / cSize);
         c.freeze();

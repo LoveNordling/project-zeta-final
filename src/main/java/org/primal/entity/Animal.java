@@ -24,7 +24,7 @@ public abstract class Animal extends LivingEntity {
     float thirst;
     LinkedList<Behaviour> behaviours;
     private int id;
-    private int mapSize = 4 * 16;
+    private int mapSize;
     private Graphics g;
     private Character[] lastDirections = new Character[4];
 
@@ -43,7 +43,9 @@ public abstract class Animal extends LivingEntity {
         // TODO: remove static x y below.
         super(x, y, map, health);
 
-        this.shape = new Ellipse2D.Float(this.getX() * Tile.getSize(), this.getY() * Tile.getSize(), Tile.getSize() / 8, Tile.getSize() / 8);
+        this.shape = new Ellipse2D.Float(this.getX() * Tile.TILE_SIZE, this.getY() * Tile.TILE_SIZE, Tile.TILE_SIZE / 8, Tile.TILE_SIZE / 8);
+
+        this.mapSize = map.getSize();
 
         this.stamina = stamina;
         this.fullness = fullness;

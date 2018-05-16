@@ -39,7 +39,7 @@ public class Hyena extends Carnivore {
         
         starvationRate = 1;
         this.color = new java.awt.Color(108, 63, 22);
-        this.shapeSize = Tile.getSize() / 4;
+        this.shapeSize = Tile.TILE_SIZE / 4;
     }
     
     /**

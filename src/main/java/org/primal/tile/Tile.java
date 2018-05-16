@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Tile extends SimObject {
 
     Color[][] colors = new Color[3][3];
-    private static int size = 30;
+    public static final int TILE_SIZE = 30;
     private ConcurrentLinkedQueue<LivingEntity> livingEntities;
 
     /**
@@ -28,10 +28,6 @@ public class Tile extends SimObject {
     public Tile(float x, float y, Map map, ConcurrentLinkedQueue<LivingEntity> livingEntities) {
         super(x, y, map);
         this.livingEntities = livingEntities;
-    }
-
-    public static int getSize() {
-        return size;
     }
 
     public void update() {

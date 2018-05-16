@@ -35,7 +35,7 @@ public class Giraffe extends Herbivore {
 
         starvationRate = 1;
         this.color = new java.awt.Color(255, 251, 0);
-        this.shapeSize = Tile.getSize() / 2.5f;
+        this.shapeSize = Tile.TILE_SIZE / 2.5f;
     }
     
     /**

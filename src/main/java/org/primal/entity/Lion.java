@@ -38,7 +38,7 @@ public class Lion extends Carnivore {
         
         this.starvationRate = 1;
         this.color = new java.awt.Color(183, 137, 47);
-        this.shapeSize = Tile.getSize() / 3;
+        this.shapeSize = Tile.TILE_SIZE / 3;
     }
     /**
      *getType gets the type of the animal
