@@ -10,10 +10,10 @@ import org.primal.tile.Tile;
 
 import java.util.LinkedList;
 
-public class Giraffe extends Herbivore {
+public class Elephant extends Herbivore {
 
     /**
-     * Creates a Giraffe object
+     * Creates a Elephant object
      * Creates a new herbivore object
      *
      * @param x        = x-coordinate
@@ -24,7 +24,7 @@ public class Giraffe extends Herbivore {
      * @param thirst   = thirst level
      */
 
-    public Giraffe(float x, float y, Map map, double stamina, double fullness, double thirst) {
+    public Elephant(float x, float y, Map map, double stamina, double fullness, double thirst) {
         super(x, y, map, 100, stamina, fullness, thirst);
         Behaviour breedBehaviour = new BreedingBehaviour(this, map);
         Behaviour searchBehaviour = new SearchFoodBehaviour(this, map);
@@ -38,10 +38,12 @@ public class Giraffe extends Herbivore {
         this.behaviours.add(breedBehaviour);
         this.behaviours.add(thirstBehaviour);
 
-        this.color = new java.awt.Color(255, 251, 0);
-        this.shapeSize = Tile.getSize() / 2.5f;
+        this.color = new java.awt.Color(116, 116, 117);
+        this.shapeSize = Tile.getSize() / 1.2f;
 
-        speed = 0.02;
+        speed = 0.01;
+        starvationRate = 0.01;
+        thirstRate = 0.02;
     }
 
     /**
@@ -50,7 +52,7 @@ public class Giraffe extends Herbivore {
      * @return a string representing the type of the animal
      */
     public String getType() {
-        return "Giraffe";
+        return "Elephant";
     }
 
     /**
@@ -58,11 +60,11 @@ public class Giraffe extends Herbivore {
      */
     public void breed() {
         Tile t = map.getTile(this.getX(), this.getY());
-        map.spawnGiraffe(t);
+        map.spawnElephant(t);
     }
 
     @Override
     public String toString() {
-        return "Giraffe #" + this.getId();
+        return "Elephant #" + this.getId();
     }
 }

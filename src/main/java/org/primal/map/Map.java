@@ -1,5 +1,6 @@
 package org.primal.map;
 
+import org.primal.entity.Elephant;
 import org.primal.entity.Giraffe;
 import org.primal.entity.Hyena;
 import org.primal.entity.Lion;
@@ -311,11 +312,13 @@ public class Map {
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
         int packWidth;
-        int species = generator.nextInt(4);
+        int species = generator.nextInt(5);
 
         // Makes big packs of herbivores more likely
         if (species == 0 || species == 1) {
-             packWidth = generator.nextInt(3);
+            packWidth = generator.nextInt(3);
+        } else if (species == 2 || species == 4) {
+            packWidth = generator.nextInt(1) + 1;
         } else {
             packWidth = generator.nextInt(3) + 1;
         }
@@ -329,8 +332,10 @@ public class Map {
                     spawnHyena(tile);
                 } else if (species == 2) {
                     spawnGiraffe(tile);
-                } else {
+                } else if (species == 3) {
                     spawnZebra(tile);
+                } else {
+                    spawnElephant(tile);
                 }
             }
         }
@@ -463,6 +468,11 @@ public class Map {
             Zebra zebra = new Zebra(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
             tile.addLivingEntity(zebra);
         }
+    }
+
+    public void spawnElephant(Tile tile) {
+        Elephant elephant = new Elephant(tile.getX(), tile.getY(), this, 100.0f, 100.0f, 100.0f);
+        tile.addLivingEntity(elephant);
     }
 
     /**
