@@ -16,7 +16,7 @@ public abstract class Herbivore extends Animal {
      * @param fullness = fullness points
      * @param thirst = thirst level
      */
-    public Herbivore(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
+    public Herbivore(float x, float y, Map map, double health, double stamina, double fullness, double thirst) {
         super(x, y, map, health, stamina, fullness, thirst);
 
     }
@@ -29,8 +29,8 @@ public abstract class Herbivore extends Animal {
 
     public void eat(LivingEntity food) {
         if (food.isPlant()) {
-            this.fullness = 100;
-            this.health =  100; //NEEDS TO BE TWEAKED SO CAN DIE FROM THIRST
+            if (this.fullness < 100) this.fullness += 10;
+            if (this.health < 100) this.health += 20;
         }
     }
 

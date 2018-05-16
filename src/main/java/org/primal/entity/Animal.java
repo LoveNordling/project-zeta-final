@@ -15,13 +15,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class Animal extends LivingEntity {
 
     private static AtomicInteger counter = new AtomicInteger();
-    protected float speed = 0.05f;
+    protected double speed = 0.04;
     protected Vec2D movementDirection;
-    float starvationRate = 0.0001f;
-    float thirstRate = 0.001f;
-    float stamina;
-    float fullness;
-    float thirst;
+    protected double starvationRate = 0.03;
+    protected double thirstRate = 0.05;
+    protected double stamina;
+    protected double fullness;
+    protected double thirst;
     LinkedList<Behaviour> behaviours;
     private int id;
     private int mapSize = 4 * 16;
@@ -39,7 +39,7 @@ public abstract class Animal extends LivingEntity {
      * @param fullness = starting fullness points
      * @param thirst = starting thirst points
      */
-    public Animal(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
+    public Animal(float x, float y, Map map, double health, double stamina, double fullness, double thirst) {
         // TODO: remove static x y below.
         super(x, y, map, health);
 
@@ -52,8 +52,6 @@ public abstract class Animal extends LivingEntity {
         double startAngle = Math.toRadians(ThreadLocalRandom.current().nextDouble(0, 360));
 
         this.movementDirection = new Vec2D((float) Math.cos(startAngle), (float) Math.sin(startAngle));
-
-
     }
 
     /**
@@ -110,18 +108,15 @@ public abstract class Animal extends LivingEntity {
      * Updates the animal's stamina, fullness, health and energy.
      */
     private void updateStats() {
-        if (stamina > 0 && fullness > 0 && thirst > 0) {
-            stamina -= starvationRate;
-            fullness -= starvationRate;
-            thirst -= thirstRate;
-        } else if (fullness <= 0 || thirst <= 0) {
+        if (thirst > 0) thirst -= thirstRate;
+        if (fullness > 0) fullness -= starvationRate;
+        if (stamina > 0) stamina -= starvationRate;
+
+        if (fullness <= 0 || thirst <= 0) {
             health -= starvationRate;
             if (health <= 0) {
                 starve();
             }
-        } else {
-            fullness -= starvationRate;
-            thirst -= thirstRate;
         }
     }
 
@@ -224,7 +219,9 @@ public abstract class Animal extends LivingEntity {
      * Function for drinking water (100 = not thirsty at all)
      */
     public void drink() {
-        this.thirst = 100;
+        if (this.thirst < 100) {
+            this.thirst += 10;
+        }
     }
 
 
@@ -243,7 +240,7 @@ public abstract class Animal extends LivingEntity {
      * @return float The hunger level of the animal
      */
     public float getFullness() {
-        return this.fullness;
+        return (float)this.fullness;
     }
 
     /**
@@ -252,7 +249,7 @@ public abstract class Animal extends LivingEntity {
      * @return float The stamina level
      */
     public float getStamina() {
-        return this.stamina;
+        return (float)this.stamina;
     }
 
 
@@ -261,7 +258,7 @@ public abstract class Animal extends LivingEntity {
      * @return float The thirst level of the animal (0 - 100)
      */
     public float getThirst() {
-        return this.thirst;
+        return (float)this.thirst;
     }
 
 
@@ -271,7 +268,7 @@ public abstract class Animal extends LivingEntity {
      * @return float The current speed.
      */
     public float getSpeed() {
-        return this.speed;
+        return (float)this.speed;
     }
 
     /**

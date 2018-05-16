@@ -23,7 +23,7 @@ public class Hyena extends Carnivore {
      * @param thirst = thirst level
      */
 
-    public Hyena(float x, float y, Map map, float stamina, float fullness, float thirst) {
+    public Hyena(float x, float y, Map map, double stamina, double fullness, double thirst) {
         super(x, y, map, 100, stamina, fullness, thirst);
         Behaviour breedBehaviour = new BreedingBehaviour(this, map);
         Behaviour foodBehaviour = new ChaseBehaviour(this, map);
@@ -36,8 +36,7 @@ public class Hyena extends Carnivore {
         this.behaviours.add(breedBehaviour);
         this.behaviours.add(thirstBehaviour);
         this.behaviours.add(foodBehaviour);
-        
-        starvationRate = 1;
+
         this.color = new java.awt.Color(108, 63, 22);
         this.shapeSize = Tile.getSize() / 4;
     }

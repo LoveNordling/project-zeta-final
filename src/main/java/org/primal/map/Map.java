@@ -310,8 +310,15 @@ public class Map {
         Random generator = new Random();
         int randX = generator.nextInt(mapSize) + 1;
         int randY = generator.nextInt(mapSize) + 1;
-        int packWidth = generator.nextInt(3);
-        int species = generator.nextInt(3);
+        int packWidth;
+        int species = generator.nextInt(4);
+
+        // Makes big packs of herbivores more likely
+        if (species == 0 || species == 1) {
+             packWidth = generator.nextInt(3);
+        } else {
+            packWidth = generator.nextInt(3) + 1;
+        }
 
         ArrayList<Tile> tiles = getTiles(randX, randY, packWidth);
         for (Tile tile : tiles) {
@@ -320,8 +327,10 @@ public class Map {
                     spawnLion(tile);
                 } else if (species == 1) {
                     spawnHyena(tile);
-                } else {
+                } else if (species == 2) {
                     spawnGiraffe(tile);
+                } else {
+                    spawnZebra(tile);
                 }
             }
         }

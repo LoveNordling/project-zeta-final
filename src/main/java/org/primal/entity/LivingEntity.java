@@ -12,8 +12,8 @@ public abstract class LivingEntity extends Entity {
     protected Color color;
     protected float shapeSize;
     protected String lastAction = "Nothing";
-    float health;
-    private float maxHP;
+    double health;
+    private double maxHP;
     private boolean isAlive;
 
     /**
@@ -24,7 +24,7 @@ public abstract class LivingEntity extends Entity {
      * @param map    = the current Map
      * @param health = starting health points
      */
-    public LivingEntity(float x, float y, Map map, float health) {
+    public LivingEntity(float x, float y, Map map, double health) {
         super(x, y, map);
         this.color = new Color(0, 0, 0);
         this.health = health;
@@ -131,7 +131,7 @@ public abstract class LivingEntity extends Entity {
     public void setLastAction(String s){
         lastAction = s;
     }
-    public float getHealth(){
+    public double getHealth(){
         return health;
     }
     public String additionalInfo(){

@@ -23,7 +23,7 @@ public class Lion extends Carnivore {
      * @param thirst = thirst level
      */
 
-    public Lion(float x, float y, Map map, float stamina, float fullness, float thirst) {
+    public Lion(float x, float y, Map map, double stamina, double fullness, double thirst) {
         super(x, y, map, 100, stamina, fullness, thirst);
         Behaviour breedBehaviour = new BreedingBehaviour(this, map);
         Behaviour foodBehaviour = new SearchFoodBehaviour(this, map);
@@ -35,8 +35,7 @@ public class Lion extends Carnivore {
         this.behaviours.add(thirstBehaviour);
         this.behaviours.add(breedBehaviour);
         this.behaviours.add(new ChaseBehaviour(this, map));
-        
-        this.starvationRate = 1;
+
         this.color = new java.awt.Color(183, 137, 47);
         this.shapeSize = Tile.getSize() / 3;
     }

@@ -16,7 +16,7 @@ public abstract class Carnivore extends Animal {
      * @param thirst = thirst level
      */
 
-    public Carnivore(float x, float y, Map map, float health, float stamina, float fullness, float thirst) {
+    public Carnivore(float x, float y, Map map, double health, double stamina, double fullness, double thirst) {
         super(x, y, map, health, fullness, stamina, thirst);
     }
 
@@ -31,8 +31,8 @@ public abstract class Carnivore extends Animal {
             if (((Herbivore) food).isAlive()) {
                 ((Herbivore) food).kill();
                 //System.out.println(food.toString() + " was just eaten!!!");
-                this.fullness = 100;
-                this.health = 100;
+                if (this.fullness < 100) this.fullness += 50;
+                if (this.health < 100) this.health += 10;
             }
         }
     }
