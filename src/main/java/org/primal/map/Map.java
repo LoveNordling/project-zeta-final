@@ -497,6 +497,16 @@ public class Map {
         return chunks;
     }
 
+    public ArrayList<Chunk> getChunksAsList() {
+        ArrayList<Chunk> toReturn = new ArrayList<Chunk>(this.width * this.width);
+        for(Chunk[] chunks : this.chunks) {
+            for(Chunk chunk : chunks) {
+                toReturn.add(chunk);
+            }
+        }
+        return toReturn;
+    }
+
     public int getSize() {
         return mapSize;
     }

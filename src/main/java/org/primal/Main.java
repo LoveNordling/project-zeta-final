@@ -31,10 +31,12 @@ public class Main {
         GUI gui = new GUI(map);
 
         Runnable action = () -> {
-            //System.out.println("In synchAction");
             gui.repaint();
         };
-        simulation = new Simulation(map, action);
+        simulation = new Simulation(Runtime.getRuntime().availableProcessors(), action);
+
+        simulation.schedule(map.getChunksAsList());
+
 
         gui.setVisible(true);
 

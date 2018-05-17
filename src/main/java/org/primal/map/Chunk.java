@@ -4,11 +4,12 @@ import org.primal.SimObject;
 import org.primal.entity.LivingEntity;
 import org.primal.tile.LandTile;
 import org.primal.tile.Tile;
+import org.primal.simulation.Simulatable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Chunk extends SimObject {
+public class Chunk extends SimObject implements Simulatable {
 
     public static final int CHUNK_SIZE = 16;
 
@@ -119,7 +120,7 @@ public class Chunk extends SimObject {
     /**
      * Called at a set worker interval and will update entities in the chunk.
      */
-    public void updateChunk() {
+    public void simulate() {
         if (isFrozen) {
             return;
         }
