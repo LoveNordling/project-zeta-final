@@ -1,11 +1,14 @@
 package org.primal;
 
 import org.primal.map.Map;
+import org.primal.map.Chunk;
 import org.primal.PerformanceTester;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+
+import java.util.ArrayList;
 
 public class Main {
 
@@ -35,7 +38,14 @@ public class Main {
         };
         simulation = new Simulation(Runtime.getRuntime().availableProcessors(), action);
 
-        simulation.schedule(map.getChunksAsList());
+        ArrayList<Chunk> chunks = new ArrayList<Chunk>(map.getChunksAsList());
+
+        for (Chunk chunk : chunks) {
+            Runnable renderChunk = () -> {chunk.renderImage();};
+            simulation.submit(renderChunk);
+        }
+
+        simulation.schedule(chunks);
 
 
         gui.setVisible(true);

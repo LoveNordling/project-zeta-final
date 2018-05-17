@@ -61,7 +61,7 @@ public class ThirstBehaviour extends Behaviour {
             decided = false;
 
             host.drink();
-            System.out.println(host + " just drank some water.");
+            System.out.println(host + " just drank some water." + host.getThirst());
         }
         else {
             this.weight = Math.round(100 - host.getFullness());

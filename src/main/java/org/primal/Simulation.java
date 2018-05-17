@@ -50,6 +50,9 @@ public class Simulation {
     // Timer Thread used for rate limiting.
     private ScheduledExecutorService timer;
 
+    // We store the timer Future so we can cancel it if needed.
+    private ScheduledFuture timerTask;
+
     // The rate at which this simulation strives to run.
     private long rate = 16l;
 
@@ -161,7 +164,6 @@ public class Simulation {
      */
     private void postUpdateActions() {
         if(workCompletedCounter.compareAndSet(objectCounter.getAcquire(),0)) {
-            if()
         } else {
             System.err.println("Error in Simulation::postUpdateActions()! workCompletedCounter had faulty value");
         }
@@ -172,7 +174,25 @@ public class Simulation {
         try{
             final Runnable command = this.postUpdateAction;
             command.run();
-        } finally {}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        cycleCounter.incrementAndGet();
+        System.out.println(cycleCounter.get());
+
+        if(cycleCounter.get() >= 1000) {
+            while(!timerTask.cancel(false));
+            System.out.println("Exited");
+        }
+
+    }
+
+    private void executeObjects() {
+        try {
+            taskList = new ArrayList<Future<?>>(simulationExecutor.invokeAll(workerCache));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -222,15 +242,7 @@ public class Simulation {
         //     taskList.add(simulationExecutor.scheduleAtFixedRate(worker, 0, rate, timeUnit));
         // }
         Runnable update = () -> {updateLoop();};
-        timer.schedule(update,this.rate,this.timeUnit);
-    }
-
-    private void executeObjects() {
-        try {
-            taskList = new ArrayList<Future<?>>(simulationExecutor.invokeAll(workerCache));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        timerTask = timer.scheduleAtFixedRate(update,0,this.rate,this.timeUnit);
     }
 
     /**
