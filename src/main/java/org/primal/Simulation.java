@@ -57,7 +57,7 @@ public class Simulation {
     public Simulation(Map map) {
         this.map = map;
 
-        int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
+        int threadNumber = this.map.width * this.map.width;
 
         this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
 
@@ -82,7 +82,7 @@ public class Simulation {
     public Simulation(Map map, Runnable action) {
         this.map = map;
 
-        int threadNumber = Math.min(this.map.width * this.map.width, Runtime.getRuntime().availableProcessors());
+        int threadNumber = this.map.width * this.map.width;
 
         this.simulationThreadPool = Executors.newScheduledThreadPool(threadNumber);
 
