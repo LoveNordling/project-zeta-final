@@ -38,11 +38,14 @@ public class Main {
         };
         simulation = new Simulation(Runtime.getRuntime().availableProcessors(), action);
 
+        Runnable mapPopulate = () -> {map.populate();};
+        simulation.execute(mapPopulate);
+
         ArrayList<Chunk> chunks = new ArrayList<Chunk>(map.getChunksAsList());
 
         for (Chunk chunk : chunks) {
             Runnable renderChunk = () -> {chunk.renderImage();};
-            simulation.submit(renderChunk);
+            simulation.execute(renderChunk);
         }
 
         simulation.schedule(chunks);

@@ -29,7 +29,7 @@ public class Map {
     public final int width;
     public AtomicInteger entityId = new AtomicInteger(0);
     private final int mapSize;
-    private final Chunk[][] chunks;
+    private Chunk[][] chunks;
     private ArrayList<Vec2D[]> waterCorners = new ArrayList<>();
 
     /**
@@ -46,6 +46,12 @@ public class Map {
             }
         }
         mapSize = width * Chunk.CHUNK_SIZE;
+
+        // populate();
+
+    }
+
+    public void populate() {
 
         for (int i = 0; i < spawnAmount(5); i++) {
             addWaterTiles();
@@ -70,6 +76,7 @@ public class Map {
         for (int i = 0; i < spawnAmount(1); i++) {
             addMankettiTrees();
         }
+
     }
 
     /**

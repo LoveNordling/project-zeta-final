@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * A simulation running on multiple concurrent threads utilizing a {@link ScheduledThreadPoolExecutor}.
+ * A simulation running on multiple concurrent threads utilizing a {@link ThreadPoolExecutor}.
  *
  * <p>This simulation operates on 'cycles', a cycle starts when the first scheduled Object
  * starts its {@code simulate()} function  and ends when all Objects have finished their
@@ -38,8 +38,8 @@ import java.util.Collection;
  * <p> This simulation only guarantees that cycles will be scheduled no faster than the rate.
  *
  *
- * @see java.util.concurrent.ScheduledThreadPoolExecutor
- * @see org.primal.simulation.Simulate
+ * @see java.util.concurrent.ThreadPoolExecutor
+ * @see org.primal.simulation.Simulatable
  */
 
 public class Simulation {
@@ -59,10 +59,13 @@ public class Simulation {
     // TimeUnit used for scheduling.
     private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
 
+    // The total number of objects to be simulated, stored for comparison.
     private AtomicInteger objectCounter;
 
+    // The total number of times objects have been simulated, should be comparable to objectCounter * cycleCounter.
     private AtomicInteger workCompletedCounter;
 
+    // The number of cycles this simulation has completed.
     private AtomicInteger cycleCounter = new AtomicInteger(0);
 
     // Holds all the currently running tasks.
@@ -163,6 +166,7 @@ public class Simulation {
      * This is everything we need to do after each cycle
      */
     private void postUpdateActions() {
+        System.out.println(workCompletedCounter.get());
         if(workCompletedCounter.compareAndSet(objectCounter.getAcquire(),0)) {
         } else {
             System.err.println("Error in Simulation::postUpdateActions()! workCompletedCounter had faulty value");
@@ -180,7 +184,7 @@ public class Simulation {
         cycleCounter.incrementAndGet();
         System.out.println(cycleCounter.get());
 
-        if(cycleCounter.get() >= 1000) {
+        if(cycleCounter.get() >= 10) {
             while(!timerTask.cancel(false));
             System.out.println("Exited");
         }
@@ -202,6 +206,7 @@ public class Simulation {
      */
     public void schedule(Collection<? extends Simulatable> tasks) {
         scheduleHelper(tasks);
+        System.out.println(objectCounter.get());
     }
 
     private <T extends Simulatable> void scheduleHelper(Collection<T> tasks) {
@@ -242,6 +247,7 @@ public class Simulation {
         //     taskList.add(simulationExecutor.scheduleAtFixedRate(worker, 0, rate, timeUnit));
         // }
         Runnable update = () -> {updateLoop();};
+        System.out.println(workCompletedCounter.get());
         timerTask = timer.scheduleAtFixedRate(update,0,this.rate,this.timeUnit);
     }
 

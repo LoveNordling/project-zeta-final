@@ -41,8 +41,8 @@ public class Chunk extends SimObject implements Simulatable {
 
         for (int i = 0; i < CHUNK_SIZE; i++) {
             for (int j = 0; j < CHUNK_SIZE; j++) {
-                float xPos = i + getX() * CHUNK_SIZE;
-                float yPos = j + getY() * CHUNK_SIZE;
+                float xPos = i + x * CHUNK_SIZE;
+                float yPos = j + y * CHUNK_SIZE;
                 Tile tile = new LandTile(xPos, yPos, map);
                 tiles[i][j] = tile;
             }
