@@ -61,12 +61,3 @@ Contains extracted Javadoc documentation for the project.
 
 **meta**  
 Contains group contract and a presentation of the members of the project.
-
-## Färdigställ 
-
-- Allt eftersom projektet fortskrider kan ni lägga till fler rubriker i detta
-  dokument med kompletterande information.
-- Färdigställ dokumentet [meta/gruppkontrakt.md](./meta/gruppkontrakt.md).
-- Färdigställ dokumentet [meta/medlemmar.md](./meta/medlemmar.md).
-- Tag bort alla stycken markerade med **TODO** och **INFO**. 
-- Tag bort hela detta avsnitt, dvs tag bort avsnittet **Färdigställ**.
