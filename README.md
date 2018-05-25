@@ -20,7 +20,7 @@ Compile the project by navigating to the root folder in a terminal and type **gr
 If the compilation worked as planned, navigate to */build/libs* where the file *Primal.jar* should have appeared. Now to run the program type **java -jar Primal.jar**.
 
 #### Testing
-
+To run tests type the command **gradle clean test**
 
 ## Structure
 
