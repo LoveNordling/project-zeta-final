@@ -2,15 +2,15 @@
 
 OSPP (1DT096) 2018 - Projekt zeta
 
-Bild                                     | Förnamn                     | Efternamn | Personnummer | Användarnamn (GitHub)
+Bild                                     | Förnamn                     | Efternamn | Användarnamn (GitHub)
 -----------------------------------------|-----------------------------|-----------|--------------|----------------------
-<img src="images/Axel.jpg" width="180"/> | [Axel](#axel-hultin) | Hultin | 940913  | `huntexD`
-<img src="images/Daniel.jpg" width="180"/> | [Daniel](#daniel-degirmen) | Degirmen | 920626-2033 | `dannebra`
-<img src="images/david.jpg" width="180"/> | [David](#david-håkansson) | Håkansson | 971113  | `daha2574`
-<img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | 930804  | `freddedotme`
-<img src="images/johannes.jpg" width="180"/> | [Johannes](#johannes-almroth) | Almroth | 951129-2931  | `JohannesAlmroth`
-<img src="images/profil.jpg" width="180"/> | [Love](#love-nordling) | Nordling | 951106-3258  | `LoveNordling`
-<img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | 960113-2658  | `viktor-enzell`
+<img src="images/Axel.jpg" width="180"/> | [Axel](#axel-hultin) | Hultin | `huntexD`
+<img src="images/Daniel.jpg" width="180"/> | [Daniel](#daniel-degirmen) | Degirmen | `dannebra`
+<img src="images/david.jpg" width="180"/> | [David](#david-håkansson) | Håkansson | `daha2574`
+<img src="images/fredrik.jpg" width="180"/> | [Fredrik](#fredrik-andersson) | Andersson | `freddedotme`
+<img src="images/johannes.jpg" width="180"/> | [Johannes](#johannes-almroth) | Almroth | `JohannesAlmroth`
+<img src="images/profil.jpg" width="180"/> | [Love](#love-nordling) | Nordling | `LoveNordling`
+<img src="images/viktor.jpg" width="180"/> | [Viktor](#viktor-enzell) | Enzell | `viktor-enzell`
 
 ## Axel Hultin
 
